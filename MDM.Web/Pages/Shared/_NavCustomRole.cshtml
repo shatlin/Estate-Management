@@ -3,7 +3,7 @@
     string active = "";
     string show = "";
     string[] items = { };
-    var isReportViewerStaff = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowToViewReports).Result.Succeeded;
+    var isReportViewerStaff = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowToViewReports).Result.Succeeded;
 }
 
 
