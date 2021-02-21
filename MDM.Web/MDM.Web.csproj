@@ -7,25 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DataMigration\**" />
     <Compile Remove="examples\**" />
     <Compile Remove="Pages\Core\**" />
     <Compile Remove="Pages\DataMigration\**" />
     <Compile Remove="Pages\Member\Account\**" />
     <Compile Remove="Pages\old\**" />
-    <Content Remove="DataMigration\**" />
     <Content Remove="examples\**" />
     <Content Remove="Pages\Core\**" />
     <Content Remove="Pages\DataMigration\**" />
     <Content Remove="Pages\Member\Account\**" />
     <Content Remove="Pages\old\**" />
-    <EmbeddedResource Remove="DataMigration\**" />
     <EmbeddedResource Remove="examples\**" />
     <EmbeddedResource Remove="Pages\Core\**" />
     <EmbeddedResource Remove="Pages\DataMigration\**" />
     <EmbeddedResource Remove="Pages\Member\Account\**" />
     <EmbeddedResource Remove="Pages\old\**" />
-    <None Remove="DataMigration\**" />
     <None Remove="examples\**" />
     <None Remove="Pages\Core\**" />
     <None Remove="Pages\DataMigration\**" />
@@ -141,22 +137,6 @@
 
   <ItemGroup>
     <None Include="bundleconfig.json" />
-    <None Include="DataMigration\account.xlsx" />
-    <None Include="DataMigration\annotation_accountXref.xlsx" />
-    <None Include="DataMigration\annotation_contactXref.xlsx" />
-    <None Include="DataMigration\contact.xlsx" />
-    <None Include="DataMigration\customeraddress.xlsx" />
-    <None Include="DataMigration\ec_cpd.xlsx" />
-    <None Include="DataMigration\ec_divisionmembership.xlsx" />
-    <None Include="DataMigration\ec_employmenthistory.xlsx" />
-    <None Include="DataMigration\ec_membermanagement.xlsx" />
-    <None Include="DataMigration\ec_membershipaffiliations.xlsx" />
-    <None Include="DataMigration\ec_qualifications.xlsx" />
-    <None Include="DataMigration\ec_referee.xlsx" />
-    <None Include="DataMigration\ec_volunteer.xlsx" />
-    <None Include="DataMigration\email.xlsx" />
-    <None Include="DataMigration\new_preferencerequest.xlsx" />
-    <None Include="DataMigration\oc_membership.xlsx" />
     <None Include="Nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
