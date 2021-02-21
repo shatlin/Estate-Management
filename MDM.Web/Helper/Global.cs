@@ -6,54 +6,6 @@ using System.Threading.Tasks;
 namespace MDM.Helper
 {
 
-    public interface IActivity
-    {
-        Task<bool> AddAsync(string userId, string email, string activitydetail, int UserOrMember);
-    }
-
-
-    public class Activity : IActivity
-    {
-
-
-
-        private readonly DB _db;
-        private readonly ILogger<Activity> _logger;
-
-        public Activity(
-            ILogger<Activity> logger,
-            DB db)
-        {
-
-            _logger = logger;
-            _db = db;
-        }
-
-        public async Task<bool> AddAsync(string userId, string email, string activitydetail, int UserOrMember)
-        {
-            try
-            {
-                if (userId == null || email == null || activitydetail == null) return false;
-                if (UserOrMember != 1 && UserOrMember != 2) return false;
-
-                if (UserOrMember == 1)
-                {
-                    await _db.UserActivity.AddAsync(new UserActivity { UserId = userId, Email = email, ActivityDate = DateTime.Now, ActivityDetail = activitydetail });
-                    await _db.SaveChangesAsync();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Exception Occurred During logging activity "
-                    + "User Id =" + userId + ", Email =" + email + ", Activity =" + activitydetail +
-                    "User Or Member =" + UserOrMember + "Exception =" + ex.Message + " " + ex.InnerException);
-            }
-            return false;
-        }
-    }
-
-
     public static class EmailRecipients
     {
         public static string GetEmailSenderList(string template, string membershiptype, string toEmail, int? releatedToId = null, int? relatedToEntityId = null)
@@ -136,22 +88,21 @@ namespace MDM.Helper
         #endregion
     }
 
-    public enum AddressTypeEnum
+    public static class AddressTypevalues
     {
-        Postal = 1,
-        Physical = 2,
-        Billing = 3,
-        Business = 4
-
+        public const int Postal = 1;
+        public const int Physical = 2;
+        public const int Billing = 3;
+        public const int Business = 4;
     }
 
 
     public static class UserTypeValues
     {
-        public const int Staff = 1;
-        public const int Member = 2;
-        public const int Contact = 3;
-
+        public const int Trustee = 1;
+        public const int Owner = 2;
+        public const int Tenant = 3;
+        public const int ServiceProvider = 4;
     }
 
     public static class NotificationTypeValues
@@ -162,71 +113,72 @@ namespace MDM.Helper
         public const string info = "info";
     }
 
-    public enum RelatedToEnum
+    public static class RelatedToValues
     {
-        Member = 1,
-        Organization = 2,
-        Event = 3,
-        CPD = 4,
-        Contact = 5,
-        Staff = 6,
-        Note = 7
-
+        public const int Trustee = 1;
+        public const int Owner = 2;
+        public const int Tenant = 3;
+        public const int EstateManager = 4;
+        public const int EstateManagementVendor = 5;
+        public const int GardenVendor = 6;
+        public const int SecurityVendor = 7;
+        public const int ServiceProvider = 8;
     }
 
-    public enum FileTypesEnum
+    public static class FileTypevalues
     {
-        IDDocs = 1,
-        Certificates = 2,
-        DWSReg = 3,
-        StudentReg = 4,
-        Payment = 5,
-        Note = 6,
-        StudentLetter = 7
+        public const int SLA = 1;
+        public const int Quote = 2;
+        public const int OwnerDocs = 3;
+        public const int Finance = 4;
+        public const int Invoice = 5;
+        public const int Bill = 6;
     }
-
-
-
 
     public static class MDMRoles
     {
-        public const string SuperUser = "Super User";
+        public const string SuperUser = "SuperUser";
         public const string Admin = "Admin";
+        public const string Trustee = "Trustee";
         public const string Owner = "Owner";
-        public const string Tenant = "Owner";
-
+        public const string Tenant = "Tenant";
+        public const string EstateManager = "EstateManager";
+        public const string GardenVendor = "GardenVendor";
+        public const string SecurityVendor = "SecurityVendor";
+        public const string EstateManagementVendor = "EstateManagementVendor";
+        public const string ServiceProvider = "ServiceProvider";
     }
 
     public static class MDMPolicies
     {
-        public const string AllowSuperUser = "SuperUser";
-        public const string AllowAdminUser = "AdminUser";
-        public const string AllowSetUp = "SetUp";
-        public const string AllowSetupDelete = "AllowSetupDelete";
-        public const string AllowSetupUpdate = "AllowSetupUpdate";
-        public const string AllowRegularUserAccess = "RegularUserAccess";
-        public const string AllowToViewReports = "AllowToViewReports";
-
+        public const string AllowSuperUser = "AllowSuperUser";
+        public const string AllowAdmin = "AllowAdmin";
+        public const string AllowTrustee = "AllowTrustee";
+        public const string AllowOwner = "AllowOwner";
+        public const string AllowTenant = "AllowTenant";
+        public const string AllowEstateManager = "AllowEstateManager";
+        public const string AllowGardenVendor = "AllowGardenVendor";
+        public const string AllowSecurityVendor = "AllowSecurityVendor";
+        public const string AllowEstateManagementVendor = "AllowEstateManagementVendor";
+        public const string AllowServiceProvider = "AllowServiceProvider";
     }
 
     public static class MDMClaimTypes
     {
-        public static readonly string SuperUser = "SuperUser";
-        public const string AdminUser = "AdminUser";
-        public const string RegularUser = "RegularUser";
-        public const string Event = "Event";
-        public const string Finance = "Finance";
-        public const string NewsLetter = "NewsLetter";
-        public const string SetUp = "Setup";
-        public const string Report = "Report";
+        public const string SuperUser = "SuperUser";
+        public const string Admin = "Admin";
+        public const string Trustee = "Trustee";
+        public const string Owner = "Owner";
+        public const string Tenant = "Tenant";
+        public const string EstateManager = "EstateManager";
+        public const string GardenVendor = "GardenVendor";
+        public const string SecurityVendor = "SecurityVendor";
+        public const string EstateManagementVendor = "EstateManagementVendor";
+        public const string ServiceProvider = "ServiceProvider";
     }
 
     public static class MDMClaimValues
     {
         public const string Access = "Access";
-        public const string Create = "Create";
-        public const string Read = "Read";
-        public const string Update = "Update";
-        public const string Delete = "Delete";
     }
 }

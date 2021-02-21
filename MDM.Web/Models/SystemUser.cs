@@ -11,9 +11,18 @@ namespace MDM.Models
     {
         public SystemUser()
         {
-
+            TaskItemAssignee = new HashSet<TaskItemAssignee>();
+            Board = new HashSet<Board>();
+            ServiceProviderTrusteeApproval = new HashSet<ServiceProviderTrusteeApproval>();
+            TaskItemFile = new HashSet<TaskItemFile>();
+            TaskItemComment = new HashSet<TaskItemComment>();
         }
 
+        public virtual ICollection<Board> Board { get; set; }
+        public virtual ICollection<TaskItemAssignee> TaskItemAssignee { get; set; }
+        public virtual ICollection<ServiceProviderTrusteeApproval> ServiceProviderTrusteeApproval { get; set; }
+        public virtual ICollection<TaskItemFile> TaskItemFile { get; set; }
+        public virtual ICollection<TaskItemComment> TaskItemComment { get; set; }
         public int Id { get; set; }
 
         public DateTime? CreatedOn { get; set; }
@@ -21,11 +30,7 @@ namespace MDM.Models
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
 
-
-
         public string ApplicaitonUserId { get; set; }
-
-
 
         [Display(Name = "Home Language", Prompt = "Enter Home Language")]
         [Required(ErrorMessage = "Home Language is required")]
@@ -60,10 +65,8 @@ namespace MDM.Models
         [Required(ErrorMessage = "Please accept the Terms, to proceed")]
         public bool? TermAccepted { get; set; }
 
-
         [Display(Name = "Is Active")]
         public bool? IsActive { get; set; }
-
 
         public byte[] Photo { get; set; }
 
@@ -71,8 +74,6 @@ namespace MDM.Models
         [Required(ErrorMessage = "ID Number is required")]
         public string IDNumber { get; set; }
 
-
-  
         public bool? IsAdminCreated { get; set; }
         [Display(Name = "Date of Birth", Prompt = "Enter Birthday")]
         // [Required(ErrorMessage = "Birth Day is required")]
@@ -86,8 +87,6 @@ namespace MDM.Models
         [Required(ErrorMessage = "Title is required")]
         public int? TitleId { get; set; }
 
- 
- 
 
         public virtual Gender Gender { get; set; }
         public virtual Title Title { get; set; }
@@ -110,8 +109,6 @@ namespace MDM.Models
 
             builder.Property(e => e.IsAdminCreated)
                 .IsRequired(false);
-
-
 
             builder.Property(e => e.BirthDay).IsRequired(false).HasColumnType("datetime");
 

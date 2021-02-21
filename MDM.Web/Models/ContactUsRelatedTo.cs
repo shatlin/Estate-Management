@@ -42,9 +42,9 @@ namespace MDM.Models
         {
             modelBuilder.Entity<ContactUsRelatedTo>().HasData
                 (
-                new ContactUsRelatedTo { Id = 1, Name = "Membership", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new ContactUsRelatedTo { Id = 2, Name = "Events", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new ContactUsRelatedTo { Id = 3, Name = "Registration", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new ContactUsRelatedTo { Id = 1, Name = "Membership", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new ContactUsRelatedTo { Id = 2, Name = "Events", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new ContactUsRelatedTo { Id = 3, Name = "Registration", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
                 );
         }
     }

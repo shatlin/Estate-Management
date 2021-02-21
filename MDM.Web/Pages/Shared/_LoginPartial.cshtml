@@ -5,10 +5,10 @@
 
 @{
     var isSuperUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSuperUser).Result.Succeeded;
-    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdminUser).Result.Succeeded;
-    var isUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdminUser).Result.Succeeded;
-    var isMember = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdminUser).Result.Succeeded;
-    var isContact = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdminUser).Result.Succeeded;
+    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    var isUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    var isMember = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    var isContact = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
 }
 
 <style>

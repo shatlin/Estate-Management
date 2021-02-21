@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Titles";
     ViewData["Page"] = "Titles";
-    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupDelete).Result.Succeeded;
-    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupUpdate).Result.Succeeded;
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
 }
 
 <!-- #region AddEditModalSection -->
@@ -115,7 +115,7 @@
 </div>
     </div>
 </div>
-
+    </div>
 
 @section scripts {
     <script>

@@ -15,14 +15,14 @@ namespace MDM.Pages.Client
 {
     public class ContactUsModel : PageModel
     {
-        private readonly DB _context;
+        private readonly DB _db;
         
         private readonly IEmailSender _emailSender;
 
-        public ContactUsModel( IEmailSender emailSender, DB clientDbContext)
+        public ContactUsModel( IEmailSender emailSender, DB db)
         {
             _emailSender = emailSender;
-            _context = clientDbContext;
+            _db = db;
         }
 
         [BindProperty]
@@ -34,7 +34,7 @@ namespace MDM.Pages.Client
         public IActionResult OnGet()
         {
             ContactUsRelatedItems =
-          new SelectList(_context.ContactUsRelatedTo, nameof(ContactUsRelatedTo.Id), nameof(ContactUsRelatedTo.Name));
+          new SelectList(_db.ContactUsRelatedTo, nameof(ContactUsRelatedTo.Id), nameof(ContactUsRelatedTo.Name));
             return Page();
         }
 
@@ -42,12 +42,12 @@ namespace MDM.Pages.Client
         {
           
 
-            return new JsonResult(await _context.ContactUs.ToListAsync());
+            return new JsonResult(await _db.ContactUs.ToListAsync());
         }
 
         public async Task<IActionResult> OnGetSelectedRecordAsync(int id)
         {
-            return new JsonResult(await _context.ContactUs.Where(x => x.Id == id).FirstOrDefaultAsync());
+            return new JsonResult(await _db.ContactUs.Where(x => x.Id == id).FirstOrDefaultAsync());
         }
 
         public async Task<IActionResult> OnPostSaveAsync()
@@ -60,13 +60,13 @@ namespace MDM.Pages.Client
 
             if (ContactUs.Id > 0)
             {
-                _context.Attach(ContactUs).State = EntityState.Modified;
+                _db.Attach(ContactUs).State = EntityState.Modified;
             }
             else
             {
-                _context.ContactUs.Add(ContactUs);
+                _db.ContactUs.Add(ContactUs);
             }
-            await _context.SaveChangesAsync();
+            await _db.SaveChangesAsync();
             return new JsonResult(new { success = true, message = "Saved successfully" });
         }
 
@@ -78,12 +78,12 @@ namespace MDM.Pages.Client
                 return new JsonResult(new { success = false, message = "No such record found to delete" });
             }
 
-            ContactUs = await _context.ContactUs.FindAsync(id);
+            ContactUs = await _db.ContactUs.FindAsync(id);
 
             if (ContactUs != null)
             {
-                _context.ContactUs.Remove(ContactUs);
-                await _context.SaveChangesAsync();
+                _db.ContactUs.Remove(ContactUs);
+                await _db.SaveChangesAsync();
                 return new JsonResult(new { success = true, message = "Deleted successfully" });
             }
             return new JsonResult(new { success = false, message = "No such record found to delete" });

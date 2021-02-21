@@ -45,12 +45,12 @@ namespace MDM.Models
         public static void SeedEthnicity(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ethnicity>().HasData(
-                new Ethnicity { Id = 1, Name = "Black", Description = "Black", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Ethnicity { Id = 2, Name = "White", Description = "White", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Ethnicity { Id = 3, Name = "Indian", Description = "Indian", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Ethnicity { Id = 4, Name = "Coloured", Description = "Coloured", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Ethnicity { Id = 5, Name = "Asian", Description = "Asian", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Ethnicity { Id = 6, Name = "Other", Description = "Other", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new Ethnicity { Id = 1, Name = "Black", Description = "Black", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Ethnicity { Id = 2, Name = "White", Description = "White", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Ethnicity { Id = 3, Name = "Indian", Description = "Indian", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Ethnicity { Id = 4, Name = "Coloured", Description = "Coloured", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Ethnicity { Id = 5, Name = "Asian", Description = "Asian", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Ethnicity { Id = 6, Name = "Other", Description = "Other", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
                   
               );
         }

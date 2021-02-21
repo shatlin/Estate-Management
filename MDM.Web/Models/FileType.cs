@@ -8,7 +8,7 @@ namespace MDM.Models
     {
         public FileType()
         {
-            
+            TaskItemFile = new HashSet<TaskItemFile>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,8 +16,8 @@ namespace MDM.Models
         public DateTime? ModifiedOn { get; set; }
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
+        public virtual ICollection<TaskItemFile> TaskItemFile { get; set; }
 
-       
     }
 
     public partial class FileTypeConfiguration : IEntityTypeConfiguration<FileType>
@@ -39,8 +39,8 @@ namespace MDM.Models
         public static void SeedFileType(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FileType>().HasData(
-                              new FileType { Id = 1, Name = "ID Document", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                               new FileType { Id = 2, Name = "Note", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                              new FileType { Id = 1, Name = "Document", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                               new FileType { Id = 2, Name = "Note", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
                                  );
         }
     }

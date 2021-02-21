@@ -47,13 +47,13 @@ namespace MDM.Models
         public static void SeedAddressType(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AddressType>().HasData(
-              new AddressType { Id = 1, Name = "Postal Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 2, Name = "Physical Address",  CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 3, Name = "Billing Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 4, Name = "Business Address",  CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 5, Name = "Shipping Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 6, Name = "Contact Address",  CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-               new AddressType { Id = 7, Name = "Venue", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+              new AddressType { Id = 1, Name = "Postal Address", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+              new AddressType { Id = 2, Name = "Physical Address",  CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+              new AddressType { Id = 3, Name = "Billing Address", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+              new AddressType { Id = 4, Name = "Business Address",  CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+              new AddressType { Id = 5, Name = "Shipping Address", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+              new AddressType { Id = 6, Name = "Contact Address",  CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+               new AddressType { Id = 7, Name = "Venue", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
               );
         }
     }

@@ -37,6 +37,21 @@ namespace MDM.Models
         public virtual DbSet<Occupation> Occupation { get; set; }
         public virtual DbSet<SystemUser> SystemUser { get; set; }
 
+
+        public virtual DbSet<Portfolio> Portfolio { get; set; }
+        public virtual DbSet<Block> Block { get; set; }
+        public virtual DbSet<Board> Board { get; set; }
+        public virtual DbSet<Floor> Floor { get; set; }
+        public virtual DbSet<Floor> Group { get; set; }
+        public virtual DbSet<Priority> Priority { get; set; }
+        public virtual DbSet<ServiceProvider> ServiceProvider { get; set; }
+        public virtual DbSet<ServiceProviderTrusteeApproval> ServiceProviderTrusteeApproval { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<TaskItem> TaskItem { get; set; }
+        public virtual DbSet<TaskItemAssignee> TaskItemAssignee { get; set; }
+        public virtual DbSet<TaskItemFile> TaskItemFile { get; set; }
+        public virtual DbSet<Unit> Unit{ get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -58,32 +73,40 @@ namespace MDM.Models
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => entity.Property(m => m.UserId).HasMaxLength(50));
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => entity.Property(m => m.Id).HasMaxLength(50));
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => entity.Property(m => m.RoleId).HasMaxLength(50));
+
             modelBuilder.ApplyConfiguration(new AddressConfiguration()).SeedAddress();
             modelBuilder.ApplyConfiguration(new AddressTypeConfiguration()).SeedAddressType();
             modelBuilder.ApplyConfiguration(new UserTypeConfiguration()).SeedUserType();
-
             modelBuilder.ApplyConfiguration(new ContactUsConfiguration()).SeedContactUs();
             modelBuilder.ApplyConfiguration(new ContactUsRelatedToConfiguration()).SeedContactUsRelatedTo();
-
             modelBuilder.ApplyConfiguration(new CountryConfiguration()).SeedCountry();
-
             modelBuilder.ApplyConfiguration(new CurrencyConfiguration()).SeedCurrency();
-
             modelBuilder.ApplyConfiguration(new FileTypeConfiguration()).SeedFileType();
             modelBuilder.ApplyConfiguration(new GenderConfiguration()).SeedGender();
-
             modelBuilder.ApplyConfiguration(new RelatedToConfiguration()).SeedRelatedTo();
             modelBuilder.ApplyConfiguration(new ProvinceConfiguration()).SeedProvince();
-
             modelBuilder.ApplyConfiguration(new TitleConfiguration()).SeedTitle();
             modelBuilder.ApplyConfiguration(new UserActivityConfiguration()).SeedUserActivity();
-
             modelBuilder.ApplyConfiguration(new LanguageConfiguration()).SeedLanguage();
             modelBuilder.ApplyConfiguration(new EthnicityConfiguration()).SeedEthnicity();
             modelBuilder.ApplyConfiguration(new OccupationConfiguration()).SeedOccupation();
             modelBuilder.ApplyConfiguration(new SystemUserConfiguration());
 
 
+            modelBuilder.ApplyConfiguration(new PortfolioConfiguration()).SeedPortfolio();
+            modelBuilder.ApplyConfiguration(new BlockConfiguration()).SeedBlock();
+            modelBuilder.ApplyConfiguration(new FloorConfiguration()).SeedFloor();
+            modelBuilder.ApplyConfiguration(new GroupConfiguration()).SeedGroup();
+            modelBuilder.ApplyConfiguration(new StatusConfiguration()).SeedStatus();
+            modelBuilder.ApplyConfiguration(new UnitConfiguration()).SeedUnit();
+            modelBuilder.ApplyConfiguration(new BoardConfiguration()).SeedBoard();
+            modelBuilder.ApplyConfiguration(new ServiceProviderConfiguration()).SeedServiceProvider();
+            modelBuilder.ApplyConfiguration(new ServiceProviderTrusteeApprovalConfiguration()).SeedServiceProviderTrusteeApproval();
+
+            modelBuilder.ApplyConfiguration(new TaskItemConfiguration()).SeedTaskItem();
+            modelBuilder.ApplyConfiguration(new TaskItemAssigneeConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskItemFileConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskItemCommentConfiguration());
 
         }
 

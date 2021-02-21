@@ -20,7 +20,7 @@ namespace MDM.Pages.Client.Account
     [AllowAnonymous]
     public partial class IndexModel : PageModel
     {
-        private readonly DB _clientDbContext;
+        private readonly DB _db;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<IndexModel> _logger;
@@ -28,13 +28,13 @@ namespace MDM.Pages.Client.Account
         private readonly IConfiguration _configuration;
 
         public IndexModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            ILogger<IndexModel> logger, IEmailCreator emailCreator, DB clientDbContext, IConfiguration configuration)
+            ILogger<IndexModel> logger, IEmailCreator emailCreator, DB db, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailCreator = emailCreator;
-            _clientDbContext = clientDbContext;
+            _db = db;
             _configuration = configuration;
 
         }
@@ -49,7 +49,7 @@ namespace MDM.Pages.Client.Account
         #endregion
      
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGetAsync()
         {
            
             return Page();
@@ -63,7 +63,7 @@ namespace MDM.Pages.Client.Account
 
     
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public IActionResult OnPost(string returnUrl = null)
         {
             
             return Page();

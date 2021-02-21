@@ -15,7 +15,7 @@ using MDM.Services;
 
 namespace MDM.Pages.Client
 {
-    [Authorize(Policy = MDMPolicies.AllowSetUp)]
+    [Authorize(Policy = MDMPolicies.AllowAdmin)]
     public class RoleModel : PageModel
     {
         private readonly DB _context;
@@ -42,7 +42,7 @@ namespace MDM.Pages.Client
 
         public async Task<IActionResult> OnGetListAsync()
         {
-            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + EntityName, UserTypeValues.Staff);
+            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + EntityName, UserTypeValues.Owner);
             return new JsonResult(await _roleManager.Roles.ToListAsync());
         }
 
@@ -67,7 +67,7 @@ namespace MDM.Pages.Client
                     result = await _roleManager.CreateAsync(new ApplicationRole());
                     if (result.Succeeded)
                     {
-                        await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Added + EntityName + " Name: " + Role.Name, UserTypeValues.Staff);
+                        await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Added + EntityName + " Name: " + Role.Name, UserTypeValues.Owner);
                         return new JsonResult(new { success = true, message = "Role Created successfully" });
                     }
                     foreach (IdentityError error in result.Errors)
@@ -88,7 +88,7 @@ namespace MDM.Pages.Client
                         IdentityResult result = await _roleManager.UpdateAsync(role);
                         if (result.Succeeded)
                         {
-                            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + EntityName + " Name: " + Role.Name, UserTypeValues.Staff);
+                            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + EntityName + " Name: " + Role.Name, UserTypeValues.Owner);
                             return new JsonResult(new { success = true, message = "Role Created successfully" });
                         }
                         foreach (IdentityError error in result.Errors)
@@ -118,7 +118,7 @@ namespace MDM.Pages.Client
             if (Role != null)
             {
                 await _roleManager.DeleteAsync(Role);
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Deleted + EntityName + " Name: " + Role.Name, UserTypeValues.Staff);
+                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Deleted + EntityName + " Name: " + Role.Name, UserTypeValues.Owner);
                 return new JsonResult(new { success = true, message = "Deleted successfully" });
             }
             return new JsonResult(new { success = false, message = "No such record found to delete" });

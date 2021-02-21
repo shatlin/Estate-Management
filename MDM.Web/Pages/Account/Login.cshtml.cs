@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MDM.Models;
 using MDM.Helper;
+using MDM.Services;
 using System.Security.Claims;
 
 namespace MDM.Pages.Client.Account
@@ -119,9 +120,9 @@ namespace MDM.Pages.Client.Account
 
                 var user = await _userManager.FindByEmailAsync(Email);
 
-                if (user != null && user.UserTypeId == UserTypeValues.Staff)
+                if (user != null && user.UserTypeId == UserTypeValues.Owner)
                 {
-                    await _activity.AddAsync(user.Id, user.Email, MMMessages.LoggedIn, UserTypeValues.Staff);
+                    await _activity.AddAsync(user.Id, user.Email, MMMessages.LoggedIn, UserTypeValues.Owner);
                 }
                 
                 var result = await _signInManager.PasswordSignInAsync(Email, Password, RememberMe, lockoutOnFailure: false);

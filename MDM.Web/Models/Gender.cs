@@ -42,9 +42,9 @@ namespace MDM.Models
         public static void SeedGender(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Gender>().HasData(
-            new Gender { Id = 1, Name = "Male", Description = "Male", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-             new Gender { Id = 2, Name = "Female", Description = "Female", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-             new Gender { Id = 3, Name = "Other", Description = "Other", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+            new Gender { Id = 1, Name = "Male", Description = "Male", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+             new Gender { Id = 2, Name = "Female", Description = "Female", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+             new Gender { Id = 3, Name = "Other", Description = "Other", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
               
            );
            

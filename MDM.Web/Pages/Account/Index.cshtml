@@ -4,8 +4,8 @@
     ViewData["Title"] = "Edit your Profile";
     ViewData["Page"] = "My Profile";
 
-    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupDelete).Result.Succeeded;
-    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupUpdate).Result.Succeeded;
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
 }
 
 

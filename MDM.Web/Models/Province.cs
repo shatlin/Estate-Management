@@ -46,16 +46,16 @@ namespace MDM.Models
         {
             modelBuilder.Entity<Province>().HasData(
 
-                new Province { Id = 1, Name = "Eastern Cape", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 2, Name = "Free State", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 3, Name = "Gauteng", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 4, Name = "KwaZulu-Natal", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 5, Name = "Limpopo", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 6, Name = "Mpumalanga", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 7, Name = "North West", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 8, Name = "Northern Cape", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 9, Name = "Western Cape", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Province { Id = 10, Name = "Other", CountryId = 1, CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new Province { Id = 1, Name = "Eastern Cape", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 2, Name = "Free State", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 3, Name = "Gauteng", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 4, Name = "KwaZulu-Natal", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 5, Name = "Limpopo", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 6, Name = "Mpumalanga", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 7, Name = "North West", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 8, Name = "Northern Cape", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 9, Name = "Western Cape", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Province { Id = 10, Name = "Other", CountryId = 1, CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
            
                 );
         }

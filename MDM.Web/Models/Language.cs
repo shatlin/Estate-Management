@@ -45,18 +45,18 @@ namespace MDM.Models
         public static void SeedLanguage(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Language>().HasData(
-                new Language { Id = 1, Name = "English", Description = "English", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 2, Name = "Afrikaans", Description = "Afrikaans", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 3, Name = "seSotho", Description = "seSotho", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 4, Name = "seTswana", Description = "seTswana", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 5, Name = "tshiVenda", Description = "tshiVenda", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 6, Name = "isiZulu", Description = "isiZulu", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 7, Name = "isiNdebele", Description = "isiNdebele", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 8, Name = "isiTsonga", Description = "isiTsonga", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 9, Name = "Other", Description = "Other", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 10, Name = "isiXhosa", Description = "isiXhosa", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 11, Name = "sePedi", Description = "sePedi", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Language { Id = 12, Name = "SiSwati", Description = "SiSwati", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new Language { Id = 1, Name = "English", Description = "English", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 2, Name = "Afrikaans", Description = "Afrikaans", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 3, Name = "seSotho", Description = "seSotho", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 4, Name = "seTswana", Description = "seTswana", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 5, Name = "tshiVenda", Description = "tshiVenda", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 6, Name = "isiZulu", Description = "isiZulu", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 7, Name = "isiNdebele", Description = "isiNdebele", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 8, Name = "isiTsonga", Description = "isiTsonga", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 9, Name = "Other", Description = "Other", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 10, Name = "isiXhosa", Description = "isiXhosa", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 11, Name = "sePedi", Description = "sePedi", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Language { Id = 12, Name = "SiSwati", Description = "SiSwati", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
 
               );
         }

@@ -9,7 +9,6 @@ namespace MDM.Models
         public RelatedTo()
         {
             Address = new HashSet<Address>();
-
         }
 
         public int Id { get; set; }
@@ -38,7 +37,23 @@ namespace MDM.Models
     {
         public static void SeedRelatedTo(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RelatedTo>().HasData(
+              
+                 new RelatedTo { Id = 1, Name = "Trustee", Description = "Tenant", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                 new RelatedTo { Id = 2, Name = "Owner", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                  new RelatedTo { Id = 3, Name = "Tenant", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                   new RelatedTo { Id = 4, Name = "Estate Manager", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                     new RelatedTo { Id = 5, Name = "Estate Management Vendor", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                      new RelatedTo { Id = 6, Name = "Garden Vendor", Description = "Tenant", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                 new RelatedTo { Id = 7, Name = "Security Vendor", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                
+                   new RelatedTo { Id = 8, Name = "Service Provider", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
 
-        }
+                  );
+
+
+          
+  
+    }
     }
 }

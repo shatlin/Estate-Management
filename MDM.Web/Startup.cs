@@ -35,11 +35,11 @@ namespace MDM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DB>(options => options.UseMySql(Configuration.GetConnectionString("ClientDBContext")));
+            services.AddDbContext<DB>(options => options.UseMySql(Configuration.GetConnectionString("DB")));
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 8; 
+                options.Password.RequiredLength = 5; 
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -74,11 +74,17 @@ namespace MDM
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(MDMPolicies.AllowSuperUser, policy => policy.RequireClaim(MDMClaimTypes.SuperUser, MDMClaimValues.Access));
-                options.AddPolicy(MDMPolicies.AllowAdminUser, policy => policy.RequireClaim(MDMClaimTypes.AdminUser, MDMClaimValues.Access));
-                options.AddPolicy(MDMPolicies.AllowSetUp, policy => policy.RequireClaim(MDMClaimTypes.SetUp));
-                options.AddPolicy(MDMPolicies.AllowSetupDelete, policy => policy.RequireClaim(MDMClaimTypes.SetUp, MDMClaimValues.Delete));
-                options.AddPolicy(MDMPolicies.AllowSetupUpdate, policy => policy.RequireClaim(MDMClaimTypes.SetUp, MDMClaimValues.Update));
-                options.AddPolicy(MDMPolicies.AllowToViewReports, policy => policy.RequireClaim(MDMClaimTypes.Report, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowAdmin, policy => policy.RequireClaim(MDMClaimTypes.Admin, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowTrustee, policy => policy.RequireClaim(MDMClaimTypes.Trustee, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowOwner, policy => policy.RequireClaim(MDMClaimTypes.Owner, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowTenant, policy => policy.RequireClaim(MDMClaimTypes.Tenant, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowEstateManager, policy => policy.RequireClaim(MDMClaimTypes.EstateManager, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowEstateManagementVendor, policy => policy.RequireClaim(MDMClaimTypes.EstateManagementVendor, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowSecurityVendor, policy => policy.RequireClaim(MDMClaimTypes.SecurityVendor, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowGardenVendor, policy => policy.RequireClaim(MDMClaimTypes.GardenVendor, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowServiceProvider, policy => policy.RequireClaim(MDMClaimTypes.ServiceProvider, MDMClaimValues.Access));
+             
+
             });
 
 
@@ -91,10 +97,7 @@ namespace MDM
                      options.Conventions.AuthorizeFolder("/Admin");
                      options.Conventions.AuthorizeFolder("/Manage");
                      options.Conventions.AuthorizeFolder("/Reports");
-                     options.Conventions.AuthorizeFolder("/Member");
                      options.Conventions.AuthorizePage("/Index");
-                     options.Conventions.AllowAnonymousToFolder("/Apply");
-                     //options.Conventions.AddPageRoute("/Account/Login", "");
                  });
 
             services.Configure<FormOptions>(options =>

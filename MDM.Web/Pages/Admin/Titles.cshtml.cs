@@ -14,7 +14,7 @@ using MDM.Services;
 
 namespace MDM.Pages.Client
 {
-    [Authorize(Policy = MDMPolicies.AllowSetUp)]
+    [Authorize(Policy = MDMPolicies.AllowAdmin)]
     public class TitleModel : PageModel
     {
         private DB _context;
@@ -39,7 +39,7 @@ namespace MDM.Pages.Client
 
         public async Task<IActionResult> OnGetListAsync()
         {
-            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + EntityName, UserTypeValues.Staff);
+            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + EntityName, UserTypeValues.Owner);
             return new JsonResult(await _context.Title.ToListAsync());
         }
 
@@ -54,7 +54,7 @@ namespace MDM.Pages.Client
             {
                 return new JsonResult(new { success = false, message = MMMessages.Error_Please_check_values_entered });
             }
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupUpdate);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin);
 
             if (!isAuthorized.Succeeded)
             {
@@ -63,12 +63,12 @@ namespace MDM.Pages.Client
 
             if (title.Id > 0)
             {
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + EntityName + " Name: " + Title.Name, UserTypeValues.Staff);
+                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + EntityName + " Name: " + Title.Name, UserTypeValues.Owner);
                 _context.Attach(title).State = EntityState.Modified;
             }
             else
             {
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Added + EntityName + " Name: " + Title.Name, UserTypeValues.Staff);
+                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Added + EntityName + " Name: " + Title.Name, UserTypeValues.Owner);
                 _context.Title.Add(title);
             }
             await _context.SaveChangesAsync();
@@ -77,7 +77,7 @@ namespace MDM.Pages.Client
 
         public async Task<IActionResult> OnGetDeleteAsync(int? id)
         {
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupDelete);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin);
 
             if (!isAuthorized.Succeeded)
             {
@@ -93,7 +93,7 @@ namespace MDM.Pages.Client
             {
                 _context.Title.Remove(Title);
                 await _context.SaveChangesAsync();
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Deleted + EntityName + " Name: " + Title.Name, UserTypeValues.Staff);
+                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Deleted + EntityName + " Name: " + Title.Name, UserTypeValues.Owner);
                 return new JsonResult(new { success = true, message = MMMessages.DeletedSuccessfully });
             }
             return new JsonResult(new { success = false, message = MMMessages.NoRecordToDelete });

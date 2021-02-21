@@ -24,7 +24,7 @@ namespace MDM.Models
     }
 
 
-    public partial class UserTypeConfiguration: IEntityTypeConfiguration<UserType>
+    public partial class UserTypeConfiguration : IEntityTypeConfiguration<UserType>
     {
         public void Configure(EntityTypeBuilder<UserType> builder)
         {
@@ -46,9 +46,10 @@ namespace MDM.Models
         public static void SeedUserType(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserType>().HasData(
-                new UserType { Id = 1, Name = "Admin", Description = "Admin", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new UserType { Id = 2, Name = "Member", Description = "Member", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new UserType { Id = 3, Name = "Contact", Description = "Contact", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new UserType { Id = 1, Name = "Trustee", Description = "Trustee", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new UserType { Id = 2, Name = "Owner", Description = "Owner", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new UserType { Id = 3, Name = "Tenant", Description = "Tenant", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new UserType { Id = 4, Name = "Service Provider", Description = "Service Provider", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
                  );
 
         }

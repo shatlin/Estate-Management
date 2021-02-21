@@ -43,11 +43,11 @@ namespace MDM.Models
         public static void SeedTitle(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Title>().HasData(
-                new Title { Id = 1, Name = "Mr", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Title { Id = 2, Name = "Mrs", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Title { Id = 3, Name = "Ms", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Title { Id = 4, Name = "Dr", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                new Title { Id = 5, Name = "Prof", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new Title { Id = 1, Name = "Mr", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Title { Id = 2, Name = "Mrs", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Title { Id = 3, Name = "Ms", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Title { Id = 4, Name = "Dr", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                new Title { Id = 5, Name = "Prof", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
              
               );
         }

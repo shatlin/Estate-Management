@@ -20,20 +20,19 @@ namespace MDM.Pages
         private readonly ILogger<ErrorModel> _logger;
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
-        private readonly DB _clientDbContext;
-        public DownloadEmail(ILogger<ErrorModel> logger, IWebHostEnvironment env, IConfiguration configuration,DB clientDbContext)
+        private readonly DB _db;
+        public DownloadEmail(ILogger<ErrorModel> logger, IWebHostEnvironment env, IConfiguration configuration,DB db)
         {
             _logger = logger;
             _env = env;
             _configuration = configuration;
-            _clientDbContext = clientDbContext;
+            _db = db;
         }
 
-        public async Task<IActionResult> OnGet(int mailId)
+        public IActionResult OnGet(int mailId)
         {
             try
             {
-              //  string email =  _clientDbContext.MemberEmailXref.Where(x => x.Id == mailId).FirstOrDefault().Body;
 
             string downloadFileName = "Email_"+ mailId + ".html";
 
