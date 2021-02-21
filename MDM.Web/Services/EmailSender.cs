@@ -86,8 +86,8 @@ namespace Services.Email
             //mailMessage.To.Clear();
             //mailMessage.CC.Clear();
             //mailMessage.To.Add("shatlin@outlook.com");
-            ////mailMessage.To.Add("membership@wisa.org.za");
-            ////mailMessage.To.Add("admin@wisa.org.za");
+            ////mailMessage.To.Add("membership@MDM.org.za");
+            ////mailMessage.To.Add("admin@MDM.org.za");
             ////mailMessage.Bcc.Add("shatlin@gmail.com");
             ////mailMessage.CC.Add("ajivinister@gmail.com");
             ////mailMessage.CC.Add("seshan@evolutio.co.za");

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
-namespace MM.ClientModels
+
+namespace MDM.Models
 {
     public partial class Address
     {
         public Address()
         {
-            Event = new HashSet<Event>();
+            
         }
-
         public int Id { get; set; }
         public int? RelatedEntityId { get; set; }
         public int? RelatedToId { get; set; }
@@ -20,29 +20,26 @@ namespace MM.ClientModels
         //[Required(ErrorMessage = "Address Type is required")]
         public int? AddressTypeId { get; set; }
 
-        [Display(Name = "Address Line 1", Prompt = "Door No / Building Name")]
+        [Display(Name = "Building Name", Prompt = "Door No / Building Name")]
         //[Required(ErrorMessage = "Address Line 1 is required")]
-        public string AddressLine1 { get; set; }
+        public string BuildingName { get; set; }
+
+        [Display(Name = "Complex Name", Prompt = "Complex Name")]
+        //[Required(ErrorMessage = "Address Line 2 is required")]
+        public string ComplexName { get; set; }
 
         [Display(Name = "Address Line 2", Prompt = "Lane / Street Name")]
         //[Required(ErrorMessage = "Address Line 2 is required")]
-        public string AddressLine2 { get; set; }
-
-        [Display(Name = "Address Line 3", Prompt = "Address Line 3")]
-        //[Required(ErrorMessage = "Address Line 3 is required")]
-        public string AddressLine3 { get; set; }
+        public string StreetName { get; set; }
 
         [Display(Name = "Suburb", Prompt = "Enter Suburb")]
         //[Required(ErrorMessage = "Suburb is required")]
         public string Suburb { get; set; }
 
-        [Display(Name = "Town/City", Prompt = "Enter City Name")]
-        //[Required(ErrorMessage = "City is required")]
-        public int? CityId { get; set; }
 
         [Display(Name = "Province", Prompt = "Select Province")]
         //[Required(ErrorMessage = "Province is required")]
-        public int? StateId { get; set; }
+        public int? ProvinceId { get; set; }
 
         [Display(Name = "Country", Prompt = "Select Country")]
         //[Required(ErrorMessage = "Country is required")]
@@ -51,6 +48,14 @@ namespace MM.ClientModels
         [Display(Name = "Postal Code", Prompt = "Enter Postal Code")]
         //[Required(ErrorMessage = "Postal Code is required")]
         public string PostalCode { get; set; }
+
+        [Display(Name = "Additional Line1", Prompt = "Additional Line1")]
+        public string AdditionalLine1 { get; set; }
+
+        [Display(Name = "Additional Line2", Prompt = "Additional Line2")]
+        public string AdditionalLine2 { get; set; }
+
+       
 
         [Display(Name = "Primary Contact Number", Prompt = "Enter Primary Contact No")]
         //[Required(ErrorMessage = "Primary Contact No is required")]
@@ -68,53 +73,38 @@ namespace MM.ClientModels
         //[Required(ErrorMessage = "Secondary Email is required")]
         public string SecondaryEmail { get; set; }
 
-        [Display(Name = "Fax Number", Prompt = "Enter Fax No")]
-        //[Required(ErrorMessage = "Fax No is required")]
-        public string FaxNumber { get; set; }
+
 
         [Display(Name = "GPS Coordinates", Prompt = "Enter GPS Coordinates")]
-        //[Required(ErrorMessage = "GPS Coordinates is required")]
+       
         public string Gpscoordinates { get; set; }
 
         [Display(Name = "City", Prompt = "Enter City Name")]
         //[Required(ErrorMessage = "City Name is required")]
         public string CityName { get; set; }
 
-        [Display(Name = "State", Prompt = "Enter State Name")]
-        //[Required(ErrorMessage = "State Name is required")]
-        public string StateName { get; set; }
+     
 
-        [Display(Name = "Country", Prompt = "Select Country Name")]
-        //[Required(ErrorMessage = "Country Name is required")]
-        public string CountryName { get; set; }
-
-        [Display(Name = "Province", Prompt = "Select Province Name")]
-        //[Required(ErrorMessage = "Province Name is required")]
-        public string Province { get; set; }
+ 
 
         public DateTime? CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
-
         public virtual AddressType AddressType { get; set; }
-        public virtual City City { get; set; }
         public virtual RelatedTo RelatedTo { get; set; }
         public virtual Country Country { get; set; }
-        public virtual State State { get; set; }
-        public virtual ICollection<Event> Event { get; set; }
+        public virtual Province Province { get; set; }
+      
     }
     public partial class AddressConfiguration : IEntityTypeConfiguration<Address>
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
 
-            builder.Property(e => e.AddressLine1).HasMaxLength(200);
-            builder.Property(e => e.AddressLine2).HasMaxLength(200);
-            builder.Property(e => e.AddressLine3).HasMaxLength(200);
+       
 
             builder.Property(e => e.CreatedOn).HasColumnType("datetime");
-            builder.Property(e => e.FaxNumber).HasMaxLength(50);
 
             builder.Property(e => e.Gpscoordinates)
                 .HasColumnName("GPSCoordinates")
@@ -133,17 +123,12 @@ namespace MM.ClientModels
             builder.Property(e => e.SecondaryEmail).HasMaxLength(50);
 
           
-
             builder.HasOne(d => d.AddressType)
                 .WithMany(p => p.Address)
                 .HasForeignKey(d => d.AddressTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Address_AddressType");
 
-            builder.HasOne(d => d.City)
-                .WithMany(p => p.Address)
-                .HasForeignKey(d => d.CityId)
-                .HasConstraintName("FK_Address_City");
 
             builder.HasOne(d => d.Country)
                 .WithMany(p => p.Address)
@@ -151,11 +136,11 @@ namespace MM.ClientModels
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Address_Country");
 
-            builder.HasOne(d => d.State)
+            builder.HasOne(d => d.Province)
                 .WithMany(p => p.Address)
-                .HasForeignKey(d => d.StateId)
+                .HasForeignKey(d => d.ProvinceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Address_State");
+                .HasConstraintName("FK_Address_Province");
 
             builder.HasOne(d => d.RelatedTo)
                    .WithMany(p => p.Address)

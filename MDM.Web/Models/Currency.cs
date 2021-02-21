@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class Currency
     {
         public Currency()
         {
-            Client = new HashSet<ClientOrganization>();
-            PaymentSetting = new HashSet<PaymentSetting>();
-            PlanDetail = new HashSet<PlanDetail>();
-               MemberUser = new HashSet<MemberUser>();
-                  Organization = new HashSet<Organization>();
         }
 
         public int Id { get; set; }
@@ -25,11 +20,7 @@ namespace MM.ClientModels
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
 
-        public virtual ICollection<ClientOrganization> Client { get; set; }
-        public virtual ICollection<PaymentSetting> PaymentSetting { get; set; }
-        public virtual ICollection<PlanDetail> PlanDetail { get; set; }
-        public virtual ICollection<MemberUser> MemberUser { get; set; }
-         public virtual ICollection<Organization> Organization { get; set; }
+
     }
     public partial class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
     {

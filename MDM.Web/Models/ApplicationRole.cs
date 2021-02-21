@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class ApplicationRole: IdentityRole
     {

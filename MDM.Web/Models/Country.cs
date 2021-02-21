@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class Country
     {
         public Country()
         {
             Address = new HashSet<Address>();
-            State = new HashSet<State>();
-            MemberUser = new HashSet<MemberUser>();
+            State = new HashSet<Province>();
         }
 
         public int Id { get; set; }
@@ -23,8 +22,8 @@ namespace MM.ClientModels
         public int? ModifiedBy { get; set; }
 
         public virtual ICollection<Address> Address { get; set; }
-        public virtual ICollection<State> State { get; set; }
-        public virtual ICollection<MemberUser> MemberUser { get; set; }
+        public virtual ICollection<Province> State { get; set; }
+       
     }
 
     public partial class CountryConfiguration : IEntityTypeConfiguration<Country>
@@ -300,8 +299,6 @@ namespace MM.ClientModels
                 new Country { Id = 256, Code = null, Name = "Zaire", Description = "Zaïrean", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
                 new Country { Id = 257, Code = null, Name = "Zambia", Description = "Zambian", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
                 new Country { Id = 258, Code = null, Name = "Zimbabwe", Description = "Zimbabwean", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
-
-
                     );
         }
     }

@@ -8,11 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net.Mail;
-using MM.ClientModels;
+using MDM.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
-namespace WISA.Services
+namespace MDM.Services
 {
 
     public interface IEmailCreator
@@ -29,7 +29,7 @@ namespace WISA.Services
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment _env;
-        //private readonly ClientDbContext _context;
+        //private readonly DB _context;
         public EmailCreator(ILogger<EmailCreator> logger, IConfiguration configuration, IEmailSender emailSender,  IWebHostEnvironment env)
         {
             
@@ -70,7 +70,7 @@ namespace WISA.Services
 
             try
             {
-                ClientDbContext _context = new ClientDbContext();
+                DB _context = new DB();
                 int relatedToId = 0;
                 int relatedEntityId = 0;
 
@@ -80,27 +80,27 @@ namespace WISA.Services
                 relatedToId = Convert.ToInt32(emailaddresses[2]);
                 relatedEntityId = Convert.ToInt32(emailaddresses[3]);
 
-                //string systemUserId = _userManager.FindByEmailAsync("system@wisa.org.za").Result.Id;
+                //string systemUserId = _userManager.FindByEmailAsync("system@MDM.org.za").Result.Id;
                 //int createdById = _context.ClientUser.First(x => x.ApplicaitonUserId == systemUserId).Id;
 
-                await _context.MemberEmailXref.AddAsync(
-                     new MemberEmailXref
+                //await _context.MemberEmailXref.AddAsync(
+                //     new MemberEmailXref
 
 
-                     {
-                         To = toAddresses,
-                         CC = ccAddresses,
-                         Body = emailMainTemplate,
-                         RelatedToId = relatedToId,
-                         RelatedEntityId = relatedEntityId,
-                         From = "notifications@wisamembers.co.za",
-                         Subject = emailSubject,
-                         //CreatedBy = createdById,
-                         CreatedOn = DateTime.Now
-                     }
-                     );
+                //     {
+                //         To = toAddresses,
+                //         CC = ccAddresses,
+                //         Body = emailMainTemplate,
+                //         RelatedToId = relatedToId,
+                //         RelatedEntityId = relatedEntityId,
+                //         From = "notifications@miledownemanor.co.za",
+                //         Subject = emailSubject,
+                //         //CreatedBy = createdById,
+                //         CreatedOn = DateTime.Now
+                //     }
+                //     );
 
-                await _context.SaveChangesAsync();
+               // await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

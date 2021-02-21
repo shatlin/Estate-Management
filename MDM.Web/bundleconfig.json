@@ -25,7 +25,7 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/assets/css/wisa.css",
+    "outputFileName": "wwwroot/assets/css/mdm.css",
     "inputFiles": [
       "wwwroot/assets/css/bootstrap.min.css",
       "wwwroot/assets/css/paper-dashboard.css",
@@ -34,7 +34,7 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/wisa.js",
+    "outputFileName": "wwwroot/js/mdm.js",
     "inputFiles": [
       "wwwroot/assets/js/core/jquery.min.js",
       "wwwroot/assets/js/core/popper.min.js",

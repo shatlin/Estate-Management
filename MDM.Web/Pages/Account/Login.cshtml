@@ -1,6 +1,6 @@
 ﻿@page
-@using MM.ClientModels;
-@using MM.Helper;
+@using MDM.Models;
+@using MDM.Helper;
 @model LoginModel
 
 @{
@@ -8,7 +8,7 @@
     ViewData["Page"] = "Log in";
     Layout = "_LayoutAnonymous";
 }
-    <p class="display-3 text-white text-center">WISA</p>
+<p class="display-3 text-white text-center">@GlobalVariables.AppName</p>
     <p class="lead text-center text-white"> Login</p>
 
     <form method="post" class="loginPage">
@@ -44,7 +44,7 @@
 
         </div>*@
 
-        <div class="wisalogin inputBox">
+        <div class="logindiv inputBox">
             <input type="submit" name="sign-in" value="Sign In" />
         </div>
         <br />

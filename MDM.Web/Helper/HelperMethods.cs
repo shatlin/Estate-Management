@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 
-namespace MM.Helper
+namespace MDM.Helper
 {
 
     public class YesNoLookup

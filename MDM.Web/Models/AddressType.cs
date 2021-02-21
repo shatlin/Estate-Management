@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class AddressType
     {
         public AddressType()
         {
             Address = new HashSet<Address>();
-            MemberAddress = new HashSet<MemberAddress>();
+          
         }
 
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace MM.ClientModels
         public int? ModifiedBy { get; set; }
 
         public virtual ICollection<Address> Address { get; set; }
-        public virtual ICollection<MemberAddress> MemberAddress { get; set; }
+       
     }
 
 
@@ -48,12 +48,12 @@ namespace MM.ClientModels
         {
             modelBuilder.Entity<AddressType>().HasData(
               new AddressType { Id = 1, Name = "Postal Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 2, Name = "Physical Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
+              new AddressType { Id = 2, Name = "Physical Address",  CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
               new AddressType { Id = 3, Name = "Billing Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 4, Name = "Business Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
+              new AddressType { Id = 4, Name = "Business Address",  CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
               new AddressType { Id = 5, Name = "Shipping Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 6, Name = "Contact Address", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-              new AddressType { Id = 7, Name = "Venue", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+              new AddressType { Id = 6, Name = "Contact Address",  CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
+               new AddressType { Id = 7, Name = "Venue", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
               );
         }
     }

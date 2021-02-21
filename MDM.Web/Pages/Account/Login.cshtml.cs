@@ -11,24 +11,24 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
-using WISA.Services;
+using MDM.Models;
+using MDM.Helper;
 using System.Security.Claims;
 
-namespace MM.Pages.Client.Account
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ClientDbContext _context;
+        private readonly DB _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
           private IActivity _activity;
        
         public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager, ClientDbContext context,IActivity activity)
+            UserManager<ApplicationUser> userManager, DB context,IActivity activity)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -96,12 +96,12 @@ namespace MM.Pages.Client.Account
         {
             var roles = await _userManager.GetRolesAsync(user);
 
-            if (roles.Contains(MMRoles.SuperUserRole) || roles.Contains(MMRoles.AdminFullAccessRole))
+            if (roles.Contains(MDMRoles.SuperUser) || roles.Contains(MDMRoles.Admin))
             {
                 return RedirectToPage("/Admin/Index");
                 
             }
-            else if (roles.Contains(MMRoles.ClientUserRole))
+            else if (roles.Contains(MDMRoles.Owner))
             {
                 return RedirectToPage("/Manage/Index");
             }

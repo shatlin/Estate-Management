@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
 
-namespace WISA
+namespace MDM
 {
     public class Program
     {

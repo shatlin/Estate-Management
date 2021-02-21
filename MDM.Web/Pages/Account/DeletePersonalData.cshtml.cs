@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
+using MDM.Models;
 
-namespace MM.Pages.Client.Account
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public class DeletePersonalDataModel : PageModel

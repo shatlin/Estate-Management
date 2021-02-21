@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
-namespace MM.Pages.Client.Account
+using MDM.Models;
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public class Disable2faModel : PageModel
