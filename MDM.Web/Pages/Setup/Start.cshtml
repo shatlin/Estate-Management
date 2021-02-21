@@ -5,41 +5,23 @@
 
 @{
 
-    ViewData["Title"] = "Data Migration";
-    ViewData["Page"] = "Data Migration";
+    ViewData["Title"] = "Set Up";
+    ViewData["Page"] = "Set Up";
 
   
 }
 <form method="post" id="SetUp" style="width:100%">
-    <partial name="_CRUDHeader" , model='new Header{name="Manage Migration", description="Set up Initial Data Migration"}'>
+    <partial name="_CRUDHeader" , model='new Header{name="Set Up", description="Initial Set up "}'>
         <div class="container">
             <div class="reg-container row">
                 <!--  Personal -->
                 <div class="col-12">
                     <div class="card shadow-sm">
-                        <partial name="_CardHeaderPartial" , model='new Header{name="Migration"}'>
+                        <partial name="_CardHeaderPartial" , model='new Header{name="Set Up"}'>
                             <div class="card-body reg-card-body">
                                 <div class="row">
-
-                                    <div class="col-4 mb-4 text-left">
-                                        <button class="btn btn-outline-danger" style="width:250px;" asp-page-handler="Run">Intital Set up</button>
-                                    </div>
-                                    <div class="col-4  mb-4 text-left">
-                                        <button id="nonindbutton" name="nonindbutton" style="width:250px;" class="btn btn-outline-danger" asp-page-handler="NonIndividuals">NonIndividuals</button>
-                                    </div>
-                                    <div class="col-4 mb-4 text-left">
-                                        <button id="indbutton" name="indbutton" style="width:250px;" class="btn btn-outline-danger" asp-page-handler="Individuals">Individuals</button>
-                                    </div>
-
-                                    <div class="col-4 mb-4 text-left">
-                                        <button class="btn btn-outline-danger" style="width:250px;" asp-page-handler="NotesAndFiles">Notes and Files</button>
-                                    </div>
-                                    <div class="col-4 mb-4 text-left">
-                                        <button class="btn btn-outline-danger" style="width:250px;" asp-page-handler="LogResults">Log Results</button>
-                                    </div>
-
-                                    <div class="col-4 mb-4  text-left">
-                                        <button class="btn btn-outline-danger" style="width:250px;" asp-page-handler="Fix">Fix</button>
+                                    <div class="col-12 mb-12 text-left">
+                                        <button class="btn btn-outline-danger" style="width:250px;" asp-page-handler="Run">Set up</button>
                                     </div>
                                 </div>
                             </div>

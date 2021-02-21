@@ -30,35 +30,29 @@ namespace MDM.Models
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
 
-        public string ApplicaitonUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
-        [Display(Name = "Home Language", Prompt = "Enter Home Language")]
-        [Required(ErrorMessage = "Home Language is required")]
+        
         public int? HomeLanguageId { get; set; }
         public virtual Language HomeLanguage { get; set; }
 
 
-        [Display(Name = "Ethnicity", Prompt = "Select Ethnicity")]
-        [Required(ErrorMessage = "Ethnicity is required")]
+       
         public int? EthnicityId { get; set; }
         public virtual Ethnicity Ethnicity { get; set; }
 
-        [Display(Name = "Occupation", Prompt = "Select Occupation")]
-        [Required(ErrorMessage = "Occupation is required")]
+        
         public int? OccupationId { get; set; }
         public virtual Occupation Occupation { get; set; }
 
 
-        [Display(Name = "Initials", Prompt = "Enter Initials")]
-        //[Required(ErrorMessage = "Initials is required")]
+       
         public string Initials { get; set; }
 
-        [Display(Name = "Mobile Phone", Prompt = "Enter Mobile Phone")]
-        [Required(ErrorMessage = "Mobile Phone is required")]
+        
         public string MobilePhone { get; set; }
 
         [Display(Name = "Notes", Prompt = "Enter Notes")]
-        //[Required(ErrorMessage = "Business Phone Number is required")]
         public string Notes { get; set; }
 
         [Display(Name = "Term Accepted")]
@@ -70,21 +64,14 @@ namespace MDM.Models
 
         public byte[] Photo { get; set; }
 
-        [Display(Name = "ID/Passport Number", Prompt = "Enter ID Number")]
-        [Required(ErrorMessage = "ID Number is required")]
         public string IDNumber { get; set; }
 
         public bool? IsAdminCreated { get; set; }
-        [Display(Name = "Date of Birth", Prompt = "Enter Birthday")]
-        // [Required(ErrorMessage = "Birth Day is required")]
         public DateTime? BirthDay { get; set; }
 
-        [Display(Name = "Gender")]
-        [Required(ErrorMessage = "Gender is required")]
         public int? GenderId { get; set; }
 
-        [Display(Name = "Title")]
-        [Required(ErrorMessage = "Title is required")]
+     
         public int? TitleId { get; set; }
 
 
@@ -134,22 +121,12 @@ namespace MDM.Models
 
             builder.Property(e => e.OccupationId).IsRequired(false);
 
-
-
-            builder.Property(e => e.IDNumber)
-        .IsRequired(false).HasMaxLength(100);
-
-
-
+            builder.Property(e => e.IDNumber).IsRequired(false).HasMaxLength(100);
 
             builder.Property(e => e.CreatedOn).HasColumnType("datetime");
-
             builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
          
-
-
-
             builder.HasOne(d => d.HomeLanguage)
       .WithMany(p => p.SystemUser)
       .HasForeignKey(d => d.HomeLanguageId)

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MDM.Web.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20210221120833_m1")]
+    [Migration("20210221185059_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -6634,7 +6634,7 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ApplicaitonUserId")
+                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("BirthDay")
@@ -6669,7 +6669,6 @@ namespace MDM.Web.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("MobilePhone")
-                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int?>("ModifiedBy")

@@ -79,7 +79,7 @@ namespace MDM
                 options.AddPolicy(MDMPolicies.AllowOwner, policy => policy.RequireClaim(MDMClaimTypes.Owner, MDMClaimValues.Access));
                 options.AddPolicy(MDMPolicies.AllowTenant, policy => policy.RequireClaim(MDMClaimTypes.Tenant, MDMClaimValues.Access));
                 options.AddPolicy(MDMPolicies.AllowEstateManager, policy => policy.RequireClaim(MDMClaimTypes.EstateManager, MDMClaimValues.Access));
-                options.AddPolicy(MDMPolicies.AllowEstateManagementVendor, policy => policy.RequireClaim(MDMClaimTypes.EstateManagementVendor, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowManagingAgent, policy => policy.RequireClaim(MDMClaimTypes.ManagingAgent, MDMClaimValues.Access));
                 options.AddPolicy(MDMPolicies.AllowSecurityVendor, policy => policy.RequireClaim(MDMClaimTypes.SecurityVendor, MDMClaimValues.Access));
                 options.AddPolicy(MDMPolicies.AllowGardenVendor, policy => policy.RequireClaim(MDMClaimTypes.GardenVendor, MDMClaimValues.Access));
                 options.AddPolicy(MDMPolicies.AllowServiceProvider, policy => policy.RequireClaim(MDMClaimTypes.ServiceProvider, MDMClaimValues.Access));

@@ -119,7 +119,7 @@ namespace MDM.Helper
         public const int Owner = 2;
         public const int Tenant = 3;
         public const int EstateManager = 4;
-        public const int EstateManagementVendor = 5;
+        public const int ManagingAgent = 5;
         public const int GardenVendor = 6;
         public const int SecurityVendor = 7;
         public const int ServiceProvider = 8;
@@ -145,7 +145,7 @@ namespace MDM.Helper
         public const string EstateManager = "EstateManager";
         public const string GardenVendor = "GardenVendor";
         public const string SecurityVendor = "SecurityVendor";
-        public const string EstateManagementVendor = "EstateManagementVendor";
+        public const string ManagingAgent = "ManagingAgent";
         public const string ServiceProvider = "ServiceProvider";
     }
 
@@ -159,7 +159,7 @@ namespace MDM.Helper
         public const string AllowEstateManager = "AllowEstateManager";
         public const string AllowGardenVendor = "AllowGardenVendor";
         public const string AllowSecurityVendor = "AllowSecurityVendor";
-        public const string AllowEstateManagementVendor = "AllowEstateManagementVendor";
+        public const string AllowManagingAgent = "AllowManagingAgent";
         public const string AllowServiceProvider = "AllowServiceProvider";
     }
 
@@ -173,7 +173,7 @@ namespace MDM.Helper
         public const string EstateManager = "EstateManager";
         public const string GardenVendor = "GardenVendor";
         public const string SecurityVendor = "SecurityVendor";
-        public const string EstateManagementVendor = "EstateManagementVendor";
+        public const string ManagingAgent = "ManagingAgent";
         public const string ServiceProvider = "ServiceProvider";
     }
 
