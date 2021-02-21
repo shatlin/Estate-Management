@@ -8,22 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
-using MM.Helper;
-using WISA.Services;
+using MDM.Models;
+using MDM.Helper;
+using MDM.Services;
 
-namespace MM.Pages.Client
+namespace MDM.Pages.Client
 {
-    [Authorize(Policy = MMPolicies.AllowSetUp)]
+    [Authorize(Policy = MDMPolicies.AllowSetUp)]
     public class TitleModel : PageModel
     {
-        private ClientDbContext _context;
+        private DB _context;
         private readonly ILogger<TitleModel> _logger;
         private IActivity _activity;
         private string EntityName = "Title";
         private readonly IAuthorizationService _authorizationService;
 
-        public TitleModel(ClientDbContext context, IAuthorizationService authorizationService, ILogger<TitleModel> logger, IActivity activity)
+        public TitleModel(DB context, IAuthorizationService authorizationService, ILogger<TitleModel> logger, IActivity activity)
         {
             _context = context;
             _authorizationService = authorizationService;
@@ -54,7 +54,7 @@ namespace MM.Pages.Client
             {
                 return new JsonResult(new { success = false, message = MMMessages.Error_Please_check_values_entered });
             }
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupUpdate);
 
             if (!isAuthorized.Succeeded)
             {
@@ -77,7 +77,7 @@ namespace MM.Pages.Client
 
         public async Task<IActionResult> OnGetDeleteAsync(int? id)
         {
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, MDMPolicies.AllowSetupDelete);
 
             if (!isAuthorized.Succeeded)
             {

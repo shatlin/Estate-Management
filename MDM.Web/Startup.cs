@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using MM.ClientModels;
+using MDM.Models;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
@@ -17,11 +17,11 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Services.Email;
-using MM.Helper;
-using WISA.Services;
+using MDM.Helper;
+using MDM.Services;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace WISA
+namespace MDM
 {
     public class Startup
     {
@@ -35,7 +35,7 @@ namespace WISA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ClientDbContext>(options => options.UseMySql(Configuration.GetConnectionString("ClientDBContext")));
+            services.AddDbContext<DB>(options => options.UseMySql(Configuration.GetConnectionString("ClientDBContext")));
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -48,7 +48,7 @@ namespace WISA
                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
                 options.User.RequireUniqueEmail = false;
 
-            }).AddEntityFrameworkStores<ClientDbContext>().AddDefaultTokenProviders().AddDefaultUI();
+            }).AddEntityFrameworkStores<DB>().AddDefaultTokenProviders().AddDefaultUI();
 
 
 
@@ -73,22 +73,17 @@ namespace WISA
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(MMPolicies.AllowSuperUser, policy => policy.RequireClaim(MMClaimTypes.SuperUser, MMClaimValues.Access));
-                options.AddPolicy(MMPolicies.AllowAdminUser, policy => policy.RequireClaim(MMClaimTypes.AdminUser, MMClaimValues.Access));
-                options.AddPolicy(MMPolicies.AllowUserAccess, policy => policy.RequireClaim(MMClaimTypes.ClientUser, MMClaimValues.Access));
-                options.AddPolicy(MMPolicies.AllowMemberAccess, 
-                    policy => policy.RequireClaim(MMClaimTypes.MemberUser, MMClaimValues.Access).RequireClaim(MMClaimTypes.ContactUser, MMClaimValues.Access)
-                    );
-                options.AddPolicy(MMPolicies.AllowContactAccess, policy => policy.RequireClaim(MMClaimTypes.ContactUser, MMClaimValues.Access));
-                options.AddPolicy(MMPolicies.AllowSetUp, policy => policy.RequireClaim(MMClaimTypes.SetUp));
-                options.AddPolicy(MMPolicies.AllowSetupDelete, policy => policy.RequireClaim(MMClaimTypes.SetUp, MMClaimValues.Delete));
-                options.AddPolicy(MMPolicies.AllowSetupUpdate, policy => policy.RequireClaim(MMClaimTypes.SetUp, MMClaimValues.Update));
-                options.AddPolicy(MMPolicies.AllowToViewReports, policy => policy.RequireClaim(MMClaimTypes.Report, MMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowSuperUser, policy => policy.RequireClaim(MDMClaimTypes.SuperUser, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowAdminUser, policy => policy.RequireClaim(MDMClaimTypes.AdminUser, MDMClaimValues.Access));
+                options.AddPolicy(MDMPolicies.AllowSetUp, policy => policy.RequireClaim(MDMClaimTypes.SetUp));
+                options.AddPolicy(MDMPolicies.AllowSetupDelete, policy => policy.RequireClaim(MDMClaimTypes.SetUp, MDMClaimValues.Delete));
+                options.AddPolicy(MDMPolicies.AllowSetupUpdate, policy => policy.RequireClaim(MDMClaimTypes.SetUp, MDMClaimValues.Update));
+                options.AddPolicy(MDMPolicies.AllowToViewReports, policy => policy.RequireClaim(MDMClaimTypes.Report, MDMClaimValues.Access));
             });
 
 
 
-            services.AddHostedService<MMDailySchedulerService>();
+            services.AddHostedService<MDMDailySchedulerService>();
             services
                  .AddMvc()
                  .AddRazorPagesOptions(options =>
@@ -115,7 +110,7 @@ namespace WISA
 
             // using (var serviceScope = app.ApplicationServices.CreateScope())
             // {
-            //     var context = serviceScope.ServiceProvider.GetService<ClientDbContext>();
+            //     var context = serviceScope.ServiceProvider.GetService<DB>();
             //     context.Database.Migrate();
             // }
 

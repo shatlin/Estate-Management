@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
+using MDM.Models;
 
-namespace MM.Pages
+namespace MDM.Pages
 {
     public class TestedrModel : PageModel
     {
         private readonly ILogger<TestedrModel> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ClientDbContext _context;
+        private readonly DB _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
 
@@ -23,7 +23,7 @@ namespace MM.Pages
 
         public TestedrModel(SignInManager<ApplicationUser> signInManager,
             ILogger<TestedrModel> logger,
-            UserManager<ApplicationUser> userManager, ClientDbContext context)
+            UserManager<ApplicationUser> userManager, DB context)
         {
             _userManager = userManager;
             _signInManager = signInManager;

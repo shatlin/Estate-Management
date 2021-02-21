@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using MM.ClientModels;
+using MDM.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Web;
 
-namespace MM.Pages.Client.Account
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public partial class EmailModel : PageModel

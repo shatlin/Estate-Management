@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class Ethnicity
     {
         public Ethnicity()
         {
-            MemberUser = new HashSet<MemberUser>();
+            SystemUser = new HashSet<SystemUser>();
         }
 
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace MM.ClientModels
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
 
-        public virtual ICollection<MemberUser> MemberUser { get; set; }
+        public virtual ICollection<SystemUser> SystemUser { get; set; }
     }
 
     public partial class EthnicityConfiguration : IEntityTypeConfiguration<Ethnicity>

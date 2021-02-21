@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class ContactUsRelatedTo
     {

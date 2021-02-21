@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
-namespace MM.Pages.Client.Account
+using MDM.Models;
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
@@ -48,16 +48,9 @@ namespace MM.Pages.Client.Account
 
             if (result.Succeeded)
             {
-                if (Convert.ToBoolean(user.IsAdminCreated)==true)
-                {
-                    code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    return LocalRedirect("/Account/SetNewPassword?Code=" + code+"&email="+user.Email);
-                }
-                else
-                {
+               
                     StatusMessage = "Email confirmed Successfully";
-                }
+               
             }
             else
             {

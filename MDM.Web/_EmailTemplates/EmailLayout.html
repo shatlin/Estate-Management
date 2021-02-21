@@ -1,196 +1,324 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html PUBLIC>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if gte mso 9]>
+      <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG />
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+      </xml>
+    <![endif]-->
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <style type="text/css">
-        /* FONTS */
-        @@media screen {
-            @@font-face {
-                font-family: 'Lato';
-                font-style: normal;
-                font-weight: 400;
-                src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+    <meta name="format-detection" content="date=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <!--[if !mso]><!-->
+    <link href="https://fonts.googleapis.com/css?family=Kreon:400,700|Playfair+Display:400,400i,700,700i|Raleway:400,400i,700,700i|Roboto:400,400i,700,700i"
+          rel="stylesheet" />
+    <!--<![endif]-->
+    <title>Email Alert</title>
+    <!--[if gte mso 9]>
+      <style type="text/css" media="all">
+        sup {
+          font-size: 100% !important;
+        }
+      </style>
+    <![endif]-->
+    <style type="text/css" media="screen">
+            /* Linked Styles */
+            body {
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                min-width: 100% !important;
+                width: 100% !important;
+                background: #ffffff;
+                /*1e52bd;*/
+                -webkit-text-size-adjust: none;
             }
 
-            @@font-face {
-                font-family: 'Lato';
-                font-style: normal;
-                font-weight: 700;
-                src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+            a {
+                color: #000001;
+                text-decoration: none;
             }
 
-            @@font-face {
-                font-family: 'Lato';
-                font-style: italic;
-                font-weight: 400;
-                src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+            p {
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 12px;
             }
 
-            @@font-face {
-                font-family: 'Lato';
-                font-style: italic;
-                font-weight: 700;
-                src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+            img {
+                -ms-interpolation-mode: bicubic; /* Allow smoother rendering of resized image in Internet Explorer */
             }
-        }
-        /* CLIENT-SPECIFIC STYLES */
-        body, table, td, a {
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
 
-        table, td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-        }
-
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
-        /* RESET STYLES */
-        img {
-            border: 0;
-            height: auto;
-            line-height: 100%;
-            outline: none;
-            text-decoration: none;
-        }
-
-        table {
-            border-collapse: collapse !important;
-        }
-
-        body {
-            height: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-        }
-        /* iOS BLUE LINKS */
-        a[x-apple-data-detectors] {
-            color: inherit !important;
-            text-decoration: none !important;
-            font-size: inherit !important;
-            font-family: inherit !important;
-            font-weight: inherit !important;
-            line-height: inherit !important;
-        }
-        /* MOBILE STYLES */
-        @@media screen and (max-width:600px) {
-            h1 {
-                font-size: 32px !important;
-                line-height: 32px !important;
+            .mcnPreviewText {
+                display: none !important;
             }
-        }
-        /* ANDROID CENTER FIX */
-        div[style*="margin: 16px 0;"] {
-            margin: 0 !important;
-        }
-    </style>
+
+            .text-footer2 a {
+                color: #ffffff;
+            }
+
+            /* Mobile styles */
+            @@media only screen and (max-device-width: 480px), only screen and (max-width: 480px) {
+                .mobile-shell {
+                    width: 100% !important;
+                    min-width: 100% !important;
+                }
+
+                .m-center {
+                    text-align: center !important;
+                }
+
+                .m-left {
+                    text-align: left !important;
+                    margin-right: auto !important;
+                }
+
+                .center {
+                    margin: 0 auto !important;
+                }
+
+                .content2 {
+                    padding: 8px 15px 12px !important;
+                }
+
+                .t-left {
+                    float: left !important;
+                    margin-right: 30px !important;
+                }
+
+                .t-left-2 {
+                    float: left !important;
+                }
+
+                .td {
+                    width: 100% !important;
+                    min-width: 100% !important;
+                }
+
+                .content {
+                    padding: 30px 15px !important;
+                }
+
+                .section {
+                    padding: 30px 15px 0px !important;
+                }
+
+                .m-br-15 {
+                    height: 15px !important;
+                }
+
+                .mpb5 {
+                    padding-bottom: 5px !important;
+                }
+
+                .mpb15 {
+                    padding-bottom: 15px !important;
+                }
+
+                .mpb20 {
+                    padding-bottom: 20px !important;
+                }
+
+                .mpb30 {
+                    padding-bottom: 30px !important;
+                }
+
+                .m-padder {
+                    padding: 0px 15px !important;
+                }
+
+                .m-padder2 {
+                    padding-left: 15px !important;
+                    padding-right: 15px !important;
+                }
+
+                .p70 {
+                    padding: 30px 0px !important;
+                }
+
+                .pt70 {
+                    padding-top: 30px !important;
+                }
+
+                .p0-15 {
+                    padding: 0px 15px !important;
+                }
+
+                .p30-15 {
+                    padding: 30px 15px !important;
+                }
+
+                .p30-15-0 {
+                    padding: 30px 15px 0px 15px !important;
+                }
+
+                .p0-15-30 {
+                    padding: 0px 15px 30px 15px !important;
+                }
+
+                .text-footer {
+                    text-align: center !important;
+                }
+
+                .m-td,
+                .m-hide {
+                    display: none !important;
+                    width: 0 !important;
+                    height: 0 !important;
+                    font-size: 0 !important;
+                    line-height: 0 !important;
+                    min-height: 0 !important;
+                }
+
+                .m-block {
+                    display: block !important;
+                }
+
+                .fluid-img img {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    height: auto !important;
+                }
+
+                .column,
+                .column-dir,
+                .column-top,
+                .column-empty,
+                .column-top-30,
+                .column-top-60,
+                .column-empty2,
+                .column-bottom {
+                    float: left !important;
+                    width: 100% !important;
+                    display: block !important;
+                }
+
+                .column-empty {
+                    padding-bottom: 15px !important;
+                }
+
+                .column-empty2 {
+                    padding-bottom: 30px !important;
+                }
+
+                .content-spacing {
+                    width: 15px !important;
+                }
+            }
+
+            .footer {
+                text-align: center;
+                background: #ffffff !important;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+
+            .fb-twitter {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
+            .headertext {
+                font-size: 23px;
+                color: #eee;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+            }
+        </style>
 </head>
-<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+<body class="body"
+      style="
+      padding: 0 !important;
+      margin: 0 !important;
+      display: block !important;
+      min-width: 100% !important;
+      width: 100% !important;
+      background: #ffffff;
+      -webkit-text-size-adjust: none;
+    ">
 
-    <!-- HIDDEN PREHEADER TEXT -->
-    <!--<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-        We're thrilled to have you here! Get ready to dive into your new account.
-    </div>-->
+<table width="100%" ;border="0" ;cellspacing="0" ;cellpadding="0" ;bgcolor="#ffffff">
+             <tr>
+                 <td align="center" valign="top">
+                     <!-- Main -->
+        <table width="650"
+               border="0"
+               cellspacing="0"
+               cellpadding="0"
+               class="mobile-shell">
+            <tr>
+                <td class="td"
+                    style="
+                      width: 650px;
+                      min-width: 650px;
+                      font-size: 0pt;
+                      line-height: 0pt;
+                      padding: 0;
+                      margin: 0;
+                      font-weight: normal;
+                    ">
+                    <!-- Header -->
+                    
+                    <!-- END Header -->
+                    <!--EMAIL BODY-->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <!-- COPY -->
+                        <tr>
+                            <td bgcolor="#ffffff"
+                                align="left"
+                                style="
+                            padding: 20px 30px 40px 30px;
+                            color: #666666;
+                            font-family: 'Lato', Helvetica, Arial, sans-serif;
+                            font-size: 18px;
+                            font-weight: 400;
+                            line-height: 25px;
+                          ">
+                                [EmailBody]
+                            </td>
+                        </tr>
+                    </table>
 
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <!-- LOGO -->
-        <tr>
-            <td bgcolor="#539be2" align="center">
-                <!--[if (gte mso 9)|(IE)]>
-                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                <tr>
-                <td align="center" valign="top" width="600">
-                <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <tr>
-                        <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
-                            <a href="http://litmus.com" target="_blank">
-                                <img alt="Logo" src="http://litmuswww.s3.amazonaws.com/community/template-gallery/ceej/logo.png" width="40" height="40" style="display: block; width: 40px; max-width: 40px; min-width: 40px; font-family: 'Lato', Helvetica, Arial, sans-serif; color: #ffffff; font-size: 18px;" border="0">
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
                 </td>
-                </tr>
-                </table>
-                <![endif]-->
-            </td>
-        </tr>
-        <!-- HERO -->
-        <tr>
-            <td bgcolor="#539be2" align="center" style="padding: 0px 10px 0px 10px;">
-                <!--[if (gte mso 9)|(IE)]>
-                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                <tr>
-                <td align="center" valign="top" width="600">
-                <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <tr>
-                        <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                            <h1 style="font-size: 48px; font-weight: 400; margin: 0;">[EmailSubject]</h1>
-                        </td>
-                    </tr>
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-                </td>
-                </tr>
-                </table>
-                <![endif]-->
-            </td>
-        </tr>
-        <!-- COPY BLOCK -->
-        <tr>
-            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-                <!--[if (gte mso 9)|(IE)]>
-                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                <tr>
-                <td align="center" valign="top" width="600">
-                <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <!-- COPY -->
-                    <tr>
-                        <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            [EmailBody]
-                        </td>
-                    </tr>
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-                </td>
-                </tr>
-                </table>
-                <![endif]-->
-            </td>
-        </tr>
-        <!-- FOOTER -->
-        <tr>
-            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-                <!--[if (gte mso 9)|(IE)]>
-                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                <tr>
-                <td align="center" valign="top" width="600">
-                <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <tr>
-                        <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">
-                            <p style="margin: 0;"><br />https://wisa.org.za/<br /></p>
-                        </td>
-                    </tr>
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-                </td>
-                </tr>
-                </table>
-                <![endif]-->
-            </td>
-        </tr>
-    </table>
+            </tr>
+            <!--<tr>
+                <td bgcolor="#ffffff"
+                    class="p30-15 img-center"
+                    style="
+                            padding: 30px;
+                            border-radius: 20px 20px 0px 0px;
+                            font-size: 0pt;
+                            line-height: 0pt;
+                            text-align: center;
+                          ">
 
+                    <a href="#" target="_blank">
+                        <img src="https://pbs.twimg.com/media/EEFNUczXYAEX-uM?format=jpg&name=medium"
+                             width="800"
+                             height="250"
+                             border="0"
+                             alt=""
+                             title="" />
+                    </a>
+                </td>
+            </tr>-->
+        </table>
+        <!-- END Footer -->
+        </td>
+        </tr>
+        </table>
+        <!-- END Main -->
+    
 </body>
 </html>

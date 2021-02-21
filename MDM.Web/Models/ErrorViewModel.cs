@@ -1,6 +1,6 @@
 using System;
 
-namespace WISA.Models
+namespace MDM.Models
 {
     public class ErrorViewModel
     {

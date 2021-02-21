@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
+using MDM.Models;
 
-namespace MM.Pages
+namespace MDM.Pages
 {
 
     public class DownloadEmail : PageModel
@@ -20,8 +20,8 @@ namespace MM.Pages
         private readonly ILogger<ErrorModel> _logger;
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
-        private readonly ClientDbContext _clientDbContext;
-        public DownloadEmail(ILogger<ErrorModel> logger, IWebHostEnvironment env, IConfiguration configuration,ClientDbContext clientDbContext)
+        private readonly DB _clientDbContext;
+        public DownloadEmail(ILogger<ErrorModel> logger, IWebHostEnvironment env, IConfiguration configuration,DB clientDbContext)
         {
             _logger = logger;
             _env = env;
@@ -33,14 +33,14 @@ namespace MM.Pages
         {
             try
             {
-                string email =  _clientDbContext.MemberEmailXref.Where(x => x.Id == mailId).FirstOrDefault().Body;
+              //  string email =  _clientDbContext.MemberEmailXref.Where(x => x.Id == mailId).FirstOrDefault().Body;
 
             string downloadFileName = "Email_"+ mailId + ".html";
 
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream);
-            writer.Write(email);
-            writer.Flush();
+            writer.Write("");//  writer.Write(email);
+                writer.Flush();
             stream.Position = 0;
             return File(stream, "text/html", downloadFileName);
             }

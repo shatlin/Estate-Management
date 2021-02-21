@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class UserType
     {
         public UserType()
         {
-            User = new HashSet<ApplicationUser>();
+            ApplicationUser = new HashSet<ApplicationUser>();
         }
 
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace MM.ClientModels
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
 
-        public virtual ICollection<ApplicationUser> User { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
     }
 
 
@@ -48,7 +48,7 @@ namespace MM.ClientModels
             modelBuilder.Entity<UserType>().HasData(
                 new UserType { Id = 1, Name = "Admin", Description = "Admin", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
                 new UserType { Id = 2, Name = "Member", Description = "Member", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) },
-                  new UserType { Id = 3, Name = "Contact", Description = "Contact", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
+                new UserType { Id = 3, Name = "Contact", Description = "Contact", CreatedOn = new DateTime(2020, 8, 12), ModifiedOn = new DateTime(2020, 8, 12) }
                  );
 
         }

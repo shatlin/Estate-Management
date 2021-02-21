@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class Occupation
     {
         public Occupation()
         {
-            MemberUser = new HashSet<MemberUser>();
+            SystemUser = new HashSet<SystemUser>();
         }
 
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace MM.ClientModels
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
 
-        public virtual ICollection<MemberUser> MemberUser { get; set; }
+        public virtual ICollection<SystemUser> SystemUser { get; set; }
     }
     public partial class OccupationConfiguration : IEntityTypeConfiguration<Occupation>
     {

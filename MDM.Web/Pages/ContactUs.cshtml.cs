@@ -8,18 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MM.ClientModels;
+using MDM.Models;
 
 
-namespace MM.Pages.Client
+namespace MDM.Pages.Client
 {
     public class ContactUsModel : PageModel
     {
-        private readonly ClientDbContext _context;
+        private readonly DB _context;
         
         private readonly IEmailSender _emailSender;
 
-        public ContactUsModel( IEmailSender emailSender, ClientDbContext clientDbContext)
+        public ContactUsModel( IEmailSender emailSender, DB clientDbContext)
         {
             _emailSender = emailSender;
             _context = clientDbContext;

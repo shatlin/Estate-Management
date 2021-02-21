@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class UserActivity
     {

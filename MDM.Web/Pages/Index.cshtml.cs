@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
+using MDM.Models;
 
-namespace MM.Pages
+namespace MDM.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ClientDbContext _context;
+        private readonly DB _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
 
@@ -22,7 +22,7 @@ namespace MM.Pages
 
         public IndexModel(SignInManager<ApplicationUser> signInManager,
             ILogger<IndexModel> logger,
-            UserManager<ApplicationUser> userManager, ClientDbContext context)
+            UserManager<ApplicationUser> userManager, DB context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,20 +38,6 @@ namespace MM.Pages
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-                MemberUser memberUser = _context.MemberUser.Where(x => x.ApplicaitonUserId == user.Id).FirstOrDefault();
-
-                if (memberUser != null)
-                {
-                    if (memberUser.AccountBalanceOftheCompany != null)
-                    {
-                        AccountBalance = Convert.ToDecimal(memberUser.AccountBalanceOftheCompany);
-                    }
-                    else
-                    {
-                        AccountBalance = 0.00M;
-                    }
-                }
-                
                 return Page();
             }
              return LocalRedirect("/Account/Login");

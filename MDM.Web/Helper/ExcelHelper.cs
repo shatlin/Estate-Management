@@ -10,7 +10,7 @@ using ClosedXML.Excel;
 using ClosedXML.Utils;
 using ClosedXML.Attributes;
 
-namespace MM.Helper
+namespace MDM.Helper
 {
     public class ExcelHelper
     {

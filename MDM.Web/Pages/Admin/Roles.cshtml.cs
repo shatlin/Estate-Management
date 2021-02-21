@@ -9,23 +9,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
-using MM.Helper;
-using WISA.Services;
+using MDM.Models;
+using MDM.Helper;
+using MDM.Services;
 
-namespace MM.Pages.Client
+namespace MDM.Pages.Client
 {
-    [Authorize(Policy = MMPolicies.AllowSetUp)]
+    [Authorize(Policy = MDMPolicies.AllowSetUp)]
     public class RoleModel : PageModel
     {
-        private readonly ClientDbContext _context;
+        private readonly DB _context;
         private readonly ILogger<RoleModel> _logger;
         private IActivity _activity;
         private string EntityName = "Role";
         private readonly RoleManager<ApplicationRole> _roleManager;
 
 
-        public RoleModel(ClientDbContext context, RoleManager<ApplicationRole> roleManager, ILogger<RoleModel> logger, IActivity activity)
+        public RoleModel(DB context, RoleManager<ApplicationRole> roleManager, ILogger<RoleModel> logger, IActivity activity)
         {
             _context = context;
             _activity = activity;

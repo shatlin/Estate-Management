@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 
-namespace MM.ClientModels
+namespace MDM.Models
 {
     public partial class ContactUs
     {
@@ -26,7 +26,7 @@ namespace MM.ClientModels
         public int? ModifiedBy { get; set; }
 
         public virtual ContactUsRelatedTo ContactUsRelatedTo { get; set; }
-        public virtual ClientUser ActionedByUser { get; set; }
+       
     }
 
     public partial class ContactUsConfiguration : IEntityTypeConfiguration<ContactUs>
@@ -62,11 +62,7 @@ namespace MM.ClientModels
              .OnDelete(DeleteBehavior.ClientSetNull)
              .HasConstraintName("FK_ContactUs_ContactUsRelatedTo");
 
-            builder.HasOne(d => d.ActionedByUser)
-               .WithMany(p => p.ContactUs)
-               .HasForeignKey(d => d.ActionedByUserId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("FK_ContactUs_ClientUser");
+         
         }
     }
 

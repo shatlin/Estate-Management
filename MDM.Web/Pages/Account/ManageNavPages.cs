@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace MM.Pages.Client.Account
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public static class ManageNavPages

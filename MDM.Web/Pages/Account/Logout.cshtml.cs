@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MM.ClientModels;
-using MM.Helper;
-using WISA.Services;
+using MDM.Models;
+using MDM.Helper;
+using MDM.Services;
 
-namespace MM.Pages.Client.Account
+namespace MDM.Pages.Client.Account
 {
     [AllowAnonymous]
     public class LogoutModel : PageModel

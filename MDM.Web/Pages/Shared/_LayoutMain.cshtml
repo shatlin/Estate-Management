@@ -12,12 +12,12 @@
     <link rel="icon" type="image/png" href="~/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>@ViewData["Title"] - WISA</title>
+    <title>@ViewData["Title"] - @GlobalVariables.AppShortName</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/assets/css/wisa.css" rel="stylesheet" />
+    <link href="~/assets/css/MDM.css" rel="stylesheet" />
 
     <style>
         .table > thead > tr > th,
@@ -101,11 +101,11 @@
                 Tip 1: You can change the color of the sidebar using: data-color=" default | primary | info | success | warning | danger |"
             -->
             @{
-                var isSuperUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSuperUser).Result.Succeeded;
-                var isAdminUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowAdminUser).Result.Succeeded;
-                var isUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowUserAccess).Result.Succeeded;
-                var isMember = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowMemberAccess).Result.Succeeded;
-                var isContact = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowContactAccess).Result.Succeeded;
+                var isSuperUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSuperUser).Result.Succeeded;
+                var isAdminUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdminUser).Result.Succeeded;
+                var isUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowUserAccess).Result.Succeeded;
+                var isMember = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowMemberAccess).Result.Succeeded;
+                var isContact = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowContactAccess).Result.Succeeded;
             }
 
             @if (isMember || isContact)
@@ -113,7 +113,7 @@
                 <div class="logo">
                     <a href="/" class="simple-text logo-mini">
                         <div class="logo-image-small">
-                            <img src="/images/wisa-logo.png">
+                            <img src="/images/mdm-logo.png">
                         </div>
                     </a>
                     <a href="/" class="simple-text logo-normal">
@@ -127,7 +127,7 @@
                 <div class="logo">
                     <a href="/Admin" class="simple-text logo-mini">
                         <div class="logo-image-small">
-                            <img src="/images/wisa-logo.png">
+                            <img src="/images/mdm-logo.png">
                         </div>
                     </a>
                     <a href="/" class="simple-text logo-normal">

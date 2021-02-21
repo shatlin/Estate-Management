@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <Compile Remove="Helper\IdentityHelper.cs" />
-    <Compile Remove="Pages\Account\Admin\AdminLock.cshtml.cs" />
     <Compile Remove="_EmailTemplates\ConfirmAccountEmailViewModel.cs" />
     <Compile Remove="_EmailTemplates\FirstReminderEmailViewModel.cs" />
     <Compile Remove="Pages\EmailTest.cshtml.cs" />
@@ -53,7 +52,6 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="nlog.config" />
-    <Content Remove="Pages\Account\Admin\AdminLock.cshtml" />
     <Content Remove="_EmailTemplates\EmailLayoutNew.cshtml" />
     <Content Remove="Pages\EmailTest.cshtml" />
     <Content Remove="Pages\Indexs.cshtml" />
@@ -83,12 +81,6 @@
     <None Remove="docs\Users.xlsx" />
     <None Remove="_EmailTemplates\ConfirmEmail.html" />
     <None Remove="_EmailTemplates\EmailLayout.html" />
-    <None Remove="_EmailTemplates\EmailLayoutMain.html" />
-    <None Remove="_EmailTemplates\FirstReminder.html" />
-    <None Remove="_EmailTemplates\NewMember.html" />
-    <None Remove="_EmailTemplates\NewNonIndividual.html" />
-    <None Remove="_EmailTemplates\SecondReminder.html" />
-    <None Remove="_EmailTemplates\ThirdReminder.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,12 +90,6 @@
   <ItemGroup>
     <Content Include="_EmailTemplates\ConfirmEmail.html" />
     <Content Include="_EmailTemplates\EmailLayout.html" />
-    <Content Include="_EmailTemplates\EmailLayoutMain.html" />
-    <Content Include="_EmailTemplates\FirstReminder.html" />
-    <Content Include="_EmailTemplates\NewNonIndividual.html" />
-    <Content Include="_EmailTemplates\NewMember.html" />
-    <Content Include="_EmailTemplates\SecondReminder.html" />
-    <Content Include="_EmailTemplates\ThirdReminder.html" />
     <Content Include="gulpfile.js" />
   </ItemGroup>
 
@@ -304,6 +290,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Validation\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="_Documents\Finance\" />
   </ItemGroup>
 

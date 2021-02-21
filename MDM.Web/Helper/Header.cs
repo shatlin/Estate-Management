@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MM.Helper
+namespace MDM.Helper
 {
     public partial class Header
     {
