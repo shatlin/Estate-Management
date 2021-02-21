@@ -1,0 +1,258 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService AuthorizationService
+@using Microsoft.AspNetCore.Identity;
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img//apple-icon.png">
+    <link rel="icon" type="image/png" href="~/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>@ViewData["Title"] - WISA</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/assets/css/wisa.css" rel="stylesheet" />
+
+    <style>
+        .table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            padding: 3px !important;
+            font-size: 12px;
+        }
+
+
+        .ps-container > .ps-scrollbar-x-rail,
+        .ps-container > .ps-scrollbar-y-rail {
+            opacity: 0.6;
+        }
+
+        table.dataTable .dtplaceholder::-webkit-input-placeholder {
+            text-align: right;
+        }
+
+        .datatableSearch {
+            border-radius: 0;
+            color: black;
+            padding-left: 1px;
+            font-family: FontAwesome,Arial, sans-serif;
+        }
+
+        .dataTables_wrapper {
+            font-size: 13px
+        }
+
+        .pagination .page-item .page-link {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        table.dataTable thead tr {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-tabs-navigation .nav > .nav-item > .nav-link {
+            padding-bottom: 10px;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+
+        body {
+            font-size: 12px;
+        }
+        /*   .nav-pills .nav-item:first-child  .nav-link {
+            border-radius: 4px 0 0 4px !important;
+
+        }
+        .nav-pills .nav-item:last-child .nav-link {
+            border-radius: 0 4px 4px 0 !important;
+        }*/
+
+        h6 {
+            text-transform: none;
+        }
+
+        .form-control {
+            font-size: 12px;
+        }
+
+        .main-panel {
+            padding-top: 15px;
+        }
+    </style>
+
+
+</head>
+<body class="">
+    <div class="wrapper">
+        <div id="sidebar" class="sidebar" data-color="primary" data-active-color="danger">
+            <!--
+                Tip 1: You can change the color of the sidebar using: data-color=" default | primary | info | success | warning | danger |"
+            -->
+            @{
+                var isSuperUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSuperUser).Result.Succeeded;
+                var isAdminUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowAdminUser).Result.Succeeded;
+                var isUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowUserAccess).Result.Succeeded;
+                var isMember = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowMemberAccess).Result.Succeeded;
+                var isContact = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowContactAccess).Result.Succeeded;
+            }
+
+            @if (isMember || isContact)
+            {
+                <div class="logo">
+                    <a href="/" class="simple-text logo-mini">
+                        <div class="logo-image-small">
+                            <img src="/images/wisa-logo.png">
+                        </div>
+                    </a>
+                    <a href="/" class="simple-text logo-normal">
+                        WISA
+                    </a>
+                </div>
+            }
+
+            @if (isUser || isAdminUser || isSuperUser)
+            {
+                <div class="logo">
+                    <a href="/Admin" class="simple-text logo-mini">
+                        <div class="logo-image-small">
+                            <img src="/images/wisa-logo.png">
+                        </div>
+                    </a>
+                    <a href="/" class="simple-text logo-normal">
+                        WISA
+                    </a>
+                </div>
+            }
+
+
+            <div class="sidebar-wrapper">
+
+
+                <partial name="_NavMain" />
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent w-100">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize">
+                            <button id="minimizeSidebar" class="btn btn-icon btn-round">
+                                <i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
+                                <i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
+                            </button>
+                        </div>
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <form onsubmit="return false;">
+                            <div style="min-width:600px;" class="searchbox input-group no-border" id="Searchdiv">
+                                <input name="Search" id="Search" type="text" value="" class="form-control" placeholder="Search...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="nc-icon nc-zoom-split"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="collapse navbar-collapse justify-content-right text-right" id="navigation">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+
+            <!-- End Navbar -->
+            <div class="content">
+                @RenderBody()
+            </div>
+            <footer class="footer footer-black  footer-white">
+                <div class="container-fluid">
+                    <div class="row">
+                        <nav class="footer-nav">
+                            <ul>
+                                <li><a href="/" target="_blank">Privacy & Legal</a></li>
+                                <li><a href="/" target="_blank">Contact Us</a></li>
+                                <li><a href="/" target="_blank">Apply</a></li>
+                            </ul>
+                        </nav>
+                        <div class="credits ml-auto">
+                            <span class="copyright">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script> Evolutio
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/assets/js/core/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/assets/js/core/popper.min.js"></script>
+    <script src="~/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/assets/js/plugins/moment.min.js"></script>
+    <script src="~/assets/js/plugins/bootstrap-switch.js"></script>
+    <script src="~/assets/js/plugins/sweetalert2.min.js"></script>
+    <script src="~/assets/js/plugins/jquery.validate.min.js"></script>
+    <script src="~/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <script src="~/assets/js/plugins/bootstrap-selectpicker.js"></script>
+    <script src="~/assets/js/plugins/bootstrap-datetimepicker.js"></script>
+    <script src="~/assets/js/plugins/bootstrap-tagsinput.js"></script>
+    <script src="~/assets/js/plugins/jasny-bootstrap.min.js"></script>
+    <script src="~/assets/js/plugins/nouislider.min.js"></script>
+    <script src="~/assets/js/plugins/bootstrap-notify.js"></script>
+
+    <script src="~/assets/js/paper-dashboard.min.js?v=2.1.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="~/assets/demo/demo.js"></script>
+
+    <script src="~/assets/js/plugins/jquery.dataTables.min.js"></script>
+
+    <script src="~/js/layoutmain.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

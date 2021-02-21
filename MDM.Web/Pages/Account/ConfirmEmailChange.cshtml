@@ -1,0 +1,17 @@
+﻿@page
+@model ConfirmEmailChangeModel
+@{
+    ViewData["Title"] = "Confirm email change";
+    ViewData["Page"] = "Confirm Email Change";
+    Layout = "_LayoutAnonymous";
+}
+
+<p class="display-3 text-white text-center">WISA</p>
+<p class="lead text-center text-white"> Email Change Confirmation</p>
+
+<form method="post" class="loginPage">
+    <br />
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+</form>
+
+

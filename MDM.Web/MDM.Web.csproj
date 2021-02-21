@@ -1,0 +1,310 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <UserSecretsId>0edec81f-e129-418b-94d5-7018eb552a2f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataMigration\**" />
+    <Compile Remove="examples\**" />
+    <Compile Remove="Pages\Core\**" />
+    <Compile Remove="Pages\DataMigration\**" />
+    <Compile Remove="Pages\Member\Account\**" />
+    <Compile Remove="Pages\old\**" />
+    <Content Remove="DataMigration\**" />
+    <Content Remove="examples\**" />
+    <Content Remove="Pages\Core\**" />
+    <Content Remove="Pages\DataMigration\**" />
+    <Content Remove="Pages\Member\Account\**" />
+    <Content Remove="Pages\old\**" />
+    <EmbeddedResource Remove="DataMigration\**" />
+    <EmbeddedResource Remove="examples\**" />
+    <EmbeddedResource Remove="Pages\Core\**" />
+    <EmbeddedResource Remove="Pages\DataMigration\**" />
+    <EmbeddedResource Remove="Pages\Member\Account\**" />
+    <EmbeddedResource Remove="Pages\old\**" />
+    <None Remove="DataMigration\**" />
+    <None Remove="examples\**" />
+    <None Remove="Pages\Core\**" />
+    <None Remove="Pages\DataMigration\**" />
+    <None Remove="Pages\Member\Account\**" />
+    <None Remove="Pages\old\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helper\IdentityHelper.cs" />
+    <Compile Remove="Pages\Account\Admin\AdminLock.cshtml.cs" />
+    <Compile Remove="_EmailTemplates\ConfirmAccountEmailViewModel.cs" />
+    <Compile Remove="_EmailTemplates\FirstReminderEmailViewModel.cs" />
+    <Compile Remove="Pages\EmailTest.cshtml.cs" />
+    <Compile Remove="Pages\Indexs.cshtml.cs" />
+    <Compile Remove="Pages\Manage\NonIndividualMember - Copy.cshtml.cs" />
+    <Compile Remove="Pages\Manage\OrgMember.cshtml.cs" />
+    <Compile Remove="Pages\Member\EditMember.cshtml.cs" />
+    <Compile Remove="Pages\Member\Member.cshtml.cs" />
+    <Compile Remove="Pages\Member\ProfessionalApplication.cshtml.cs" />
+    <Compile Remove="Pages\Member\ProfessionalApplicationNew.cshtml.cs" />
+    <Compile Remove="Pages\Member\SigninSignup.cshtml.cs" />
+    <Compile Remove="Services\RazorViewToStringRenderer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="nlog.config" />
+    <Content Remove="Pages\Account\Admin\AdminLock.cshtml" />
+    <Content Remove="_EmailTemplates\EmailLayoutNew.cshtml" />
+    <Content Remove="Pages\EmailTest.cshtml" />
+    <Content Remove="Pages\Indexs.cshtml" />
+    <Content Remove="Pages\Manage\NonIndividualMember - Copy.cshtml" />
+    <Content Remove="Pages\Manage\OrgMember.cshtml" />
+    <Content Remove="Pages\Member\ApplicationIndividual2.cshtml" />
+    <Content Remove="Pages\Member\EditMember.cshtml" />
+    <Content Remove="Pages\Member\Member.cshtml" />
+    <Content Remove="Pages\Member\ProfessionalApplication.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Member\nucleo.cshtml" />
+    <Content Remove="Pages\Member\ProfessionalApplicationNew.cshtml" />
+    <Content Remove="Pages\Member\SigninSignup.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\DianaShatlin\.nuget\packages\nlog.config\4.7.4\contentFiles\any\any\NLog.config" />
+    <None Remove="docs\All Clients AppUserData.xlsx" />
+    <None Remove="docs\All Clients Data.xlsx" />
+    <None Remove="docs\Client Mapping.xlsx" />
+    <None Remove="docs\Code to Extract Members.xlsx" />
+    <None Remove="docs\Dashboard.html" />
+    <None Remove="docs\Mapping New.xlsx" />
+    <None Remove="docs\User Stories.xlsx" />
+    <None Remove="docs\Users.xlsx" />
+    <None Remove="_EmailTemplates\ConfirmEmail.html" />
+    <None Remove="_EmailTemplates\EmailLayout.html" />
+    <None Remove="_EmailTemplates\EmailLayoutMain.html" />
+    <None Remove="_EmailTemplates\FirstReminder.html" />
+    <None Remove="_EmailTemplates\NewMember.html" />
+    <None Remove="_EmailTemplates\NewNonIndividual.html" />
+    <None Remove="_EmailTemplates\SecondReminder.html" />
+    <None Remove="_EmailTemplates\ThirdReminder.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Pages\DataMigration\Start.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="_EmailTemplates\ConfirmEmail.html" />
+    <Content Include="_EmailTemplates\EmailLayout.html" />
+    <Content Include="_EmailTemplates\EmailLayoutMain.html" />
+    <Content Include="_EmailTemplates\FirstReminder.html" />
+    <Content Include="_EmailTemplates\NewNonIndividual.html" />
+    <Content Include="_EmailTemplates\NewMember.html" />
+    <Content Include="_EmailTemplates\SecondReminder.html" />
+    <Content Include="_EmailTemplates\ThirdReminder.html" />
+    <Content Include="gulpfile.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.3" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.3" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" ExcludeAssets="All" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.21" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
+    <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
+    <PackageReference Include="Pomelo.JsonObject" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <None Include="DataMigration\account.xlsx" />
+    <None Include="DataMigration\annotation_accountXref.xlsx" />
+    <None Include="DataMigration\annotation_contactXref.xlsx" />
+    <None Include="DataMigration\contact.xlsx" />
+    <None Include="DataMigration\customeraddress.xlsx" />
+    <None Include="DataMigration\ec_cpd.xlsx" />
+    <None Include="DataMigration\ec_divisionmembership.xlsx" />
+    <None Include="DataMigration\ec_employmenthistory.xlsx" />
+    <None Include="DataMigration\ec_membermanagement.xlsx" />
+    <None Include="DataMigration\ec_membershipaffiliations.xlsx" />
+    <None Include="DataMigration\ec_qualifications.xlsx" />
+    <None Include="DataMigration\ec_referee.xlsx" />
+    <None Include="DataMigration\ec_volunteer.xlsx" />
+    <None Include="DataMigration\email.xlsx" />
+    <None Include="DataMigration\new_preferencerequest.xlsx" />
+    <None Include="DataMigration\oc_membership.xlsx" />
+    <None Include="Nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\DataMigration\Start.cshtml" />
+    <None Include="Pages\DataMigration\_ViewStart.cshtml" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\assets\css\paper-dashboard.css.map" />
+    <None Include="wwwroot\assets\demo\demo.js" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.woff2" />
+    <None Include="wwwroot\assets\js\core\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\core\jquery.min.js" />
+    <None Include="wwwroot\assets\js\core\popper.min.js" />
+    <None Include="wwwroot\assets\js\paper-dashboard.js" />
+    <None Include="wwwroot\assets\js\paper-dashboard.js.map" />
+    <None Include="wwwroot\assets\js\paper-dashboard.min.js" />
+    <None Include="wwwroot\assets\js\plugins\bootstrap-datetimepicker.js" />
+    <None Include="wwwroot\assets\js\plugins\bootstrap-notify.js" />
+    <None Include="wwwroot\assets\js\plugins\bootstrap-selectpicker.js" />
+    <None Include="wwwroot\assets\js\plugins\bootstrap-switch.js" />
+    <None Include="wwwroot\assets\js\plugins\bootstrap-tagsinput.js" />
+    <None Include="wwwroot\assets\js\plugins\chartjs.min.js" />
+    <None Include="wwwroot\assets\js\plugins\fullcalendar\daygrid.min.js" />
+    <None Include="wwwroot\assets\js\plugins\fullcalendar\fullcalendar.min.js" />
+    <None Include="wwwroot\assets\js\plugins\fullcalendar\interaction.min.js" />
+    <None Include="wwwroot\assets\js\plugins\fullcalendar\timegrid.min.js" />
+    <None Include="wwwroot\assets\js\plugins\jasny-bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery-jvectormap.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery.bootstrap-wizard.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery.dataTables.min.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery.validate.min.js" />
+    <None Include="wwwroot\assets\js\plugins\moment.min.js" />
+    <None Include="wwwroot\assets\js\plugins\nouislider.min.js" />
+    <None Include="wwwroot\assets\js\plugins\perfect-scrollbar.jquery.min.js" />
+    <None Include="wwwroot\assets\js\plugins\sweetalert2.min.js" />
+    <None Include="wwwroot\assets\scss\paper-dashboard.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-background.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-chart.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-collapse.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-contributions.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-info-area.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-lock.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-map.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-plain.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-pricing.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-profile.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-signup.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-stats-mini.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-stats.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-subcategories.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-tasks.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-testimonials.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-user.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_badges.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_cards.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_chartist.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_modals.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_page-header.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_popovers.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_social-buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_tags.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_transparency.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_vendor-prefixes-extend.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_vendor-prefixes.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_wizard.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-animate-bootstrap-notify.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-bootstrap-select.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-bootstrap-switch.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-bootstrap-table.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-card-wizard.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-datatables.net.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-datetimepicker.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-fullcalendar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-jasny-fileupload.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-jquery.jvectormap.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-nouislider.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-perfect-scrollbar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-sweetalert2.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-tagsinput.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_alerts.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_animated-buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_badges.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_cards.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_carousel.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_checkboxes-radio.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_example-pages.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_fixed-plugin.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_footers.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_images.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_info-areas.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_media-queries.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_misc-extend.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_misc.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_mixins.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_modals.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_navbar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_nucleo-outline.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_page-header.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_pagination.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_pills.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_popups.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_progress.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_responsive.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_sections.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_sidebar-and-main-panel.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_social-buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_tables.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_tabs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_timeline.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_typography.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\Account\_StatusMessage.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Pages\Manage\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Pages\Member\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Pages\Reports\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="C:\Users\ajivi\.nuget\packages\nlog.config\4.7.4\contentFiles\any\any\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="C:\Users\Diana\.nuget\packages\nlog.config\4.7.4\contentFiles\any\any\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="_Documents\Finance\" />
+  </ItemGroup>
+
+</Project>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

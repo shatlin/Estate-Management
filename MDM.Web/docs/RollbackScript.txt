@@ -1,0 +1,49 @@
+﻿delete from wisa_db.memberqualificationxref;
+delete from wisa_db.employmentmemberxref;
+delete from wisa_db.memberaffliationxref;
+delete from wisa_db.involvementmemberxref;
+delete from wisa_db.disabilitymemberxref;
+delete from wisa_db.dwsclassmemberxref;
+delete from wisa_db.memberemailxref;
+delete from wisa_db.memberrefereexref;
+delete from wisa_db.address where RelatedToId=1;
+delete from wisa_db.memberUser;
+delete from wisa_db.AspnetUsers where usertypeId=2;
+
+
+Fix before migration:
+
+1) fIX vc@sun.ac.zaâ€‹ 
+2) Row: Failed while adding App User: ' ' User name ''makhedamak@dwa.gov.za'' is invalid, can only contain letters or digits.
+2) Two emails with name as Director- Fix that
+4) Replace ' from memberfullnames as this will fail some imports
+            contact- - fullname
+            account-name
+            volunter - ec_member
+            ec_qualitification-ec_member
+            ec_referre - ec_member
+            employnebthistory- ec_member
+            membershipaffliations- ec_member
+            email - regardingobjectid
+            oc_membership - oc_member
+
+
+5) Membership history - Ensure first and mid names are contactenated new_initialstmp - =Q2&" "&S2, copy paste value and replace '
+6) Contacts and Accounts - Sort by membership Number but move 398972 to under 39.
+
+Fix after migration:
+
+7) All folders have write permissions in server?
+
+
+
+columnValue = columnValue.Replace("\n", "$~$");
+columnValue = columnValue.Replace(",", "~~");
+
+ mnotes.Subject = notes["subject"].ToString();
+
+if(!string.IsNullOrEmpty(mnotes.Subject))
+{
+    mnotes.Subject=mnotes.Subject.Replace("$~$","\n");
+    mnotes.Subject=mnotes.Subject.Replace("~~",",");
+}

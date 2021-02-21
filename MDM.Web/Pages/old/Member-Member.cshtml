@@ -1,0 +1,1369 @@
+﻿@page
+@model WISA.Pages.Member.MemberModel
+@{ Layout = "_Layout";}
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous" />
+<link rel="stylesheet" href="/fontawesome/css/all.min.css" />
+
+<!--#Font::Begins#-->
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+<!--#Font::Ends#-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- StyleSheet -->
+<style>
+    #memberDetails {
+        padding: 15px 30px;
+    }
+
+        #memberDetails .main-details {
+            border: border-box;
+            box-shadow: 0 2px 5px 0 rgb(0, 0, 0, 0.5);
+        }
+
+        #memberDetails .mainLabel {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        #memberDetails .vl {
+            border-left: 2px solid #22B9FF;
+            height: 70px;
+        }
+
+        #memberDetails .selMemberStatus {
+            height: 30px;
+            border: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        #memberDetails .inpMainDetails {
+            width: 100px;
+            border: none;
+            height: 20px;
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Navbar ******/
+        #memberDetails .nav-style {
+            border-bottom: 1px solid #22B9FF;
+        }
+
+        /**** Cards *******/
+        #memberDetails .card {
+            width: 50%;
+            box-shadow: 0 2px 5px 0 rgb(0, 0, 0, 0.5);
+        }
+
+        #memberDetails #otherCountry {
+            display: none;
+        }
+
+        #memberDetails .labelCard {
+            font-weight: bold;
+        }
+
+        #memberDetails .textfieldCard {
+            border: none;
+        }
+
+        #memberDetails .disability-align {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        #memberDetails .preferenceCard {
+            width: 100%;
+            /*margin: 20px 0 30px;*/
+        }
+
+        #memberDetails .questColLine {
+            border-right: 1px solid #22B9FF;
+        }
+
+        #memberDetails .questRowLine {
+            border-top: 1px solid #22B9FF;
+        }
+</style>
+
+
+
+    <div class="container-fluid" id="memberDetails">
+        <!-- Main Details -->
+        <div class="row main-details">
+            <div class="col-6">
+                <h5 class="display-4"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i>UserName</h5>
+            </div>
+            <div class="col-6 p-2">
+                <div class="row">
+                    <div class="col-3 vl">
+                        <label class="mainLabel">Membership Status</label>
+                        <select class="form-control selMemberStatus" id="membershipStatus">
+                            <option value="Application Cancelled">Application Cancelled</option>
+                            <option value="Applicant">Applicant</option>
+                            <option value="Active">Active</option>
+                            <option value="Deceased">Deceased</option>
+                            <option value="Resigned">Resigned</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Suspended - account in arrears">Suspended - account in arrears</option>
+                            <option value="Suspended">Suspended</option>
+                        </select>
+                    </div>
+                    <div class="col-3 vl">
+                        <label class="mainLabel">Total CDP Points</label>
+                        <div class="row">
+                            <i class="fa fa-calculator ml-3 mt-2 mr-1" aria-hidden="true"></i>
+                            <input type="text" class="form-control inpMainDetails" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="col-3 vl">
+                        <label class="mainLabel" data-toggle="tooltip"
+                               title="Account Balance of the Company imported from Pastel">
+                            Account
+                            Balance
+                        </label>
+                        <input type="number" class="form-control inpMainDetails" placeholder="R00">
+                    </div>
+                    <div class="col-3 vl">
+                        <label class="mainLabel">Modified By</label>
+                        <input type="text" class="form-control inpMainDetails" placeholder="Melissa">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Main Details -->
+        <!-- Navbar -->
+        <div class="nav-style mb-4">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <ul class="nav navbar-right">
+                    <li class="active nav-link"><a href="#profileInfo">PROFILE INFO</a></li>
+                    <li class="nav-link"><a href="#contactInfo">CONTACT INFO</a></li>
+                    <li class="nav-link"><a href="#address">ADDRESS</a></li>
+                    <li class="nav-link"><a href="#histPref">HISTORY</a></li>
+                    <li class="nav-link"><a href="#addInfo">ADDITIONAL INFORMATION</a></li>
+                    <li class="nav-link"><a href="#deptWater">DEPARTMENT OF WATER AND SANITATION</a></li>
+                </ul>
+
+                <button class="btn btn-primary navbar-btn">Update</button>
+            </nav>
+        </div>
+        <!-- / Navbar -->
+        <!-- Details -->
+        <!-- Profile Info -->
+        <div id="profileInfo" class="text-center initialPage">
+            <h3>Profile Information</h3>
+
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Title:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow">
+                                <option value="" selected disabled>Select</option>
+                                <option value="MS">MS</option>
+                                <option value="MRS">MRS</option>
+                                <option value="MR">MR</option>
+                                <option value="PROF">PROF</option>
+                                <option value="DR">DR</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Initials:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">First Name:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Last Name:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Gender:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow">
+                                <option value="" selected disabled>Select</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Birth Date:</label></div>
+
+                        <div class="col-8">
+                            <input type="date" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Highest Qualification:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow">
+                                <option value="" selected disabled>Select</option>
+                                <option value="Matric/Grade12">Matric/Grade12</option>
+                                <option value="1year diploma">1year diploma</option>
+                                <option value="3year diploma">3year diploma</option>
+                                <option value="4year degree">4year degree</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Occupation:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow">
+                                <option value="" selected disabled>Select</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Consultant">Consultant</option>
+                                <option value="Engineer">Engineer</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Company Name:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Job Title:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Home Language:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow">
+                                <option value="" selected disabled>Select</option>
+                                <option value="Afrikaans">Afrikaans</option>
+                                <option value="English">English</option>
+                                <option value="isiZulu">isiZulu</option>
+                                <option value="Other">Other</option>
+                                <option value="SiSwati">SiSwati</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Ethnicity:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow">
+                                <option value="" selected disabled>Select</option>
+                                <option value="Asian">Asian</option>
+                                <option value="Black">Male</option>
+                                <option value="Coloured">Coloured</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Other">Other</option>
+                                <option value="White">White</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">ID/Passport number:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Nationality:</label></div>
+
+                        <div class="col-8">
+                            <select class="form-control textfieldCard shadow" onchange="showSelNationality(this)">
+                                <option value="" selected disabled>Select</option>
+                                <option value="Other African Country">Other African Country</option>
+                                <option value="Other Country, not on the African Continent">
+                                    Other
+                                    Country, not on the African Continent
+                                </option>
+                                <option value="South African">South African</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="otherCountry">
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Country:</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="Other African Country">Other African Country</option>
+                                    <option value="Other Country, not on the African Continent">
+                                        Other
+                                        Country, not on the African Continent
+                                    </option>
+                                    <option value="South African">South African</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Info -->
+        <!-- Contact Info -->
+        <div id="contactInfo" class="text-center resume">
+            <h3>Contact Information</h3>
+
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Home Number:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow" placeholder="e.g.011 123 4567">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Buisness Number:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow" placeholder="e.g.011 123 4567">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Mobile Number:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow" placeholder="e.g.011 123 4567">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Email:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Alternative Email:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Fax:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 text-left mt-2"><label class="labelCard">Fax To Email:</label></div>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control textfieldCard shadow">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact Info -->
+        <!-- Address -->
+        <div id="address" class="text-center resume">
+            <div class="row">
+                <h3 class="mx-auto">Physical Address</h3>
+                <h3 class="mx-auto">Postal Address</h3>
+            </div>
+
+            <div class="card-deck mx-auto">
+                <!-- Physical -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Address Line1:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Address Line2:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Suburb:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Town/City:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Province:</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Country:</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Postal Code:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Physical -->
+                <!-- Postal -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Postal Line1:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Postal Line2:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Suburb:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Town/City:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Province:</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Country:</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 text-left mt-2"><label class="labelCard">Postal Code:</label></div>
+
+                            <div class="col-8">
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Postal -->
+            </div>
+        </div>
+        <!-- Address -->
+        <!-- History and Preferences -->
+        <div id="histPref" class="text-center resume">
+            <div class="row">
+                <h3 class="mx-auto">Qualifications</h3>
+                <h3 class="mx-auto">Employment History</h3>
+            </div>
+
+            <div class="card-deck mx-auto">
+                <!-- Qualification -->
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal"
+                                data-target="#qualificationModal">
+                            Add Qualification
+                        </button>
+
+                        <table class="table table-sm" id="qualificationTable">
+                            <thead>
+                                <tr>
+                                    <th>Institute</th>
+                                    <th>Qualification Name</th>
+                                    <th>Qualification Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- / Qualification -->
+                <!-- Qualification Modal -->
+                <div class="modal text-left" id="qualificationModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Qualification</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="labelCard">Qualification Category</label>
+                                    <select class="form-control shadow textfieldCard" id="qualCategory">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="Current Studies">Current Studies</option>
+                                        <option value="Completed Qualifications">
+                                            Completed
+                                            Qualifications
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Institute</label>
+                                    <input type="text" class="form-control shadow textfieldCard" id="qualInstitute">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Qualification Name</label>
+                                    <input type="text" class="form-control shadow textfieldCard" id="qualName">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Student Number</label>
+                                    <input type="text" class="form-control shadow textfieldCard" id="qualStudNumber">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Start Date</label>
+                                    <input type="date" class="form-control shadow textfieldCard" id="qualStartDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">End Date</label>
+                                    <input type="date" class="form-control shadow textfieldCard" id="qualEndDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Qualification Type</label>
+                                    <select class="form-control shadow textfieldCard" id="qualType">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="Certificate">Certificate</option>
+                                        <option value="Diploma">Diploma</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Enrolment Category</label>
+                                    <select class="form-control shadow textfieldCard" id="qualEnrolCategory">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Part Time">Part Time</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                        id="addQualification">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Qualification Modal-->
+                <!-- Employment -->
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal"
+                                data-target="#employmentModal">
+                            Add Employment History
+                        </button>
+
+                        <table class="table table-sm" id="employmentTable">
+                            <thead>
+                                <tr>
+                                    <th>Employer</th>
+                                    <th>Designation</th>
+                                    <th>Employment Category</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- / Employment -->
+                <!-- Employment Modal -->
+                <div class="modal text-left" id="employmentModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Employment History</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="labelCard">Employment Category</label>
+                                    <select class="form-control shadow textfieldCard" id="empCategory">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="Current Employer">Current Employer</option>
+                                        <option value="Previous Employer">Previous Employer</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Employer</label>
+                                    <input type="text" class="form-control shadow textfieldCard" id="employer">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Designation</label>
+                                    <input type="text" class="form-control shadow textfieldCard" id="empDesignation">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Start Date</label>
+                                    <input type="date" class="form-control shadow textfieldCard" id="empStartDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">End Date</label>
+                                    <input type="date" class="form-control shadow textfieldCard" id="empEndDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Tel. Number</label>
+                                    <input type="number" class="form-control shadow textfieldCard" id="empTelNumber">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Company Email</label>
+                                    <input type="email" class="form-control shadow textfieldCard" id="empCompEmail">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="labelCard">Duties</label>
+                                    <textarea class="form-control shadow textfieldCard" rows="2"
+                                              id="empDuties"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                        id="addEmpHistory">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Employment Modal-->
+            </div>
+        </div>
+        <!-- History and Preferences -->
+        <!-- Additional Info -->
+        <div id="addInfo" class="text-center resume">
+
+            <div class="card-deck">
+                <!-- Disability -->
+                <div class="card">
+                    <div class="card-body text-left">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="labelCard">Disability</label>
+                                <div class="form-check disability-align">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">Hearing
+                                    </label>
+                                </div>
+                                <div class="form-check disability-align">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">Communication
+                                    </label>
+                                </div>
+                                <div class="form-check disability-align">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">Seeing
+                                    </label>
+                                </div>
+                                <div class="form-check disability-align">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">Walking
+                                    </label>
+                                </div>
+                                <div class="form-check disability-align">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">Self-care
+                                    </label>
+                                </div>
+                                <div class="form-check disability-align">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">Remembering
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label class="labelCard text-left">Rate Disability (if any)</label>
+                                <select class="form-control mb-1 textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="No Difficulty">No Difficulty</option>
+                                    <option value="Some Difficulty">Some Difficulty</option>
+                                    <option value="A lot of Difficulty">A lot of Difficulty</option>
+                                </select>
+                                <select class="form-control mb-1 textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="No Difficulty">No Difficulty</option>
+                                    <option value="Some Difficulty">Some Difficulty</option>
+                                    <option value="A lot of Difficulty">A lot of Difficulty</option>
+                                </select>
+                                <select class="form-control mb-1 textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="No Difficulty">No Difficulty</option>
+                                    <option value="Some Difficulty">Some Difficulty</option>
+                                    <option value="A lot of Difficulty">A lot of Difficulty</option>
+                                </select>
+                                <select class="form-control mb-1 textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="No Difficulty">No Difficulty</option>
+                                    <option value="Some Difficulty">Some Difficulty</option>
+                                    <option value="A lot of Difficulty">A lot of Difficulty</option>
+                                </select>
+                                <select class="form-control mb-1 textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="No Difficulty">No Difficulty</option>
+                                    <option value="Some Difficulty">Some Difficulty</option>
+                                    <option value="A lot of Difficulty">A lot of Difficulty</option>
+                                </select>
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="No Difficulty">No Difficulty</option>
+                                    <option value="Some Difficulty">Some Difficulty</option>
+                                    <option value="A lot of Difficulty">A lot of Difficulty</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Disability -->
+                <!-- Division -->
+                <div class="card">
+                    <div class="card-body text-left">
+                        <label class="labelCard">Division</label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Anaerobic
+                                Sludge Processes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Community Water
+                                Supply and Sanitation
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Industrial
+                                Water
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Innovations in
+                                Water & Sanitation
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">IWA-SA
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Management &
+                                Institutional Affairs
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Membrane
+                                Technology
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Mine Water
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Process
+                                Controllers
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Small
+                                Wastewater Treatment Works
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Water
+                                Distribution
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Water Reuse
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Water Science
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">Young Water
+                                Professionals
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Division -->
+                <!-- Affiliations -->
+                <div class="card">
+                    <div class="card-body text-left">
+                        <label class="labelCard">Affiliations</label>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input textfieldCard shadow"
+                                               value="">ECSA
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="Member Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input textfieldCard shadow"
+                                               value="">IMESA
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="Member Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input textfieldCard shadow"
+                                               value="">IWA
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="Member Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input textfieldCard shadow"
+                                               value="">SACNASP
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="Member Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input textfieldCard shadow"
+                                               value="">SAICE
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="Member Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input textfieldCard shadow"
+                                               value="">Other
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="Institute">
+                                    <input type="text" class="form-control textfieldCard shadow"
+                                           placeholder="MemberNumber">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Affiliations -->
+            </div>
+
+            <!-- Preferences -->
+            <div class="card mt-4 mx-auto preferenceCard">
+                <div class="card-body text-left">
+                    <label class="labelCard mb-3">Preferences</label>
+                    <div class="row">
+                        <!-- Questions -->
+                        <div class="col-6 questColLine">
+                            <div class="form-group">
+                                <label>Branch Membership</label>
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    May we send you newsletters, notifications and marketing material via
+                                    SMS and Email?
+                                </label>
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    May we publish your name and contact details in the annual member
+                                    directory that is distributed to all WISA members, distributed at WISA
+                                    events and sent to any person requesting a copy?
+                                </label>
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Are you interested in doing volunteer work for WISA
+                                    Branches/Divisions/Head-Office?
+                                </label>
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>How many hours are you available for volunteer work?</label>
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected>Select</option>
+                                    <option value="1-5hrs">1-5 hrs</option>
+                                    <option value="6-10hrs">6-10 hrs</option>
+                                    <option value="11-15hrs">11-15 hrs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- / Questions -->
+                        <!-- Checkbox -->
+                        <div class="col-6">
+                            <label>In which of the following ways do you want to be involved?</label>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">
+                                    Branch/Division Committee member
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Logistics
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Promotions and
+                                    Marketing
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Assist in
+                                    obtaining sponsorship
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Writing
+                                    articles for publication in WISA and main stream media
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Being a mentor
+                                    and/or specialist advisor
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Visit schools
+                                    and universities to promote WISA
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Visit
+                                    businesses and government departments to promote WISA
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Man a
+                                    "membership desk or exhibition stand" at WISA events hosted by other
+                                    parties in the water sector to promote WISA membership and answer
+                                    enquiries regarding WISA
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Community
+                                    outreach projects
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Media mentor -
+                                    reporting to WISA HQ all the news that is relevant to the Water sector
+                                    and that needs our attention
+                                </label>
+                            </div>
+                        </div>
+                        <!-- / Checkbox -->
+                    </div>
+
+                    <div class="row mt-3 questRowLine">
+                        <div class="col-6 mt-2">
+                            <div class="form-group">
+                                <label>Where did you hear about WISA?</label>
+                                <select class="form-control textfieldCard shadow">
+                                    <option value="" selected>Select</option>
+                                    <option value="Word of Mouth">Word of Mouth</option>
+                                    <option value="WISA/eWISA Newsletter">WISA/eWISA Newsletter</option>
+                                    <option value="WISA/eWISA Website">WISA/eWISA Website</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6 mt-2">
+                            <div class="form-group">
+                                <label>Where did you hear about WISA?(if other)</label>
+                                <input type="text" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Preferences -->
+        </div>
+        <!-- Additional Info -->
+        <!-- Dept of water -->
+        <div id="deptWater" class="text-center resume">
+            <div class="row">
+                <h3 class="mx-auto">Class</h3>
+                <h3 class="mx-auto">Date</h3>
+            </div>
+
+            <div class="card-deck mx-auto">
+                <!-- Class -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Class I</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Class II</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Class III</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Class IV</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Class V</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Class VI</label></div>
+
+                            <div class="col-8">
+                                <select class="form-control shadow textfieldCard">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Class -->
+                <!-- Date -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Date I</label></div>
+
+                            <div class="col-8">
+                                <input type="date" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Date II</label></div>
+
+                            <div class="col-8">
+                                <input type="date" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Date III</label></div>
+
+                            <div class="col-8">
+                                <input type="date" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Date IV</label></div>
+
+                            <div class="col-8">
+                                <input type="date" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Date V</label></div>
+
+                            <div class="col-8">
+                                <input type="date" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 mt-2 text-left"><label class="labelCard">Date VI</label></div>
+
+                            <div class="col-8">
+                                <input type="date" class="form-control textfieldCard shadow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Date -->
+            </div>
+        </div>
+        <!-- Dept of water -->
+        <!-- / Details -->
+    </div>
+
+     Script 
+    <script>
+        /***** Show/Hide Nav links **********/
+        $('.initialPage').show();
+        $('.resume').hide()
+        $('a[href^="#"]').on('click', function (event) {
+            $('.initialPage').hide();
+            $('.resume').hide()
+            var target = $(this).attr('href');
+
+            $('.resume' + target).toggle();
+            $('.initialPage' + target).toggle();
+
+        });
+
+        /****** Show other Country ************/
+        function showSelNationality(selectedOption) {
+            if (selectedOption.value == "Other African Country" || selectedOption.value == "Other Country, not on the African Continent") {
+                document.getElementById('otherCountry').style.display = 'block';
+            } else {
+                document.getElementById('otherCountry').style.display = 'none';
+            }
+        }
+    </script>
+     / Script 

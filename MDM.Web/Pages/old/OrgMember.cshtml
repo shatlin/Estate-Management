@@ -1,0 +1,1326 @@
+﻿@page
+@model WISA.Pages.Manage.OrgMemberModel
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+
+<style>
+    body {
+        background-color: #f0f5f5;
+    }
+
+    .main-panel > .content {
+        margin-top: 75px;
+    }
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        padding: 3px 3px;
+    }
+
+    .main-panel {
+        padding-top: 15px;
+    }
+
+    .error {
+        color: red;
+        display: none;
+    }
+
+    .regMemberForm .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .regMemberForm .delbtn {
+        cursor: pointer;
+    }
+
+    input.input-validation-error {
+        background-color: #FFC0A4;
+        border: 1px solid #ef8157;
+        color: blue !important;
+    }
+
+    .text-danger {
+        font-size: smaller;
+    }
+
+    .required ::after {
+        content: " *" !important;
+        color: red !important;
+    }
+
+    .input-group, .form-group {
+        margin-bottom: 2px;
+    }
+
+        .form-group .form-control, .input-group .form-control {
+            padding: 5px 5px 5px 5px;
+        }
+
+    .nav-top-style {
+        padding-top: 0px !important;
+    }
+
+    #addContactsModal .modal-width {
+        max-width: 1500px;
+        padding-top: 30px;
+        /*margin-left: 20%;*/
+    }
+
+    textarea.form-control {
+        max-height: 100%;
+    }
+
+    .card label {
+        margin-top: 5px;
+    }
+
+    input::-webkit-input-placeholder {
+        font-size: 10px;
+        line-height: 3;
+    }
+
+    ::-moz-placeholder {
+        font-size: 11px;
+        line-height: 3;
+    }
+
+    :-ms-input-placeholder {
+        font-size: 11px;
+        line-height: 3;
+    }
+</style>
+
+
+<form method="post">
+    <div class="row regMemberForm" id="regMemberForm">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header row">
+                    <div class="col-1">&nbsp;</div>
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="card border shadow-none">
+                                    <div class="card-body">
+                                        <h5 class="display-4"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i>UserName</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="card border shadow-none">
+                                    <div class="card-body">
+                                        <div class="row mb-md-2 mt-md-1">
+                                            <div class="col-md-5 text-right">
+                                                <label asp-for=Organization.AccountBalanceOftheCompany class="control-label"></label>
+                                            </div>
+                                            <div class="col-md-7 form-group ">
+                                                <input type="text" class="form-control" asp-for=Organization.AccountBalanceOftheCompany />
+                                                <span asp-validation-for="Organization.AccountBalanceOftheCompany" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-md-2">
+                                            <div class="col-md-5 text-right">
+                                                <label asp-for=Organization.OwnerClientUserId class="control-label"></label>
+                                            </div>
+                                            <div class="col-md-7 form-group ">
+                                                <input type="text" class="form-control" asp-for=Organization.OwnerClientUserId />
+                                                <span asp-validation-for="Organization.OwnerClientUserId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body nav-top-style">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <ul id="tabs" class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-danger font-weight-bolder" data-toggle="tab" href="#one" role="tab" aria-expanded="false">Company Information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#two" role="tab" aria-expanded="true">Contact & Business</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#three" role="tab" aria-expanded="false">Address</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#four" role="tab" aria-expanded="false">Membership Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#five" role="tab" aria-expanded="false">Preferences</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#six" role="tab" aria-expanded="false">Fee</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="my-tab-content2" class="tab-content">
+                        <!--Company Information-->
+                        <div class="tab-pane active" id="one" role="tabpanel" aria-expanded="true">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="card border shadow-none">
+                                        <div class="card-body ">
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.CompanyName class="control-label"></label>
+                                                        <h6 class="text-danger d-inline">*</h6>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.CompanyName />
+                                                        <span asp-validation-for="Organization.CompanyName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.CompanyRegistrationNumber class="control-label"></label>
+                                                        <h6 class="text-danger d-inline">*</h6>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.CompanyRegistrationNumber />
+                                                        <span asp-validation-for="Organization.CompanyRegistrationNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.CompanyVATNumber class="control-label"></label>
+                                                        <h6 class="text-danger d-inline">*</h6>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.CompanyVATNumber />
+                                                        <span asp-validation-for="Organization.CompanyVATNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.MembershipTypeId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=Organization.MembershipTypeId asp-items="ViewBag.MembershipTypeId">
+                                                            <option value="" selected disabled>Select Membership Categories</option>
+                                                        </select>
+                                                        <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.MemberCategoryId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=Organization.MemberCategoryId asp-items="ViewBag.MemberCategoryId">
+                                                            <option value="" selected disabled>Select Membership Grade</option>
+                                                        </select>
+                                                        <span asp-validation-for="Organization.MemberCategoryId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.PrimaryContactId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.PrimaryContactId />
+                                                        <span asp-validation-for="Organization.PrimaryContactId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.ContactPersonId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.ContactPersonId />
+                                                        <span asp-validation-for="Organization.ContactPersonId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.JobTitle class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.JobTitle />
+                                                        <span asp-validation-for="Organization.JobTitle" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.Email class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.Email />
+                                                        <span asp-validation-for="Organization.Email" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.MobilePhone class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.MobilePhone />
+                                                        <span asp-validation-for="Organization.MobilePhone" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.BusinessPhoneNumber class="control-label"></label>
+                                                        <h6 class="text-danger d-inline">*</h6>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.BusinessPhoneNumber />
+                                                        <span asp-validation-for="Organization.BusinessPhoneNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.FAXNumber class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.FAXNumber />
+                                                        <span asp-validation-for="Organization.FAXNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-md-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=Organization.WebSite class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=Organization.WebSite />
+                                                        <span asp-validation-for="Organization.WebSite" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row col-md-12">
+                                                <div class="col-md-2 text-center">
+                                                    <label class="control-label mt-4">Description</label>
+                                                </div>
+                                                <div class="col-md-10 form-group pl-0">
+                                                    <textarea type="text" class="form-control form-input" asp-for=Organization.Notes rows="2"></textarea>
+                                                    <span asp-validation-for="Organization.Notes" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Company Information - End-->
+                        <!--Contact&Business-->
+                        <div class="tab-pane" id="two" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <!--Contact-->
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Primary Contact</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.MemberCode" class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.MemberCode" class="form-control" />
+                                                            <span asp-validation-for="Organization.MemberCode" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.JobTitle" class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.JobTitle" class="form-control" />
+                                                            <span asp-validation-for="Organization.JobTitle" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.CompanyName" class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.CompanyName" class="form-control" />
+                                                            <span asp-validation-for="Organization.CompanyName" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.Email" class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.Email" class="form-control" />
+                                                            <span asp-validation-for="Organization.Email" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.MobilePhone" class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.MobilePhone" class="form-control" />
+                                                            <span asp-validation-for="Organization.MobilePhone" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.BusinessPhoneNumber" class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.BusinessPhoneNumber" class="form-control" />
+                                                            <span asp-validation-for="Organization.BusinessPhoneNumber" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for="Organization.FAXNumber" class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input asp-for="Organization.FAXNumber" class="form-control" />
+                                                            <span asp-validation-for="Organization.FAXNumber" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Contact - End-->
+                                        <!--Core Business-->
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Core Business</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">Consultants</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">GroundWater Management</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">Industrial/Mine Water Manegement</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">Labarotary Services</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">Research and Development</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-2">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">Water Infrastructure</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-7 text-right">
+                                                            <label class="control-label">Water/Waste Water Management</label>
+                                                        </div>
+                                                        <div class="col-md-5 form-group">
+                                                            <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                            <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Core Business - End-->
+                                    </div>
+                                    <!--Additional COntacts-->
+                                    <div class="card border shadow-none">
+                                        <div class="card-body">
+                                            <button type="button"
+                                                    class="btn btn-outline-primary mb-2"
+                                                    data-toggle="modal"
+                                                    data-target="#addContactsModal">
+                                                Additional Contacts
+                                            </button>
+
+                                            <table class="table table-sm" id="addContactsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Full Name</th>
+                                                        <th>Member type</th>
+                                                        <th>Membership Status</th>
+                                                        <th>Membership Grade</th>
+                                                        <th>Email</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Add Contacts Modal -->
+                                    <div class="modal" id="addContactsModal">
+                                        <div class="modal-dialog modal-width">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Add Contacts</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        &times;
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <h4 class="card-title"><i class="nc-icon nc-circle-10">&nbsp;</i>Details</h4>
+                                                                </div>
+
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">First Name</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="MemberUser.ApplicationUser.FirstName" class="form-control" />
+                                                                                <span asp-validation-for="MemberUser.ApplicationUser.FirstName" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Last Name</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="MemberUser.ApplicationUser.LastName" class="form-control" />
+                                                                                <span asp-validation-for="MemberUser.ApplicationUser.LastName" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Job Title</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.JobTitle" class="form-control" />
+                                                                                <span asp-validation-for="Organization.JobTitle" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Account Name</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.MembershipTypeId" class="form-control" />
+                                                                                <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-md-1">
+                                                                        <label class="col-md-4 col-form-label">Member Type</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <select asp-for="Organization.MembershipTypeId" class="form-control" asp-items="ViewBag.MembershipTypeId"></select>
+                                                                                <span asp-validation-for="Organization.MembershipTypeId" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <h4 class="card-title"><i class="nc-icon nc-circle-10">&nbsp;</i>Contact Information</h4>
+                                                                </div>
+
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Email</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.Email" class="form-control" />
+                                                                                <span asp-validation-for="Organization.Email" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Mobile Phone</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.MobilePhone" class="form-control" />
+                                                                                <span asp-validation-for="Organization.MobilePhone" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Business Phone</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.BusinessPhoneNumber" class="form-control" />
+                                                                                <span asp-validation-for="Organization.BusinessPhoneNumber" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-md-3">
+                                                                        <label class="col-md-4 col-form-label">Description</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <textarea asp-for="Organization.Notes" class="form-control" rows="2"></textarea>
+                                                                                <span asp-validation-for="Organization.Notes" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <h4 class="card-title"><i class="nc-icon nc-circle-10">&nbsp;</i>Address</h4>
+                                                                </div>
+
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Street 1</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.PhysicalAddressLine1" class="form-control" />
+                                                                                <span asp-validation-for="Organization.PhysicalAddressLine1" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">Street 2</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.PhysicalAddressLine2" class="form-control" />
+                                                                                <span asp-validation-for="Organization.PhysicalAddressLine2" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-4 col-form-label">City</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.PhysicalCity" class="form-control" />
+                                                                                <span asp-validation-for="Organization.PhysicalCity" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-md-4">
+                                                                        <label class="col-md-4 col-form-label">ZIP/Postal Code</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <input asp-for="Organization.PhysicalPostalCode" class="form-control" />
+                                                                                <span asp-validation-for="Organization.PhysicalPostalCode" class="text-danger"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">&nbsp;</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-primary"
+                                                            data-dismiss="modal"
+                                                            id="addQualification">
+                                                        Add
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- / AddContacts Modal-->
+                                    <!--Additional COntacts - End-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Contact&Business - End-->
+                        <!--Address-->
+                        <div class="tab-pane" id="three" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Physical Address</b></h6>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalAddressLine1 class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PhysicalAddressLine1 />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalAddressLine2 class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PhysicalAddressLine2 />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalSuburb class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PhysicalSuburb />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalCity class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PhysicalCity />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalProvince class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.PhysicalProvince asp-items=ViewBag.Provinces>
+                                                                <option value="" selected disabled>Select Province</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalCountryId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.PhysicalCountryId asp-items=ViewBag.Countries>
+                                                                <option value="" selected disabled>Select Country</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PhysicalPostalCode class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PhysicalPostalCode />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Postal Address</b></h6>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalAddressLine1 class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PostalAddressLine1 />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalAddressLine2 class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PostalAddressLine2 />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalSuburb class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PostalSuburb />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalCity class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PostalCity />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalProvince class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.PostalProvince asp-items=ViewBag.Provinces>
+                                                                <option value="" selected disabled>Select Province</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalCountryId class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.PostalCountryId asp-items=ViewBag.Countries>
+                                                                <option value="" selected disabled>Select Country</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PostalPostalCode class="control-label"></label>
+                                                            <h6 class="text-danger d-inline">*</h6>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.PostalPostalCode />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Address - End-->
+                        <!--Membership Info-->
+                        <div class="tab-pane" id="four" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--MembershipInfo-->
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Membership Information</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.MemberStatusId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.MemberStatusId asp-items="ViewBag.MemberStatusId"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.MembershipTypeId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.MembershipTypeId />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.InterestedInVolunteerWork class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.InterestedInVolunteerWork asp-items="ViewBag.YesNoList"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.StartDate class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.StartDate />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.EndDate class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=Organization.EndDate />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.ClientBranchId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.ClientBranchId asp-items="ViewBag.ClientBranchId"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.IsMembershipFeeInvoicedToYou class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.IsMembershipFeeInvoicedToYou asp-items="ViewBag.YesNoList"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.PublishCompanyInAnnualMemberDirectory class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=Organization.PublishCompanyInAnnualMemberDirectory asp-items="ViewBag.YesNoList"></select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Membership Grading</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.SentforGradingDate class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="date" class="form-control form-input" asp-for=Organization.SentforGradingDate />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-3">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.GradingCompletedDate class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="date" class="form-control form-input" asp-for=Organization.GradingCompletedDate />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">&nbsp;</div>
+                                            <div class="row">&nbsp;</div>
+
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Application Process</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.ApplicationreceivedDate class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="date" class="form-control form-input" asp-for=Organization.ApplicationreceivedDate />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-md-3">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=Organization.ApplicationFormComplete class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="date" class="form-control form-input" asp-for=Organization.ApplicationFormComplete />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Registration Completed</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row mb-2">
+                                                                <div class="col-md-4 text-right">
+                                                                    <label asp-for=Organization.PostCertificateTracking class="control-label">Email Certificate/Welcome Letter</label>
+                                                                </div>
+                                                                <div class="col-md-8 form-group">
+                                                                    <select type="text" class="form-control form-input" asp-for=Organization.PostCertificateTracking asp-items="ViewBag.YesNoList"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="row mb-md-2">
+                                                                <div class="col-md-4 text-right">
+                                                                    <label asp-for=Organization.CertificateUploaded class="control-label"></label>
+                                                                </div>
+                                                                <div class="col-md-8 form-group">
+                                                                    <select type="text" class="form-control form-input" asp-for=Organization.CertificateUploaded asp-items="ViewBag.YesNoList"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row mb-2">
+                                                                <div class="col-md-4 text-right">
+                                                                    <label asp-for=Organization.PostCertificateTracking class="control-label"></label>
+                                                                </div>
+                                                                <div class="col-md-8 form-group">
+                                                                    <input type="date" class="form-control form-input" asp-for=Organization.PostCertificateTracking />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-4 text-right">
+                                                                    <label asp-for=Organization.PostCertificateTracking class="control-label"></label>
+                                                                </div>
+                                                                <div class="col-md-8 form-group">
+                                                                    <input type="text" class="form-control form-input" asp-for=Organization.PostCertificateTracking />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Membership Info - End-->
+                        <!--Preferences-->
+                        <div class="tab-pane" id="five" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10 row">
+                                    <div class="col-md-6">
+                                        <div class="card border shadow-none">
+                                            <div class="card-header">
+                                                <h6><b>Contact Preferences</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.CommunicationTypeId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.CommunicationTypeId" class="form-control" asp-items="ViewBag.CommunicationTypeId"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DoNotEmail class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DoNotEmail" class="form-control" asp-items="ViewBag.DoNotEmail"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DonotBulkEmail class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DonotBulkEmail" class="form-control" asp-items="ViewBag.DonotBulkEmail"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DonotPhone class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DonotPhone" class="form-control" asp-items="ViewBag.DonotPhone"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DonotBulkEmail class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DonotBulkEmail" class="form-control" asp-items="ViewBag.DonotBulkEmail"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DonotpostalMail class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DonotpostalMail" class="form-control" asp-items="ViewBag.DonotpostalMail"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DonotSendMarketingMaterial class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DonotSendMarketingMaterial" class="form-control" asp-items="ViewBag.DonotSendMarketingMaterial"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="card border shadow-none">
+                                            <div class="card-header">
+                                                <h6><b>Marketing Preferences</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.LastUsedInCampaignDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.LastUsedInCampaignDate />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.DonotSendMarketingMaterial class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select asp-for="Organization.DonotSendMarketingMaterial" class="form-control" asp-items="ViewBag.DonotSendMarketingMaterial"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.ReferralTypeId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select type="text" class="form-control form-input" asp-for=Organization.ReferralTypeId asp-items=ViewBag.Referrals></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Preferences - End-->
+                        <!--Fee-->
+                        <div class="tab-pane" id="six" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10 row">
+                                    <div class="col-md-6">
+                                        <div class="card border shadow-none">
+                                            <div class="card-header">
+                                                <h6><b>First Membership Fee</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.TaxInvoicEemailedDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.TaxInvoicEemailedDate />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.ProofofPaymentReceivedDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.ProofofPaymentReceivedDate />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.Request2MemberFee class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.Request2MemberFee />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.Request3MemberFee class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.Request3MemberFee />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.ApplicationCancelledMemberfeeNotpaidDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.ApplicationCancelledMemberfeeNotpaidDate />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="card border shadow-none">
+                                            <div class="card-header">
+                                                <h6><b>Administrative Fee</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.AdminfeePaymentReceivedDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.AdminfeePaymentReceivedDate />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.ProofOfpaymentReceivedandUploaded class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <select class="form-control form-input" asp-for=Organization.ProofOfpaymentReceivedandUploaded asp-items="ViewBag.YesNoList"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.LastUsedInCampaignDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.LastUsedInCampaignDate />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.PaymentReminder1Date class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.PaymentReminder1Date />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.PaymentReminder2Date class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.PaymentReminder2Date />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.PaymentReminder3Date class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.PaymentReminder3Date />
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6 text-right">
+                                                        <label asp-for=Organization.ApplicationCancelledMemberfeeNotpaidDate class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <input type="date" class="form-control form-input" asp-for=Organization.ApplicationCancelledMemberfeeNotpaidDate />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fee - End-->
+                    </div>
+
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-md-right">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--  JavaScript  -->
+@section scripts {
+
+
+}

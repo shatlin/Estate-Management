@@ -1,0 +1,17 @@
+﻿@{
+    string pageName = string.Empty;
+    string active = "";
+    
+    if (ViewData["Page"] != null)
+    {
+        pageName = ViewData["Page"].ToString();
+        active = pageName.ToUpper() == @Model.page.ToUpper() ? "active" : "";
+    }
+}
+
+<li class="@active">
+    <a href="@Model.url">
+        <span class="sidebar-mini-icon">@Model.abbreviation</span>
+        <span class="sidebar-normal"> @Model.linktext </span>
+    </a>
+</li>

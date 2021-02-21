@@ -1,0 +1,64 @@
+﻿@page
+@model MM.Pages.Apply.IndexModel
+@using MM.ClientModels;
+@using MM.Helper;
+@{
+    ViewData["Title"] = "Apply";
+    ViewData["Page"] = "Apply";
+}
+
+
+    <style>
+        .container-fluid {
+            margin-top: 30px;
+        }
+
+        .card-img {
+            height: 650px;
+        }
+
+
+        p.ppc {
+            margin-top: 320px;
+        }
+
+        p.ind {
+            margin-top: 270px;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="card-deck">
+
+            <div class="card text-white">
+                <img class="card-img" src="/images/Watr.jpg" alt="Profesional">
+                <div class="card-img-overlay">
+                    <h5 class="card-title display-4">Professional Process Controller</h5>
+                    <p class="card-text ppc">
+                        The Water Institute of Southern Africa (WISA) became recognised as a professional body by the South African Qualifications Authority (SAQA) in 2013. The first professional designation registered with SAQA is that of Professional Process Controller – Pr. PC Water.
+                    </p>
+                    <a class="btn btn-outline-light" href="/new/Individual?ReqId=2">Apply Now</a>
+                </div>
+            </div>
+            <div class="card text-white">
+                <img class="card-img" src="/images/water.jpg" alt="Individual">
+                <div class="card-img-overlay">
+                    <h5 class="card-title display-4">Individual Membership</h5>
+                    <p class="card-text ind">
+                        <ul>
+                            <li>All Retired Members: R 227.71</li>
+                            <li>Academic Member: R 467.12</li>
+                            <li>Affiliate Members: R 216.04</li>
+                            <li>Associate Members R 700.67</li>
+                            <li>Member: R 817.45</li>
+                            <li>Fellows: R 817.45</li>
+                            <li>Senior Fellows: R 817.45</li>
+                            <li>Students: Free Membership to Full-time students only</li>
+                        </ul>
+                    </p>
+                    <a class="btn btn-outline-light" href="/new/Individual?ReqId=1">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+

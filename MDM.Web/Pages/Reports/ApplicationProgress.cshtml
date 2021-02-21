@@ -1,0 +1,201 @@
+﻿@page
+@model MM.Pages.Client.ApplicationProgressModel
+@using MM.ClientModels;
+
+@using MM.Helper;
+@{
+    ViewData["Title"] = "Application Progress Report";
+    ViewData["Page"] = "Application Progress";
+}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header row mt-2">
+                        <div class="col-md-10 text-center">
+                            <h2 class="text-uppercase">Application Progress Report</h2>
+                        </div>
+
+                        <div class="col-md-2 text-center">
+                            <a asp-page-handler="Export" class="btn btn-outline-success shadow-sm">Export To Excel</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+     </div>
+
+@*<div class="row p-0 m-0">
+    <div class="col-12 text-center  p-0 m-0">
+        
+    </div>
+</div>*@
+
+<style>
+    .linktext {
+        text-decoration: none;
+        color: black !important;
+        font-size:small;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-danger"> Red -  @Model.ExceptionReportVM.RedRecords.Count Applicants</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                            <table class="table">
+                                <tr class="text-danger font-weight-bold">
+                                    <td>Full Name</td>
+                                    <td>ID Number</td>
+                                    <td>Membersip Number</td>
+                                    <td>Membership Grade</td>
+                                    <td>Membership Grade</td>
+                                    <td>Membership Status</td>
+                                    <td>Created Date</td>
+                                    <td>Application Received</td>
+                                    <td>Request 1</td>
+                                    <td>Request 2</td>
+                                    <td>Request 3</td>
+                                    <td>Pending For</td>
+                                </tr>
+                                <tbody>
+
+                                    @foreach (var item in Model.ExceptionReportVM.RedRecords)
+                                    {
+                                    <tr>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.FullName</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.IDNumber</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipNumber</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipType</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipGrade</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipStatus</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.CreatedOn</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.DateApplicationReceived</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder1Date</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder2Date</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder3Date</a></td>
+                                        <td><a href=@item.URL class="linktext" target="_blank"><h6><span class="badge badge-danger badge-pill pt-1 pb-1">&nbsp;@item.NumberofDays days&nbsp;</span></h6></a></td>
+                                    </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-warning"> Yellow -  @Model.ExceptionReportVM.YellowRecords.Count Applicants</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr class="text-warning font-weight-bold">
+                                <td>Full Name</td>
+                                <td>ID Number</td>
+                                <td>Membership Number</td>
+                                <td>Membership Grade</td>
+                                <td>Membership Grade</td>
+                                <td>Membership Status</td>
+                                <td>Created Date</td>
+                                <td>Application Received</td>
+                                <td>Request 1</td>
+                                <td>Request 2</td>
+                                <td>Request 3</td>
+                                <td>Pending For</td>
+                            </tr>
+                            <tbody>
+
+                                @foreach (var item in Model.ExceptionReportVM.YellowRecords)
+                                {
+                                <tr>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.FullName</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.IDNumber</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipNumber</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipType</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipGrade</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipStatus</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.CreatedOn</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.DateApplicationReceived</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder1Date</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder2Date</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder3Date</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank"><h6><span class="badge badge-warning badge-pill pt-1 pb-1">&nbsp;@item.NumberofDays days&nbsp;</span></h6></a></td>
+                                </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-success"> Green -  @Model.ExceptionReportVM.GreenRecords.Count Applicants</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr class="text-success font-weight-bold">
+                                <td>Full Name</td>
+                                <td>ID Number</td>
+                                <td>Membership Number</td>
+                                <td>Membership Grade</td>
+                                <td>Membership Grade</td>
+                                <td>Membership Status</td>
+                                <td>Created Date</td>
+                                <td>Application Received</td>
+                                <td>Request 1</td>
+                                <td>Request 2</td>
+                                <td>Request 3</td>
+                                <td>Pending For</td>
+                            </tr>
+                            <tbody>
+
+
+                                @foreach (var item in Model.ExceptionReportVM.GreenRecords)
+                                {
+                                <tr>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.FullName</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.IDNumber</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipNumber</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipType</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipGrade</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.MembershipStatus</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.CreatedOn</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.DateApplicationReceived</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder1Date</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder2Date</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank">@item.PaymentReminder3Date</a></td>
+                                    <td><a href=@item.URL class="linktext" target="_blank"><h6><span class="badge badge-success badge-pill pt-1 pb-1">&nbsp;@item.NumberofDays days&nbsp;</span></h6></a></td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a asp-page-handler="Export" class="btn btn-success shadow-sm  btn-block">Export To Excel</a>
+
+</div>

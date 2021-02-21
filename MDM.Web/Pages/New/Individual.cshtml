@@ -1,0 +1,2299 @@
+﻿@page
+@model MM.Pages.Apply.IndividualModel
+
+@{
+
+
+    bool isDev = false;
+    string validationRequired = "required";
+    <environment names="Development">
+        @{
+            isDev = true;
+        }
+    </environment>
+
+    if (Model.RequestType == 1)
+    {
+        ViewData["Title"] = "Individual Application";
+        ViewData["Page"] = "Add Individual";
+    }
+    else if (Model.RequestType == 2)
+    {
+        ViewData["Title"] = "Professional Application";
+        ViewData["Page"] = "Add Professional";
+    }
+    else if (Model.RequestType == 3)
+    {
+        ViewData["Title"] = "Add Member to Organization";
+        ViewData["Page"] = "Add Individual";
+        validationRequired = "";
+    }
+
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+
+    var isSuperUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSuperUser).Result.Succeeded;
+    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowAdminUser).Result.Succeeded;
+    var isUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowUserAccess).Result.Succeeded;
+
+
+    if (isUser || isAdminUser || isSuperUser)
+    {
+        Layout = "_LayoutMain";
+    }
+    else
+    {
+        Layout = "_LayoutApply";
+    }
+
+
+}
+
+
+<style>
+    body {
+        background-color: #f0f5f5;
+    }
+
+    .main-panel > .content {
+        margin-top: 75px;
+    }
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        padding: 3px 3px;
+    }
+
+
+    .table > tbody > tr > td,
+    .table > tbody > tr > th {
+        border-top: none;
+    }
+
+    .table {
+        border-top: none;
+    }
+
+    .main-panel {
+        padding-top: 15px;
+    }
+
+    .error {
+        color: #ef8157 !important;
+        display: none;
+        font-size: 12px;
+    }
+
+    .regMemberForm .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .regMemberForm .disability-align {
+        margin-bottom: 20px;
+    }
+
+    .regMemberForm .banking-icon {
+        font-size: 25px;
+        margin-left: 5px;
+        color: #22b9ff;
+    }
+
+    .regMemberForm #otherCountry {
+        visibility: hidden;
+    }
+
+    .regMemberForm #addEmployment {
+        display: none;
+    }
+
+    .regMemberForm #addEmploymentbutton {
+        display: none;
+    }
+
+    .regMemberForm .delbtn {
+        cursor: pointer;
+    }
+
+    input.input-validation-error {
+        background-color: #FFC0A4;
+        border: 1px solid #ef8157;
+    }
+
+    select.input-validation-error {
+        background-color: #FFC0A4;
+        border: 1px solid #ef8157;
+    }
+
+    .text-danger {
+        font-size: 12px;
+    }
+
+    .required ::after {
+        content: " *" !important;
+        color: red !important;
+    }
+
+    .input-group, .form-group {
+        margin-bottom: 2px;
+    }
+
+        .form-group .form-control, .input-group .form-control {
+            padding: 5px 5px 5px 5px;
+            font-size: 12px;
+        }
+
+    .regMemberForm .custom-file-label {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .nav-top-style {
+        padding-top: 0px !important;
+    }
+
+    .indprofModal {
+        max-width: 800px;
+    }
+
+    .card label {
+        margin-top: 5px;
+    }
+
+    /*    input::-webkit-input-placeholder {
+            font-size: 10px;
+            line-height: 3;
+        }
+
+        ::-moz-placeholder {
+            font-size: 11px;
+            line-height: 3;
+        }
+
+        :-ms-input-placeholder {
+            font-size: 11px;
+            line-height: 3;
+        }
+    */
+
+    /*.invalid input:required:invalid {
+            background: #BE4C54;
+        }*/
+
+    /* Mark valid inputs during .invalid state */
+    /*.invalid input:required:valid {
+            background: #17D654;
+        }*/
+</style>
+
+
+<form id="RegisterForm" method="post" name="RegisterForm" enctype="multipart/form-data">
+    <input type="hidden" asp-for="RequestType" />
+    <input type="hidden" asp-for="OrganizationId" />
+    <input type="hidden" asp-for="OrganizationName" />
+    <div class="row regMemberForm" id="regMemberForm">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header text-center">
+                    @if (Model.RequestType == 1)
+                    {
+                        @*@Model.AppIndVM.MembershipTypeId=(int)MembershipTy*@
+                        <h5 class="card-title">
+                            Individual Membership Application Form
+                        </h5>
+                    }
+                    else if (Model.RequestType == 2)
+                    {
+                        <h5 class="card-title">
+                            Professional Membership Application Form
+                        </h5>
+                    }
+                    else if (Model.RequestType == 3)
+                    {
+                        <h5 class="card-title">
+                            Add Member to @Model.OrganizationName
+                        </h5>
+                    }
+
+
+                    @if (Model.RequestType != 3 && !isUser)
+                    {
+                        <h6 class="text-danger">
+                            If you experience any problems or have any questions during the completion of this form, please contact WISA on 011 805 3537.
+                        </h6>
+
+                    }
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                </div>
+
+
+                <div class="card-body nav-top-style">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <ul id="tabs" class="nav nav-pills mb-3" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="pill" href="#one" role="tab" aria-controls="one" aria-selected="true">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#two" role="tab" aria-controls="two" aria-selected="false">Contact</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#three" role="tab" aria-controls="three" aria-selected="false">Employment</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#five" role="tab" aria-controls="five" aria-selected="false">Additional Info</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#six" role="tab" aria-controls="six" aria-selected="false">Communication</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#seven" role="tab" aria-controls="seven" aria-selected="false">Documents</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#eight" role="tab" aria-controls="eight" aria-selected="false">Submit</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="my-tab-content2" class="tab-content">
+                        <!--Profile Information-->
+                        <div class="tab-pane active" id="one" role="tabpanel" aria-expanded="true">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="card border shadow-none">
+                                        <div class="card-body ">
+                                            <div class="row mb-md-4">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.Email class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.Email />
+                                                        <span asp-validation-for="AppIndVM.Email" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.ConfirmEmail class="control-label">Confirm Email ID</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.ConfirmEmail />
+                                                        <span asp-validation-for="AppIndVM.ConfirmEmail" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 row mt-1">
+
+                                                    @if (Model.RequestType == 3)
+                                                    {
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.MembershipGradeId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group ">
+                                                            <select class="form-control form-input" asp-for=AppIndVM.MembershipGradeId asp-items=ViewBag.MembershipTypeId>
+                                                                <option value="" selected disabled>Select Membership Grade</option>
+                                                            </select>
+                                                            <span asp-validation-for="AppIndVM.MembershipGradeId" class="text-danger"></span>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.Password class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        @if (!isUser)
+                                                        {
+                                                            <input type="password" class="form-control" asp-for=AppIndVM.Password pattern=".{8,}" required title="Password must be minimum 8 characters" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="text" class="form-control" asp-for=AppIndVM.Password pattern=".{8,}" required title="Password must be minimum 8 characters" />
+                                                        }
+                                                        <span asp-validation-for="AppIndVM.Password" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.ConfirmPassword class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        @if (!isUser)
+                                                        {
+                                                            <input type="password" class="form-control" asp-for=AppIndVM.ConfirmPassword />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="text" class="form-control" asp-for=AppIndVM.ConfirmPassword />
+                                                        }
+
+                                                        <span asp-validation-for="AppIndVM.ConfirmPassword" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4  required text-right">
+                                                        <label asp-for=AppIndVM.TitleId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select class="form-control form-input" asp-for=AppIndVM.TitleId asp-items=ViewBag.Titles>
+                                                            <option value="" selected disabled>Select title</option>
+                                                        </select>
+                                                        <span asp-validation-for="AppIndVM.TitleId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=AppIndVM.Initials class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.Initials />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4  required text-right">
+                                                        <label asp-for=AppIndVM.FirstName class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.FirstName />
+                                                        <span asp-validation-for="AppIndVM.FirstName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.LastName class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.LastName />
+                                                        <span asp-validation-for="AppIndVM.LastName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4  required text-right">
+                                                        <label asp-for=AppIndVM.GenderId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=AppIndVM.GenderId asp-items=ViewBag.Genders>
+                                                            <option value="" selected disabled>Select Gender</option>
+                                                        </select>
+                                                        <span asp-validation-for="AppIndVM.GenderId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 @validationRequired text-right">
+                                                        <label asp-for=AppIndVM.BirthDay class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="date" class="form-control" asp-for=AppIndVM.BirthDay />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4  @validationRequired  text-right">
+                                                        <label  class="control-label">Highest Qualification</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=AppIndVM.HighestQualificationId asp-items=ViewBag.Qualifications>
+                                                            <option value="" selected disabled>Select Qualification</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4  @validationRequired text-right">
+                                                        <label asp-for=AppIndVM.OccupationId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=AppIndVM.OccupationId asp-items=ViewBag.Occupations>
+                                                            <option value="" selected disabled>Select Occupation</option>
+                                                        </select>
+                                                        <span asp-validation-for="AppIndVM.OccupationId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 @validationRequired text-right">
+                                                        <label asp-for=AppIndVM.CompanyName class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+
+                                                        @if (Model.RequestType != 3)
+                                                        {
+                                                            <input type="text" class="form-control" asp-for=AppIndVM.CompanyName />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="text" value='@Model.OrganizationName' class="form-control" name="AppIndVM.CompanyName" id="AppIndVM_CompanyName" readonly />
+                                                        }
+                                                        <span asp-validation-for="AppIndVM.CompanyName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.JobTitle class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.JobTitle />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 @validationRequired text-right">
+                                                        <label asp-for=AppIndVM.HomeLanguageId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=AppIndVM.HomeLanguageId asp-items=ViewBag.HomeLanguages>
+                                                            <option value="" selected disabled>Select Language</option>
+                                                        </select>
+                                                        <span asp-validation-for="AppIndVM.HomeLanguageId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 @validationRequired text-right">
+                                                        <label asp-for=AppIndVM.EthnicityId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=AppIndVM.EthnicityId asp-items=ViewBag.Ethnicities>
+                                                            <option value="" selected disabled>Select Ethnicity</option>
+                                                        </select>
+                                                        <span asp-validation-for="AppIndVM.EthnicityId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.IDNumber class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.IDNumber />
+                                                        <span asp-validation-for="AppIndVM.IDNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 @validationRequired text-right">
+                                                        <label asp-for=AppIndVM.CountryId class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <select type="text" class="form-control" asp-for=AppIndVM.CountryId asp-items=ViewBag.nationalities>
+                                                            <option value="" selected disabled>Select Nationality</option>
+                                                        </select>
+                                                        <span asp-validation-for="AppIndVM.CountryId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.MobilePhone class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.MobilePhone />
+                                                        <span asp-validation-for="AppIndVM.MobilePhone" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 row">
+
+                                                </div>
+                                            </div>
+
+                                            @*<div class="row" id="otherCountry">
+                                                    <div class="col-md-6 row">
+
+                                                    </div>
+                                                    <div class="col-md-6 row">
+                                                        <div class="col-md-4 required text-right">
+                                                            <label asp-for=AppIndVM.CountryId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group ">
+                                                            <select class="form-control" asp-for=AppIndVM.CountryId asp-items=ViewBag.Countries>
+                                                                <option value="" selected disabled>Select Country</option>
+                                                            </select>
+                                                            <span asp-validation-for="AppIndVM.CountryId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Profile Information - End-->
+                        <!--Contact Information-->
+                        <div class="tab-pane fade" id="two" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="card border shadow-none">
+                                        <div class="card-body ">
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=AppIndVM.HomePhoneNumber class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.HomePhoneNumber />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 required text-right">
+                                                        <label asp-for=AppIndVM.BusinessPhoneNumber class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.BusinessPhoneNumber />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=AppIndVM.FAXNumber class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.FAXNumber />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=AppIndVM.FaxToEmail class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.FaxToEmail />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                @*<div class="col-md-6 row">
+                                                        <div class="col-md-4 required text-right">
+                                                            <label asp-for=AppIndVM.MobilePhone class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group ">
+                                                            <input type="text" class="form-control" asp-for=AppIndVM.MobilePhone />
+                                                            <span asp-validation-for="AppIndVM.MobilePhone" class="text-danger"></span>
+                                                        </div>
+                                                    </div>*@
+
+                                                <div class="col-md-6 row">
+                                                    <div class="col-md-4 text-right">
+                                                        <label asp-for=AppIndVM.SecondaryEmail class="control-label"></label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group ">
+                                                        <input type="text" class="form-control" asp-for=AppIndVM.SecondaryEmail />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Physical Address</b></h6>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalAddressLine1 class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalAddressLine1 />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalAddressLine2 class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalAddressLine2 />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalSuburb class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalSuburb />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalCity class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalCity />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalProvince class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalStateId asp-items=ViewBag.Provinces>
+                                                                <option value="" selected disabled>Select Province</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalCountryId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalCountryId asp-items=ViewBag.Countries>
+                                                                <option value="" selected disabled>Select Country</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 text-right">
+                                                            <label asp-for=AppIndVM.PhysicalPostalCode class="control-label"></label>
+
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PhysicalPostalCode />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="card border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Postal Address</b></h6>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalAddressLine1 class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PostalAddressLine1 />
+                                                            <span asp-validation-for="AppIndVM.PostalAddressLine1" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalAddressLine2 class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PostalAddressLine2 />
+                                                            <span asp-validation-for="AppIndVM.PostalAddressLine2" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalSuburb class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PostalSuburb />
+                                                            <span asp-validation-for="AppIndVM.PostalSuburb" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalCity class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PostalCity />
+                                                            <span asp-validation-for="AppIndVM.PostalCity" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalProvince class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=AppIndVM.PostalStateId asp-items=ViewBag.Provinces>
+                                                                <option value="" selected disabled>Select Province</option>
+                                                            </select>
+                                                            <span asp-validation-for="AppIndVM.PostalStateId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalCountryId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <select type="text" class="form-control form-input" asp-for=AppIndVM.PostalCountryId asp-items=ViewBag.Countries>
+                                                                <option value="" selected disabled>Select Country</option>
+                                                            </select>
+                                                            <span asp-validation-for="AppIndVM.PostalCountryId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 has-label">
+                                                        <div class="col-md-4 @validationRequired text-right">
+                                                            <label asp-for=AppIndVM.PostalPostalCode class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="text" class="form-control form-input" asp-for=AppIndVM.PostalPostalCode />
+                                                            <span asp-validation-for="AppIndVM.PostalPostalCode" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Contact Information - End-->
+                        <!--Employment-->
+                        <div class="tab-pane fade" id="three" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+
+                                    <!-- Employment -->
+                                    <div class="card border shadow-none">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-md-12 text-left">
+                                                    <h6><b>Employment History</b><span asp-validation-for="empvmlist" class="text-danger required"></span></h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 text-left @validationRequired">
+                                                    <label class="control-label">Do you have employment history</label>
+                                                </div>
+                                                <div class="col-md-2 mb-5 text-left">
+                                                    <select type="text" class="form-control" asp-for=AppIndVM.HaveEmploymentHistory id="selEmpHistory"
+                                                            onchange="showSelAddEmp(this)" asp-items="ViewBag.YesNoList">
+                                                        <option value="" selected disabled>Select</option>
+                                                    </select>
+                                                    <span class="text-danger" asp-validation-for="AppIndVM.HaveEmploymentHistory"></span>
+                                                </div>
+
+                                                <div id="addEmploymentbutton" class="col-md-7 text-right">
+                                                    <div class="@validationRequired">
+                                                        <button type="button"
+                                                                class="btn btn-outline-primary mb-2"
+                                                                data-toggle="modal"
+                                                                data-target="#employmentModal">
+                                                            Add Employment
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-body">
+
+                                            <div id="addEmployment">
+                                                <table class="table table-sm table-condensed" id="employmentTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="30%" class="text-primary text-left">Employer</td>
+                                                            <td width="30%" class="text-primary  text-left">Designation</td>
+                                                            <td width="30%" class="text-primary  text-left">Employment Category</td>
+                                                            <td class="text-danger text-right">Remove</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (Model.empvmlist != null)
+                                                        {
+                                                            @for (int j = 0; j < Model.empvmlist.Count; j++)
+                                                            {
+                                                                var id = "empvmlist[" + @j + "].id";
+                                                                var empcat = "empvmlist[" + @j + "].empcategoryid";
+                                                                var empcatName = "empvmlist[" + @j + "].empcategoryName";
+                                                                var employer = "empvmlist[" + @j + "].employer";
+                                                                var empdesignation = "empvmlist[" + @j + "].empdesignation";
+                                                                var empstartdate = "empvmlist[" + @j + "].empstartdate";
+                                                                var empenddate = "empvmlist[" + @j + "].empenddate";
+                                                                var emptelnumber = "empvmlist[" + @j + "].emptelnumber";
+                                                                var empcompanyemail = "empvmlist[" + @j + "].empcompanyemail";
+                                                                var empduties = "empvmlist[" + @j + "].empduties";
+
+                                                                <tr>
+
+                                                                    <input type='hidden' name=@id value="" />
+                                                                    <input type='hidden' name=@empcat value=@Model.empvmlist[j].empcategoryid />
+                                                                    <input type='hidden' name=@empcatName value=@Model.empvmlist[j].empcategoryname />
+                                                                    <input type='hidden' name=@employer value=@Model.empvmlist[j].employer />
+                                                                    <input type='hidden' name=@empdesignation value=@Model.empvmlist[j].empdesignation />
+                                                                    <input type='hidden' name=@empstartdate value=@Model.empvmlist[j].empstartdate />
+                                                                    <input type='hidden' name=@empenddate value=@Model.empvmlist[j].empenddate />
+                                                                    <input type='hidden' name=@emptelnumber value=@Model.empvmlist[j].emptelnumber />
+                                                                    <input type='hidden' name=@empcompanyemail value=@Model.empvmlist[j].empcompanyemail />
+                                                                    <input type='hidden' name=@empduties value=@Model.empvmlist[j].empduties />
+
+                                                                    <td class='text-left'>@Model.empvmlist[j].employer</td>
+                                                                    <td class='text-left'>@Model.empvmlist[j].empdesignation</td>
+                                                                    <td class='text-left'>@Model.empvmlist[j].empcategoryname</td>
+                                                                    <td class='text-danger text-right'><button onclick='removeEmpRow(this);return false;' class='fa fa-trash delbtn'></button></td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                    @*
+                                        var prefix="<input type='hidden' name='empvmlist[" + j + "]." ;
+                                                                   var mid="' value='" ;
+                                                                   var suffix="' />" ;
+                                        var id=prefix + "id" + mid + j + suffix;
+                                        var empcat=prefix + "empcategoryid" + mid + $("#empCategory").val() + suffix;
+                                        var employer=prefix + "employer" + mid + $("#employer").val() + suffix;
+                                        var empdesignation=prefix + "empdesignation" + mid + $("#empDesignation").val() + suffix;
+                                        var empstartdate=prefix + "empstartdate" + mid + $("#empStartDate").val() + suffix;
+                                        var empenddate=prefix + "empenddate" + mid + $("#empEndDate").val() + suffix;
+                                        var emptelnumber=prefix + "emptelnumber" + mid + $("#empTelNumber").val() + suffix;
+                                        var empcompanyemail=prefix + "empcompanyemail" + mid + $("#empCompEmail").val() + suffix;
+                                        var empduties=prefix + "empduties" + mid + $("#empDuties").val() + suffix;
+                                        var deletebuttontd="<td class='text-danger text-right'><button onclick='removeEmpRow(this);return false;' class='fa fa-trash delbtn'></button></td>" ;
+                                        var employertd="<td class='text-left'>" + $("#employer").val() + "</td>" ;
+                                        var empdesignationtd="<td class='text-left'>" + $("#empDesignation").val() + "</td>" ;
+                                        var empcatTd="<td class='text-left'>" + $("#empCategory option:selected").text() + "</td>" ;
+                                        //
+                                        <td class="text-primary text-left">Employer</td>
+                                        //    <td class="text-primary">Designation</td>
+                                        //    <td class="text-primary">Employment Category</td>
+                                        //    <td class="text-danger text-right">Remove</td>
+
+                                        var allhiddenfileds = id + empcat + employer + empdesignation + empstartdate + empenddate + emptelnumber + empcompanyemail + empduties;
+                                        $("#employmentTable > tbody").append("<tr>" + allhiddenfileds + employertd + empdesignationtd + empcatTd + deletebuttontd + "</tr>");*@
+                                    <!-- Employment -->
+                                    <!-- Add Referee -->
+                                    @if (Model.RequestType == 2)
+                                    {
+                                        <div class="card border shadow-none">
+                                            <div class="card-header">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-3 text-left">
+                                                        <h6><b>Referee Reports</b></h6>
+                                                    </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <span class="error classerror">&nbsp;*&nbsp;Please add Referee Report</span>
+                                                    </div>
+                                                    <div id="addrefereebutton" class="col-md-6 text-right">
+                                                        <div class="required">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary mb-2"
+                                                                    data-toggle="modal"
+                                                                    data-target="#refereeModal">
+                                                                Add Report
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <table class="table table-sm" id="refereeTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="30%" class="text-primary text-left">First Name</td>
+                                                            <td width="30%" class="text-primary text-left">Last Name</td>
+                                                            <td width="30%" class="text-primary">Email</td>
+                                                            <td class="text-danger text-right">Remove</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    }
+                                    <!--Add Referee Ends-->
+                                    @*{
+                                        <div class="card border shadow-none">
+                                            <div class="card-header">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-3 text-left">
+                                                        <h6><b>Department of Water and Sanitation</b></h6>
+                                                    </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <span class="error classerror">&nbsp;*&nbsp;Please add Class Information</span>
+                                                    </div>
+                                                    <div id="addDWSbutton" class="col-md-6 text-right">
+                                                        <div class="required">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary mb-2"
+                                                                    data-toggle="modal"
+                                                                    data-target="#waterSanitationModal">
+                                                                Add Class Info
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <table class="table table-sm" id="waterSanitationTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="30%" class="text-primary text-left">Date</td>
+                                                            <td width="30%" class="text-primary">Registered Class</td>
+                                                            <td class="text-danger text-right">Remove</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        }*@
+
+                                    <!-- Water & Sanitation -->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Employment - End-->
+                        <!--Documents-->
+                        <div class="tab-pane fade" id="seven" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1"></div>
+
+                                <div class="col-10">
+
+                                    <!-- Qualification -->
+                                    <div class="card border shadow-none">
+                                        <div class="card-header">
+
+                                            <div class="row ">
+                                                <div class="col-md-8 text-left">
+                                                    <h6><b>Qualifications</b><span asp-validation-for="qvmlist" class="text-danger required"></span></h6>
+
+                                                </div>
+
+                                                <div id="addQualificationbutton" class="col-md-4 text-right">
+                                                        <div class="@validationRequired">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary mb-2"
+                                                                    data-toggle="modal"
+                                                                    data-target="#qualificationModal">
+                                                                Add Qualification
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <table class="table table-sm" id="qualificationTable">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="30%" class="border-0 text-primary text-left">Institute</td>
+                                                        <td width="30%" class="border-0 text-primary">Qualification Name</td>
+                                                        <td width="30%" class="border-0 text-primary">Qualification Type</td>
+                                                        <td class="border-0 text-danger text-right">Remove</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+
+                                                    @if (Model.qvmlist != null)
+                                                    {
+                                                        @for (int j = 0; j < Model.qvmlist.Count; j++)
+                                                        {
+                                                            var id = "qvmlist[" + @j + "].id";
+                                                            var qualcat = "qvmlist[" + @j + "].categoryid";
+                                                            var institute = "qvmlist[" + @j + "].institute";
+                                                            var qualificationname = "qvmlist[" + @j + "].qualificationname";
+                                                            var studentnumber = "qvmlist[" + @j + "].studentnumber";
+                                                            var startdate = "qvmlist[" + @j + "].startdate";
+                                                            var enddate = "qvmlist[" + @j + "].enddate";
+                                                            var qualtype = "qvmlist[" + @j + "].qualificationtype";
+                                                            var qualtypename = "qvmlist[" + @j + "].qualificationtypename";
+                                                            var enrolmentcat = "qvmlist[" + @j + "].enrolmentcategoryid";
+
+                                                            <tr>
+                                                                <input type='hidden' name=@id value="" />
+                                                                <input type='hidden' name=@qualcat value=@Model.qvmlist[j].categoryid />
+                                                                <input type='hidden' name=@institute value=@Model.qvmlist[j].institute />
+                                                                <input type='hidden' name=@qualificationname value=@Model.qvmlist[j].qualificationname />
+                                                                <input type='hidden' name=@studentnumber value=@Model.qvmlist[j].studentnumber />
+                                                                <input type='hidden' name=@startdate value=@Model.qvmlist[j].startdate />
+                                                                <input type='hidden' name=@enddate value=@Model.qvmlist[j].enddate />
+                                                                <input type='hidden' name=@qualtype value=@Model.qvmlist[j].qualificationtype />
+                                                                <input type='hidden' name=@qualtypename value=@Model.qvmlist[j].qualificationtypename />
+                                                                <input type='hidden' name=@enrolmentcat value=@Model.qvmlist[j].enrolmentcategoryid />
+
+                                                                <td class='text-left'>@Model.qvmlist[j].institute</td>
+                                                                <td class='text-left'>@Model.qvmlist[j].qualificationname</td>
+                                                                <td class='text-left'>@Model.qvmlist[j].qualificationtypename</td>
+                                                                <td class='text-danger text-right'><button onclick='removeQualRow(this);return false;' class='fa fa-trash delbtn'></button></td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- Qualification End -->
+                                    <!-- Upload Docs Notes -->
+                                    <div class="card mb-4  border shadow-none" style="min-height:300px !important">
+                                        <div class="card-header">
+                                            <h6><b>Upload Documents</b></h6>  <span class="error fileserror" text-danger">&nbsp;*&nbsp;Please upload files</span>
+                                        </div>
+
+                                        @if (Model.RequestType != 3)
+                                        {
+                                            <div class="card-body">
+
+                                                Please upload the following documents which are required to process your application:<br /><br />
+                                                <ul>
+                                                    <li class="mb-2">Certified copy of your ID Document</li>
+                                                    <li class="mb-2">Certified copy of your certificates for all the completed qualifications that you have listed on the application form.</li>
+                                                    <li class="mb-2">Proof of registration if you are currently a full time student. (if applicable)</li>
+                                                    <li class="mb-2">Student registration certificate or a confirmation letter from your institution indicating that you are a full time student.</li>
+                                                    <li class="mb-2">Proof of payment for the administration fee</li>
+                                                </ul>
+                                                Your application will not be processed until we receive the proof of payment R 200.<br /><br />
+
+                                                You can upload your proof of payment below, or email it to
+                                                <a href="mailto: debtors@wisa.org.za">debtors@wisa.org.za</a> and <a href="mailto: debtors@wisa.org.za">wisa@wisa.org.za</a>
+
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <!-- Upload Docs Notes End-->
+                                </div>
+                                <div class="col-1"></div>
+
+                                <div class="col-1"></div>
+                                <div class="col-10">
+                                    <!-- Upload Files -->
+                                    <div class="card mb-4  border shadow-none" style="min-height:300px !important">
+                                        <div class="card-body">
+                                            <table class="table table-sm mb-1 table-borderless table-condensed"
+                                                   id="documentsTable"
+                                                   data-sticky-header="true">
+                                                <tr>
+                                                    <th width="30%">File Type</th>
+                                                    <th>File Name</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        Passport or ID Document 
+                                                        @if(Model.RequestType!=3)
+                                                        { 
+                                                        <span class="error" style="display:inline">*</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div class="custom-file form-group mt-md-1">
+                                                            <input type="file" class="custom-file-input form-control" multiple asp-for="IDDocuments" />
+                                                            <label class="custom-file-label text-left" for="customFile">Click to Upload ID Documents</label>
+                                                        </div>
+                                                        <div class="text-left">
+                                                            <span asp-validation-for="IDDocuments" class="text-danger text-left"></span>
+                                                        </div>
+                                                        @*<div class="text-left">
+                                                                @if (Model.IDDocuments != null && Model.IDDocuments.Count>0)
+                                                                {
+                                                                <div class="bootstrap-tagsinput primary-badge">
+                                                                    <span class="font-weight-bold text-info">Ready for upload:</span>
+                                                                    @foreach (var file in Model.IDDocuments)
+                                                                    {
+                                                                        <span class="badge badge badge-success">@file.FileName &nbsp;</span>
+                                                                    }
+                                                                </div>
+                                                                }
+                                                            </div>*@
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">Qualification Certificates</td>
+                                                    <td>
+                                                        <div class="custom-file form-group mt-md-1">
+                                                            <input type="file"
+                                                                   class="custom-file-input form-control"
+                                                                   id="Certificates"
+                                                                   multiple asp-for="Certificates" />
+                                                            <label class="custom-file-label  text-left" for="customFile">Click to Upload Certificates (Completed Qualifications)</label>
+                                                        </div>
+                                                        @*<div class="text-left">
+                                                                @if (Model.Certificates != null && Model.Certificates.Count>0)
+                                                                {
+                                                                <div class="bootstrap-tagsinput primary-badge">
+                                                                    <span class="font-weight-bold text-info">Ready for upload:</span>
+                                                                    @foreach (var file in Model.Certificates)
+                                                                    {
+                                                                        <span class="badge badge badge-success">@file.FileName &nbsp;</span>
+                                                                    }
+                                                                </div>
+                                                                }
+                                                            </div>*@
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-left">Proof of Full Time Student Registration</td>
+                                                    <td>
+                                                        <div class="custom-file form-group  mt-md-1">
+                                                            <input type="file"
+                                                                   class="custom-file-input form-control"
+                                                                   id="ProofOfReg"
+                                                                   multiple asp-for="ProofOfReg" />
+                                                            <label class="custom-file-label  text-left" for="customFile"> Click to Upload  Proof of Registration ( If fulltime Student)</label>
+                                                        </div>
+                                                        @*<div class="text-left">
+                                                                @if (Model.ProofOfReg != null && Model.ProofOfReg.Count>0)
+                                                                {
+                                                                    <div class="bootstrap-tagsinput primary-badge">
+                                                                        <span class="font-weight-bold text-info">Ready for upload:</span>
+                                                                        @foreach (var file in Model.ProofOfReg)
+                                                                        {
+                                                                            <span class="badge badge badge-success">@file.FileName &nbsp;</span>
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                            </div>*@
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">Student Registration Certificate or a Confirmation Letter</td>
+                                                    <td>
+                                                        <div class="custom-file form-group  mt-md-1">
+                                                            <input type="file"
+                                                                   class="custom-file-input form-control"
+                                                                   id="ProofOfRegis"
+                                                                   multiple asp-for="ProofOfStudentLetter" />
+                                                            <label class="custom-file-label  text-left" for="customFile"> Click to Upload Student registration certificate</label>
+                                                        </div>
+                                                        @*<div class="text-left">
+                                                                @if (Model.ProofOfStudentLetter != null && Model.ProofOfStudentLetter.Count>0)
+                                                                {
+                                                                <div class="bootstrap-tagsinput primary-badge">
+                                                                    <span class="font-weight-bold text-info">Ready for upload:</span>
+                                                                    @foreach (var file in Model.ProofOfStudentLetter)
+                                                                    {
+                                                                        <span class="badge badge badge-success">@file.FileName &nbsp;</span>
+                                                                    }
+                                                                </div>
+                                                                }
+                                                            </div>*@
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">Proof of Payment (Not applicable for Students)  <span class="error" style="display:inline">*</span></td>
+                                                    <td>
+                                                        <div class="custom-file form-group  mt-md-2">
+                                                            <input type="file"
+                                                                   class="custom-file-input form-control"
+                                                                   id="ProofOfPayment"
+                                                                   multiple asp-for="ProofOfPayment" />
+                                                            <label class="custom-file-label  text-left" for="customFile"> Click to Upload Proof of Payment</label>
+                                                        </div>
+                                                        <div class="text-left">
+                                                            <span asp-validation-for="ProofOfPayment" class="text-danger text-left"></span>
+                                                        </div>
+                                                        @*<div class="text-left">
+                                                                @if (Model.ProofOfPayment != null && Model.ProofOfPayment.Count>0)
+                                                                {
+                                                                    <div class="bootstrap-tagsinput primary-badge">
+                                                                        <span class="font-weight-bold text-info">Ready for upload:</span>
+                                                                        @foreach (var file in Model.ProofOfPayment)
+                                                                        {
+                                                                            <span class="badge badge badge-success">@file.FileName &nbsp;</span>
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                            </div>*@
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- Upload Files End -->
+                                </div>
+                                <div class="col-1"></div>
+
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-md-10">
+
+                                    <div class="card  border shadow-none">
+                                        <div class="card-header">
+                                            <p>
+                                                <b>Banking Details</b>
+                                                <i class="fa fa-info-circle banking-icon banking-tooltip"
+                                                   data-toggle="tooltip"
+                                                   data-placement="right"
+                                                   title="Please use your ID number as a reference on the payment."></i>
+                                            </p>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="p-1">
+                                                <pre><b>Account name        :  </b>Water Institute of Southern Africa</pre>
+                                                <pre><b>Bank                :  </b>First National Bank (FNB)</pre>
+                                                <pre><b>Branch              :  </b>The Boulders</pre>
+                                                <pre><b>Branch Code         :  </b>250856</pre>
+                                                <pre><b>Account number      :  </b>62044 55 2710</pre>
+                                                <pre><b>Payment Reference   :  </b>Passport / ID Number</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">&nbsp;</div>
+
+                            </div>
+                        </div>
+                        <!--Documents - End-->
+                        <!--Additional Information-->
+                        <div class="tab-pane fade" id="five" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card  border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Branch</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row  mb-md-2">
+                                                        <div class="col-md-3 text-right  @validationRequired">
+                                                            <label asp-for=AppIndVM.ClientBranchId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-9 form-group">
+                                                            <select class="form-control  form-input" asp-for=AppIndVM.ClientBranchId asp-items=ViewBag.MemberBranchId>
+                                                                <option value="" selected disabled>Select Branch</option>
+                                                            </select>
+                                                            <span asp-validation-for="AppIndVM.ClientBranchId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="row">
+                                            <div class="col-12">
+                                                <div class="card  border shadow-none">
+                                                    <div class="card-header">
+                                                        <h6><b>Involvement</b></h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <label>
+                                                            In which of the following ways do you want to be
+                                                            involved?
+                                                        </label>
+                                                        @for (int j = 0; j < Model.MemberInvolvementList.Count; j++)
+                                                        {
+                                                            <div class="mb-1 ml-1">
+                                                                <input type="hidden" asp-for="@Model.MemberInvolvementList[j].Id" />
+                                                                <input type="checkbox"
+                                                                       class="pl-10 ml-10"
+                                                                       asp-for="@Model.MemberInvolvementList[j].IsSelected" />&nbsp;@Model.MemberInvolvementList[j].Name
+
+                                                                </div>
+                                                            }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card  border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Disability</b></h6>
+                                                </div>
+                                                <div class="card-body mb-2">
+                                                    @for (int j = 0; j < Model.MemberDisabilityList.Count; j++)
+                                                    {
+                                                        <input type="hidden" asp-for="@Model.MemberDisabilityList[j].Id" />
+                                                        <div class="mb-1 ml-3">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="checkbox" class="form-check-input disability-align" asp-for="@Model.MemberDisabilityList[j].IsSelected" />@Model.MemberDisabilityList[j].Name
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <select class="form-control form-input mb-1" asp-for=@Model.MemberDisabilityList[j].DisabilityLevelId asp-items=ViewBag.DisabilityLevels>
+                                                                        <option value="" selected disabled>Select Disability Level</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="card  border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Select Affiliations</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    @for (int j = 0; j < Model.MemberAffiliationList.Count; j++)
+                                                    {
+
+                                                        <input type="hidden" asp-for="@Model.MemberAffiliationList[j].Id" />
+                                                        <div class="mb-1 ml-1">
+                                                            <div class="row">
+                                                                <div class="col-5">
+                                                                    <input type="checkbox"
+                                                                           class="pl-10 ml-10"
+                                                                           asp-for="@Model.MemberAffiliationList[j].IsSelected" />&nbsp;@Model.MemberAffiliationList[j].Name
+
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <input type="text" class="form-control form-input" placeholder="Member Number" asp-for="@Model.MemberAffiliationList[j].MemberNumber" />
+                                                                        @if (@Model.MemberAffiliationList[j].Name.ToUpper() == "OTHER")
+                                                                        {
+                                                                            <input type="text" class="form-control form-input mt-2" placeholder="Institute" asp-for="@Model.MemberAffiliationList[j].MemberSpecificAffliationName" />
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card  border shadow-none">
+                                                <div class="card-header">
+                                                    <h6><b>Select Divison</b></h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @for (int j = 0; j < Model.MemberDivisionList.Count; j++)
+                                                        {
+                                                            <div class="col-3 mb-1 ml-1">
+                                                                <input type="hidden" asp-for="@Model.MemberDivisionList[j].Id" />
+                                                                <input type="checkbox"
+                                                                       class="pl-10 ml-10"
+                                                                       asp-for="@Model.MemberDivisionList[j].IsSelected" />&nbsp;@Model.MemberDivisionList[j].Name
+                                                                </div>
+                                                            }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-1">&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Additional Information - End-->
+                        <!--Communication-->
+                        <div class="tab-pane fade" id="six" role="tabpanel" aria-expanded="false">
+                            <div class="row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-10">
+                                    <div class="col-12">
+                                        <div class="card  border shadow-none">
+                                            <div class="card-header">
+                                                <h6><b>Communication</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                @*<div class="row  mb-md-2">
+                                                        <div class="col-md-3 text-right  required">
+                                                            <label asp-for=AppIndVM.ClientBranchId class="control-label"></label>
+                                                        </div>
+                                                        <div class="col-md-9 form-group">
+                                                            <select class="form-control  form-input" asp-for=AppIndVM.ClientBranchId asp-items=ViewBag.ClientBranchId>
+                                                                <option value="" selected disabled>Select Branch</option>
+                                                            </select>
+                                                            <span asp-validation-for="AppIndVM.ClientBranchId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>*@
+
+                                                <div class="row mb-md-2">
+                                                    <div class="col-md-9 text-right ">
+                                                        <label class="control-label">Where did you hear about WISA?</label>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <select class="form-control  form-input" asp-for=AppIndVM.ReferralTypeId asp-items=ViewBag.Referrals>
+                                                            <option value="" selected>Select Referral Type</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-md-2">
+                                                    <div class="col-md-9 text-right">
+                                                        <label class="control-label">Where did you hear about WISA? (other)</label>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <input type="text" class="form-control form-input" asp-for=AppIndVM.ReferralOther />
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-md-2">
+                                                    <div class="col-md-9 text-right ">
+                                                        <label class="control-label">
+                                                            Are you interested in doing volunteer work for WISA  Branches/Divisions/Head-Office?
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <select class="form-control  form-input" asp-for=AppIndVM.InterestedInVolunteerWork asp-items=ViewBag.YesNoList>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-md-2">
+                                                    <div class="col-md-9 text-right ">
+                                                        <label class="control-label" asp-for=AppIndVM.VolunteerWorkHoursId>
+                                                            How many hours are you available for Volunteer Work
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <select class="form-control  form-input" asp-for=AppIndVM.VolunteerWorkHoursId asp-items=ViewBag.VolunteerWorkHrs>
+                                                            <option value="" selected>Select Work Hrs</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-md-2">
+                                                    <div class="col-md-9 text-right ">
+                                                        <label class="control-label" asp-for="AppIndVM.CanWeSendCommunication">
+                                                            May we send you newsletters, notifications and marketing
+                                                            material via SMS and Email?
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <select class="form-control  form-input" asp-for=AppIndVM.CanWeSendCommunication asp-items=ViewBag.YesNoList>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-9 text-right">
+                                                        <label class="control-label" asp-for=AppIndVM.PublishCompanyInAnnualMemberDirectory>
+                                                            May we publish your name and contact details in the annual
+                                                            member directory that is distributed to all WISA members,
+                                                            distributed at WISA events and sent to any person requesting
+                                                            a copy?
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <select class="form-control  form-input" asp-for=AppIndVM.PublishCompanyInAnnualMemberDirectory asp-items=ViewBag.YesNoList>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card  border shadow-none">
+                                            <div class="card-header">
+                                                <h6><b>Involvement</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>
+                                                    <b> In which of the following ways do you want to be involved in WISA activities ?</b>
+                                                </label><br /><br />
+                                                @for (int j = 0; j < Model.MemberInvolvementList.Count; j++)
+                                                {
+                                                    <div class="mb-1 ml-1">
+                                                        <input type="hidden" asp-for="@Model.MemberInvolvementList[j].Id" />
+                                                        <input type="checkbox"
+                                                               class="pl-10 ml-10"
+                                                               asp-for="@Model.MemberInvolvementList[j].IsSelected" />&nbsp;@Model.MemberInvolvementList[j].Name
+
+                                                        </div>
+                                                    }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Communication - End-->
+                        <!--Declaration & Submit-->
+                        <div class="tab-pane fade" id="eight" role="tabpanel" aria-expanded="false">
+
+                            <div class="row">
+                                <div class="col-2">&nbsp;</div>
+                                <div class="col-8">
+                                    <div class="card  border shadow-none">
+                                        <div class="card-header">
+                                            @if (Model.RequestType != 3)
+                                            {
+                                                <h6><b>Declaration</b></h6>
+                                            }
+                                            </div>
+                                        <div class="card-body">
+                                            <div class="row  mb-md-2">
+                                                @if (Model.RequestType != 3)
+                                                {
+                                                    <div>
+                                                        <p class="mx-2  text-justify">
+                                                            By completing this form you agree to become a member of the
+                                                            Water Institute of Southern Africa and when admitted you agree
+                                                            to abide by the institutes Code of Conduct and Rules of the
+                                                            Company. You commit to pay promptly and in advance the annual
+                                                            subscription fee by 31 January of each year. You agree to
+                                                            generally promote the aims and objectives of the Institute and
+                                                            to enhance the environment.
+                                                        </p>
+                                                        <div class="mb-4 ml-4 ">
+                                                            <input type="checkbox" class="pl-10 ml-10"
+                                                                   asp-for="AppIndVM.TermAccepted" />
+                                                            <label class="control-label">
+                                                                <h6>&nbsp;&nbsp;Please tick this block to show that you agree to fulfil this declaration. <span class="text-danger">&nbsp;* </span></h6>
+                                                            </label>
+
+                                                            <br />
+                                                            <span asp-validation-for="AppIndVM.TermAccepted" class="text-danger @validationRequired"></span>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </div>
+
+                                            @if (Model.RequestType != 3)
+                                            {
+                                                <input type="submit" id="btnSubmit" value="Register" class="btn btn-outline-primary float-right register-btn" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" id="btnSubmit" value="Add Member" class="btn btn-outline-primary float-right register-btn" />
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">&nbsp;</div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <!--Declaration - End-->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+    </div>
+
+</form>
+
+<!-- Qualification Modal -->
+<div class="modal" id="qualificationModal">
+    <div class="modal-dialog indprofModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Qualification</h4>
+            </div>
+            <form id="qualForm">
+                <div class="modal-body">
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4" for="qualCategory">Qualification Category</label>
+                        <select class="form-control form-input col-sm-8" id="qualCategory" asp-items=ViewBag.QualificationCategories>
+                            <option value="" selected disabled>Select Qualification Category</option>
+                        </select>
+                    </div>
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Institute</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="qualInstitute" />
+                        <span class="error qualInstituteerror col-sm-12 text-right  pr-0 mr-0">Institute name is Required</span>
+                    </div>
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Qualification</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="qualName" required />
+                        <span class="error qualNameError col-sm-12 text-right pr-0 mr-0">Qualification name is Required</span>
+                    </div>
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Student Number</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="qualStudNumber" />
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Start Date</label>
+                        <input type="date" class="form-control form-input col-sm-8" id="qualStartDate" />
+                    </div>
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">End Date</label>
+                        <input type="date" class="form-control form-input col-sm-8" id="qualEndDate" />
+                    </div>
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Qualification Type</label>
+                        <select class="form-control  form-input col-sm-8" id="qualType" asp-items=ViewBag.QualificationTypes>
+                            <option value="-1" selected disabled>Select Qualification Type</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-4">Enrolement Category</label>
+                        <select class="form-control  form-input col-sm-8" id="qualEnrolCategory" asp-items=ViewBag.EnrolmentCategories>
+                            <option value="" selected disabled>Select Enrolment Category</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer border-top-0 mr-3">
+                    <button type="button"
+                            class="btn btn-outline-primary"
+                            id="addQualification">
+                        Add
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- / Qualification Modal-->
+<!-- Employment Modal -->
+<div class="modal" id="employmentModal">
+    <div class="modal-dialog   indprofModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Add Employment History </h6>
+            </div>
+            <form id="empForm">
+                <div class="modal-body">
+                    <div class="form-group row mb-md-2 ">
+                        <label class="control-label col-sm-4"> Employment Category<span class="text-danger">&nbsp;*</span></label>
+                        <select class="form-control  form-input col-sm-8" id="empCategory" required asp-items=ViewBag.EmploymentCategories>
+                            <option value="" selected disabled>Select Employment Category</option>
+                        </select>
+                        <span class="error empCategoryerror col-sm-12 text-right  pr-0 mr-0">Employment Category is Required</span>
+                    </div>
+
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Company Name</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="employer" required />
+                        <span class="error employererror col-sm-12 text-right  pr-0 mr-0">Company Name is Required</span>
+                    </div>
+
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Job Title</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="empDesignation" required />
+                        <span class="error empDesignationerror col-sm-12 text-right  pr-0 mr-0">Designation is Required</span>
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Start Date</label>
+                        <input type="date" class="form-control form-input col-sm-8" id="empStartDate" />
+
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">End Date</label>
+                        <input type="date" class="form-control form-input col-sm-8" id="empEndDate" />
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Company Phone Number</label>
+                        <input type="tel" class="form-control form-input col-sm-8" id="empTelNumber" />
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Email</label>
+                        <input type="email" class="form-control form-input col-sm-8" id="empCompEmail" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-4">Job Duties</label>
+                        <input type="email" class="form-control form-input col-sm-8" id="empDuties" />
+                    </div>
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer  border-top-0 mr-4">
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="addEmpHistory">
+                        Add
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- / Employment Modal-->
+<!-- Referee Modal -->
+<div class="modal" id="refereeModal">
+    <div class="modal-dialog   indprofModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Add Referee Report</h6>
+            </div>
+            <form id="refereeForm">
+                <div class="modal-body">
+                    <div class="form-group row mb-md-2 ">
+                        <label class="control-label col-sm-4"> Title<span class="text-danger">&nbsp;*</span></label>
+                        <select class="form-control  form-input col-sm-8" id="refTitle" required asp-items=ViewBag.titles>
+                            <option value="" selected disabled>Select title</option>
+                        </select>
+                        <span class="error titleerror col-sm-12 text-right  pr-0 mr-0">Title is Required</span>
+                    </div>
+
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Initials</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refInitials" />
+                    </div>
+
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">First Name</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refFirstName" />
+                        <span class="error firstnameerror col-sm-12 text-right  pr-0 mr-0">First Name is Required</span>
+                    </div>
+
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Last Name</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refLastName" />
+                        <span class="error lastnameerror col-sm-12 text-right  pr-0 mr-0">Last Name is Required</span>
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Email</label>
+                        <input type="email" class="form-control form-input col-sm-8" id="refEmail" />
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Mobile Number</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refMobile" />
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Phone Number</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refPhone" />
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Employer Name</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refEmployerName" />
+                    </div>
+
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Position of Referee</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="refereePosition" />
+                        @*<span class="error empDesignationerror col-sm-12 text-right  pr-0 mr-0">Designation is Required</span>*@
+                    </div>
+
+                    <div class="form-group row mb-md-2">
+                        <label class="control-label col-sm-4">Professional Registration Number of Referee</label>
+                        <input type="text" class="form-control form-input col-sm-8" id="proRegNoOfReferee" />
+                    </div>
+
+
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer  border-top-0 mr-4">
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="addReferee">
+                        Add
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- / Referee Modal-->
+<!-- Water Modal -->
+<!--<div class="modal" id="waterSanitationModal">
+    <div class="modal-dialog water-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Refree Report</h4>
+            </div>
+
+            <div class="modal-body">
+                <form id="classForm">
+                    <div class="form-group row mb-md-2 required">
+                        <label class="control-label col-sm-4">Class</label>
+                        <select class="form-control  form-input col-sm-8" id="waterClass" required>
+                            <option value="" selected disabled>Select Class</option>
+                            <option value="1">Class I</option>
+                            <option value="2">Class II</option>
+                            <option value="3">Class III</option>
+                            <option value="4">Class IV</option>
+                            <option value="5">Class V</option>
+                            <option value="6">Class VI</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-4">Date</label>
+                        <input type="date" class="form-control form-input col-sm-8" id="waterDate" />
+                    </div>-->
+<!-- Modal footer -->
+<!--<div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-outline-primary"
+                                id="addClassInformation">
+                            Add
+                        </button>
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- / Water Modal -->
+<!--  JavaScript  -->
+@section scripts {
+    <script>
+
+        var i = 0;
+
+        function ValidateQualForm() {
+
+            var validationsPassed = true;
+
+            if ($("#qualInstitute").val() == '') {
+                validationsPassed = false;
+                $(".qualInstituteerror").show();
+            }
+            else {
+                $(".qualInstituteerror").hide();
+            }
+
+
+            if ($("#qualName").val() == '') {
+                validationsPassed = false;
+                $(".qualNameError").show();
+            }
+            else {
+                $(".qualNameError").hide();
+            }
+
+            return validationsPassed;
+        }
+        /******** Add Qualification *************/
+        $("#addQualification").on('click', (function () {
+
+            if (ValidateQualForm())
+            {
+
+                i = Number($('#qualificationTable tr').length - 1);
+
+                var prefix = "<input type='hidden' name='qvmlist[" + i + "].";
+                var mid = "' value='";
+                var suffix = "'/>";
+
+                var id = prefix + "id" + mid + i + suffix;
+                var qualcat = prefix + "categoryid" + mid + $("#qualCategory").val() + suffix;
+                var institute = prefix + "institute" + mid + $("#qualInstitute").val() + suffix;
+                var qualificationname = prefix + "qualificationname" + mid + $("#qualName").val() + suffix;
+                var studentnumber = prefix + "studentnumber" + mid + $("#qualStudNumber").val() + suffix;
+                var startdate = prefix + "startdate" + mid + $("#qualStartDate").val() + suffix;
+                var enddate = prefix + "enddate" + mid + $("#qualEndDate").val() + suffix;
+                var qualtype = prefix + "qualificationtype" + mid + $("#qualType").val() + suffix;
+                var qualtypename = prefix + "qualificationtypename" + mid + $("#qualType option:selected").text() + suffix;
+                var enrolmentcat = prefix + "enrolmentcategoryid" + mid + $("#qualEnrolCategory").val() + suffix;
+                var deletebuttontd = "<td class='text-danger text-right'><button onclick='removeQualRow(this);return false;' class= 'fa fa-trash delbtn'></button></td>";
+                var institutetd = "<td class='text-left'>" + $("#qualInstitute").val() + "</td>";
+                var nametd = "<td  class='text-left'>" + $("#qualName").val() + "</td>";
+                var qualtypeTd = "<td  class='text-left'>" + $("#qualType option:selected").text() + "</td>";
+
+                var allhiddenfileds = id + qualcat + institute + qualificationname + studentnumber + startdate + enddate + qualtype + qualtypename+ enrolmentcat;
+                $("#qualificationTable > tbody").append("<tr>" + allhiddenfileds + institutetd + nametd + qualtypeTd + deletebuttontd + "</tr>");
+
+                i++;
+
+                $('#qualificationModal form')[0].reset();
+                $('#qualificationModal').modal('hide');
+            }
+
+        }));
+
+
+
+
+
+
+        function ValidateEmplForm() {
+
+            var validationsPassed = true;
+
+                if ($("#employer").val() == '') {
+                validationsPassed = false;
+                $(".employererror").show();
+
+            }
+            else {
+                $(".employererror").hide();
+            }
+
+            if ($("#empDesignation").val() == '') {
+                validationsPassed = false;
+                $(".empDesignationerror").show();
+            }
+            else {
+                $(".empDesignationerror").hide();
+            }
+
+            if ($("#empCategory").val() == null) {
+                validationsPassed = false;
+                $(".empCategoryerror").show();
+            }
+            else {
+                $(".empCategoryerror").hide();
+            }
+            return validationsPassed;
+        }
+
+        /******** Add Employment History *************/
+        $("#addEmpHistory").click(function () {
+            if (ValidateEmplForm()) {
+                var j = Number($('#employmentTable tr').length - 1);
+                var prefix = "<input type='hidden' name='empvmlist[" + j + "].";
+                var mid = "' value='";
+                var suffix = "'/>";
+                var id = prefix + "id" + mid + j + suffix;
+                var empcat = prefix + "empcategoryid" + mid + $("#empCategory").val() + suffix;
+                var empcatname = prefix + "empcategoryname" + mid + $("#empCategory option:selected").text() + suffix;
+                var employer = prefix + "employer" + mid + $("#employer").val() + suffix;
+                var empdesignation = prefix + "empdesignation" + mid + $("#empDesignation").val() + suffix;
+                var empstartdate = prefix + "empstartdate" + mid + $("#empStartDate").val() + suffix;
+                var empenddate = prefix + "empenddate" + mid + $("#empEndDate").val() + suffix;
+                var emptelnumber = prefix + "emptelnumber" + mid + $("#empTelNumber").val() + suffix;
+                var empcompanyemail = prefix + "empcompanyemail" + mid + $("#empCompEmail").val() + suffix;
+                var empduties = prefix + "empduties" + mid + $("#empDuties").val() + suffix;
+                var deletebuttontd = "<td class='text-danger text-right'><button onclick='removeEmpRow(this);return false;' class= 'fa fa-trash delbtn'></button></td>";
+
+                var employertd = "<td class='text-left'>" + $("#employer").val() + "</td>";
+                var empdesignationtd = "<td  class='text-left'>" + $("#empDesignation").val() + "</td>";
+                var empcatTd = "<td class='text-left'>" + $("#empCategory option:selected").text() + "</td>";
+
+                var allhiddenfileds = id + empcat + empcatname+ employer + empdesignation + empstartdate + empenddate + emptelnumber + empcompanyemail + empduties;
+                $("#employmentTable > tbody").append("<tr>" + allhiddenfileds + employertd + empdesignationtd + empcatTd + deletebuttontd + "</tr>");
+
+                $('#employmentModal form')[0].reset();
+                $('#employmentModal').modal('hide');
+            }
+        });
+
+
+        var k = 0;
+
+        function ValidateRefereeForm() {
+
+            var validationsPassed = true;
+
+            if ($("#refTitle").val() == '') {
+                validationsPassed = false;
+                $(".titleerror").show();
+
+            }
+            else {
+                $(".titleerror").hide();
+            }
+
+            if ($("#refFirstName").val() == '') {
+                validationsPassed = false;
+                $(".firstnameerror").show();
+            }
+            else {
+                $(".firstnameerror").hide();
+            }
+
+            if ($("#refLastName").val() == null) {
+                validationsPassed = false;
+                $(".lastnameerror").show();
+            }
+            else {
+                $(".lastnameerror").hide();
+            }
+            return validationsPassed;
+        }
+
+        /******** Add Referee *************/
+        $("#addReferee").on('click', (function () {
+
+            if (ValidateRefereeForm()) {
+
+                k = Number($('#refereeTable tr').length - 1);
+
+                var prefix = "<input type='hidden' name='refvmlist[" + k + "].";
+                var mid = "' value='";
+                var suffix = "'/>";
+
+                var id = prefix + "id" + mid + k + suffix;
+                var title = prefix + "title" + mid + $("#refTitle option:selected").text() + suffix;
+                var initials = prefix + "initial" + mid + $("#refInitials").val() + suffix;
+                var firstname = prefix + "firstname" + mid + $("#refFirstName").val() + suffix;
+                var lastname = prefix + "lastname" + mid + $("#refLastName").val() + suffix;
+                var email = prefix + "email" + mid + $("#refEmail").val() + suffix;
+                var mobile = prefix + "mobilenumber" + mid + $("#refMobile").val() + suffix;
+                var phone = prefix + "phonenumber" + mid + $("#refPhone").val() + suffix;
+                var employername = prefix + "employername" + mid + $("#refEmployerName").val() + suffix;
+                var refereeposition = prefix + "positionofreferee" + mid + $("#refereePosition").val() + suffix;
+                var proregnoofreferee = prefix + "professionalregnoofreferee" + mid + $("#proRegNoOfReferee").val() + suffix;
+                var deletebuttontd = "<td class='text-danger text-right'><button onclick='removeQualRow(this);return false;' class= 'fa fa-trash delbtn'></button></td>";
+                var firstnametd = "<td class='text-left'>" + $("#refFirstName").val() + "</td>";
+                var lastnametd = "<td  class='text-left'>" + $("#refLastName").val() + "</td>";
+                var emailtd = "<td  class='text-left'>" + $("#refEmail").val() + "</td>";
+
+                var allhiddenfileds = id + title + initials + firstname + lastname + email + mobile + phone + employername + refereeposition + proregnoofreferee;
+                $("#refereeTable > tbody").append("<tr>" + allhiddenfileds + firstnametd + lastnametd + emailtd + deletebuttontd + "</tr>");
+
+                k++;
+
+                $('#refereeModal form')[0].reset();
+                $('#refereeModal').modal('hide');
+            }
+
+        }));
+
+
+
+        /****** Show add employment ************/
+        function showSelAddEmp(selectedOption) {
+            if (selectedOption.value == "True") {
+                document.getElementById("addEmployment").style.display = "block";
+                document.getElementById("addEmploymentbutton").style.display = "block";
+            } else {
+                document.getElementById("addEmployment").style.display = "none";
+                document.getElementById("addEmploymentbutton").style.display = "none";
+            }
+
+
+        }
+        var j = 0;
+
+
+        /******* Display name of file *******/
+        $(".custom-file-input").on("change", function () {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this)
+                .siblings(".custom-file-label")
+                .addClass("selected")
+                .html(files.join(', '));
+        });
+
+        // function to delete a row.
+        /****** Remove Qual ******/
+        function removeQualRow(oButton) {
+
+            var rowNum = Number(oButton.parentNode.parentNode.rowIndex) - 1;
+            var prefix = "<input type='hidden' name='qvmlist[" + rowNum + "].";
+            var mid = "' value='";
+            var suffix = "'/>";
+            var del = prefix + 'isdeleted' + mid + 'true' + suffix;
+            $("#qualificationTable > tbody").append(del);
+            (oButton.parentNode.parentNode).style.display = 'none';
+        }
+
+
+        /****** Remove Emp ******/
+        function removeEmpRow(oButton) {
+
+            var rowNum = Number(oButton.parentNode.parentNode.rowIndex) - 1;
+            var prefix = "<input type='hidden' name='empvmlist[" + rowNum + "].";
+            var mid = "' value='";
+            var suffix = "'/>";
+            var del = prefix + 'isdeleted' + mid + 'true' + suffix;
+            $("#employmentTable > tbody").append(del);
+            (oButton.parentNode.parentNode).style.display = 'none';
+        }
+
+        /****** Remove Referee ******/
+        function removerefereeRow(oButton) {
+
+            var rowNum = Number(oButton.parentNode.parentNode.rowIndex) - 1;
+            var prefix = "<input type='hidden' name='refvmlist[" + rowNum + "].";
+            var mid = "' value='";
+            var suffix = "'/>";
+            var del = prefix + 'isdeleted' + mid + 'true' + suffix;
+            $("#refereeTable > tbody").append(del);
+            (oButton.parentNode.parentNode).style.display = 'none';
+        }
+
+
+
+
+        $(document).ready(function () {
+
+            var RequestType = '@Json.Serialize(Model.RequestType)';
+            var selectedOption = $('#selEmpHistory option:selected').text().trim();
+            if (selectedOption == "Yes")
+            {
+                document.getElementById("addEmployment").style.display = "block";
+                document.getElementById("addEmploymentbutton").style.display = "block";
+            }
+            else {
+                document.getElementById("addEmployment").style.display = "none";
+                document.getElementById("addEmploymentbutton").style.display = "none";
+            }
+
+             var notification = JSON.parse('@Json.Serialize(Model.notification)');
+                if (notification != null) {
+                    if (notification.message.length > 0) {
+                        MMNotify(notification.message, notification.notificationtype);
+                    }
+                }
+
+            if ('@Json.Serialize(isDev)' == "true")
+            {
+                //var random = Math.floor(Math.random() * 1000) + 1;
+                //$('#AppIndVM_Initials').val("I");
+                //$('#AppIndVM_FirstName').val("Sundar");
+                //$('#AppIndVM_LastName').val("Pichai");
+                //$('#AppIndVM_TitleId').val("1");
+                ////$('#AppIndVM_Password').val("ComplexPwd2!");
+                ////$('#AppIndVM_ConfirmPassword').val("ComplexPwd2!");
+                //$('#AppIndVM_GenderId').val("1");
+                //$('#AppIndVM_BirthDay').val("2020-10-22");
+                //$('#AppIndVM_HighestQualificationId').val("8");
+                //$('#AppIndVM_OccupationId').val("6");
+                //$('#AppIndVM_CountryId').val("1");
+                //$('#selEmpHistory').val("False");
+                //$('#AppIndVM_CompanyName').val("Google");
+                //$('#AppIndVM_JobTitle').val("CEO");
+                //$('#AppIndVM_HomeLanguageId').val("1");
+                //$('#AppIndVM_EthnicityId').val("3");
+                //$('#AppIndVM_IDNumber').val("SP00112233");
+                //$('#AppIndVM_NationalityId').val("1");
+                //$('#AppIndVM_HomePhoneNumber').val("0134679852");
+                //$('#AppIndVM_BusinessPhoneNumber').val("0316497258");
+                //$('#AppIndVM_MobilePhone').val("9764310258");
+                //$('#AppIndVM_Email').val("my" + random + "ceo@abz.com");
+                //$('#AppIndVM_ConfirmEmail').val("my" + random + "ceo@abz.com");
+                //$('#AppIndVM_SecondaryEmail').val("ceo@abz.co.za");
+                //$('#AppIndVM_FAXNumber').val("9865327410");
+                //$('#AppIndVM_FaxToEmail').val("7845120963");
+                //$('#AppIndVM_PostalAddressLine1').val("CEO, ABZ Villa");
+                //$('#AppIndVM_PostalAddressLine2').val("ABZ Lane, Hill Top");
+                //$('#AppIndVM_PostalSuburb').val("Forst Place");
+                //$('#AppIndVM_PostalCity').val("Midrand");
+                //$('#AppIndVM_PostalProvince').val("2");
+                //$('#AppIndVM_PostalCountryId').val("1");
+                //$('#AppIndVM_PostalPostalCode').val("2020");
+                //$('#AppIndVM_PhysicalAddressLine1').val("CEO Office, ABZ Corp");
+                //$('#AppIndVM_PhysicalAddressLine2').val("ABZ Lane, RiverSide");
+                //$('#AppIndVM_PhysicalSuburb').val("Morningside");
+                //$('#AppIndVM_PhysicalCity').val("Sandton");
+                //$('#AppIndVM_PhysicalProvince').val("2");
+                //$('#AppIndVM_PhysicalCountryId').val("1");
+                //$('#AppIndVM_PhysicalPostalCode').val("2020");
+                //$('#AppIndVM_EmploymentAttached').val("2");
+                //$('#MemberDisabilityList_0__IsSelected').prop("checked", true);
+                //$('#MemberDisabilityList_0__DisabilityLevelId').val("1");
+                //$('#MemberDisabilityList_1__IsSelected').prop("checked", true);
+                //$('#MemberDisabilityList_1__DisabilityLevelId').val("1");
+                //$('#MemberDisabilityList_2__IsSelected').prop("checked", true);
+                //$('#MemberDisabilityList_2__DisabilityLevelId').val("1");
+                //$('#MemberDisabilityList_3__IsSelected').prop("checked", true);
+                //$('#MemberDisabilityList_3__DisabilityLevelId').val("1");
+                //$('#MemberDisabilityList_4__IsSelected').prop("checked", true);
+                //$('#MemberDisabilityList_4__DisabilityLevelId').val("1");
+                //$('#MemberDisabilityList_5__IsSelected').prop("checked", true);
+                //$('#MemberDisabilityList_5__DisabilityLevelId').val("1");
+                ////$('#AppIndVM_ClientBranchId').val("3");
+                //$('#MemberDivisionList_0__IsSelected').prop("checked", true);
+                //$('#MemberDivisionList_4__IsSelected').prop("checked", true);
+                //$('#MemberAffiliationList_0__IsSelected').prop("checked", true);
+                //$('#MemberAffiliationList_0__MemberNumber').val("12345");
+                //$('#MemberAffiliationList_5__IsSelected').prop("checked", true);
+                //$('#MemberAffiliationList_5__MemberNumber').val("54321");
+                //$('#MemberAffiliationList_5__MemberSpecificAffliationName').val("WWW");
+                //$('#MemberInvolvementList_0__IsSelected').prop("checked", true);
+                //$('#MemberInvolvementList_7__IsSelected').prop("checked", true);
+                //$('#AppIndVM_ReferralTypeId').val("3");
+                //$('#AppIndVM_ReferralOther').val("Social Media");
+
+                //$("#qualCategory").val("1");
+                //$("#qualInstitute").val("institue 1");
+                //$("#qualName").val("Masters");
+                //$("#qualStudNumber").val("123456");
+                //$("#qualStartDate").val("2020-10-22");
+                //$("#qualEndDate").val("2020-10-22");
+                //$("#qualType").val("1");
+                //$("#qualEnrolCategory").val("1");
+
+                //$("#empCategory").val("1");
+                //$("#employer").val("Nedbank");
+                //$("#empDesignation").val("Tester");
+                //$("#empStartDate").val("2020-10-22");
+                //$("#empEndDate").val("2020-10-22");
+                //$("#empTelNumber").val("12345667");
+                //$("#empCompEmail").val("shatlin@gmail.com");
+                //$("#empDuties").val("Some Duties");
+
+                $('#AppIndVM_TermAccepted').prop("checked", true);
+            }
+        });
+
+
+
+    </script>
+
+}

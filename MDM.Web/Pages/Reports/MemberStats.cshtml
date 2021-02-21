@@ -1,0 +1,487 @@
+﻿@page
+@model MM.Pages.Reports.MemberStatsModel
+
+@{
+    ViewData["Title"] = "Member Statistics";
+    ViewData["Page"] = "Member Statistics";
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+}
+
+<style>
+    body {
+        background-color: #f0f5f5;
+    }
+
+    .main-panel > .content {
+        margin-top: 75px;
+    }
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        padding: 3px 3px;
+    }
+
+    .main-panel {
+        padding-top: 15px;
+    }
+
+    .error {
+        color: red;
+        display: none;
+    }
+
+    .ind-member .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .membership-card {
+        background: #22b9ff;
+    }
+
+    .membership-select {
+        width: 50%;
+        margin: 10px 0 10px 25%;
+        font-size: 20px;
+        height: auto !important;
+    }
+
+    .disability-align {
+        margin-bottom: 20px;
+    }
+
+    .ind-member .hr-line {
+        border: none;
+        border-bottom: 1px solid #22b9ff;
+    }
+
+    .ind-member .vl {
+        border-left: 1px solid #22b9ff;
+    }
+
+    .ind-member .vl-addinfo {
+        border-left: 1px solid #22b9ff;
+        height: 370px;
+    }
+
+    .ind-member .agree-checkbox {
+        zoom: 1.3;
+    }
+
+    .ind-member .banking-icon {
+        font-size: 25px;
+        margin-left: 5px;
+        color: #22b9ff;
+    }
+
+    .ind-member .register-btn {
+        width: 15%;
+    }
+
+    .ind-member .addDoc-modal {
+        margin-top: 10%;
+    }
+
+    .ind-member #otherCountry {
+        display: none;
+    }
+
+    .ind-member #addEmployment {
+        display: none;
+    }
+
+    .ind-member #selectFile {
+        display: none;
+    }
+
+    .ind-member #addSelFileBtn {
+        display: none;
+    }
+
+    .ind-member .delbtn {
+        cursor: pointer;
+    }
+
+    .ind-member .table-scroll {
+        height: 185px !important;
+        overflow: auto;
+    }
+
+    .ind-member .form-group .required .control-label:after {
+        content: " *" !important;
+        color: red !important;
+    }
+
+    .input-group, .form-group {
+        margin-bottom: 5px;
+    }
+
+        .form-group .form-control, .input-group .form-control {
+            padding: 5px 5px 5px 5px;
+        }
+
+    .ind-member .custom-file-label {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+                    <h4 class="card-title text-center text-danger">Member Stats [Under development Please dont use]</h4>
+                    <div class="card card-plain">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a class="text-success font-weight-bold" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Search Options
+                                <i class="nc-icon nc-minimal-down"></i>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form method="post" id="individualAppForm" name="individualAppForm" enctype="multipart/form-data">
+                                            <div class="card ind-member shadow-none border-0">
+                                             
+                                                <div class="card-body">
+                                                    <div class="nav-tabs-navigation">
+                                                        <div class="nav-tabs-wrapper">
+                                                            <ul id="tabs" class="nav nav-tabs" role="tablist">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active text-danger font-weight-bolder" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Profile Information</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#Additional" role="tab" aria-expanded="false">Additional Information</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link text-danger font-weight-bolder" data-toggle="tab" href="#Social" role="tab" aria-expanded="false">Social</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="my-tab-content" class="tab-content">
+                                                        <div class="tab-pane active" id="profile" role="tabpanel" aria-expanded="true">
+                                                            <div class="row">
+                                                                <div class="col-1">&nbsp;</div>
+                                                                <div class="col-10">
+                                                                    <!-- Profile info -->
+                                                                    <div class="card  border shadow-none">
+                                                                        <div class="card-body">
+
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for=ApplicationIndividualVM.HighestQualificationId class="control-label"></label>
+                                                                                        <select class="form-control form-input" asp-for=ApplicationIndividualVM.HighestQualificationId asp-items=ViewBag.Qualifications>
+                                                                                            <option value="" selected disabled>Select Qualification</option>
+                                                                                        </select>
+                                                                                        <span asp-validation-for="ApplicationIndividualVM.HighestQualificationId" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <div class="form-group required">
+                                                                                        <label asp-for=ApplicationIndividualVM.OccupationId class="control-label"></label>
+                                                                                        <select class="form-control form-input" asp-for=ApplicationIndividualVM.OccupationId asp-items=ViewBag.Occupations>
+                                                                                            <option value="" selected disabled>Select Occupation</option>
+                                                                                        </select>
+                                                                                        <span asp-validation-for="ApplicationIndividualVM.OccupationId" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- HomeLang/Ethnicity -->
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <div class="form-group required">
+                                                                                        <label asp-for=ApplicationIndividualVM.HomeLanguageId class="control-label"></label>
+                                                                                        <select class="form-control form-input" asp-for=ApplicationIndividualVM.HomeLanguageId asp-items=ViewBag.HomeLanguages>
+                                                                                            <option value="" selected disabled>Select Language</option>
+                                                                                        </select>
+                                                                                        <span asp-validation-for="ApplicationIndividualVM.HomeLanguageId" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-6">
+                                                                                    <div class="form-group required">
+                                                                                        <label asp-for=ApplicationIndividualVM.EthnicityId class="control-label"></label>
+                                                                                        <select class="form-control form-input" asp-for=ApplicationIndividualVM.EthnicityId asp-items=ViewBag.Ethnicities>
+                                                                                            <option value="" selected disabled>Select Ethnicity</option>
+                                                                                        </select>
+                                                                                        <span asp-validation-for="ApplicationIndividualVM.EthnicityId" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- Id/Nationality -->
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <div class="form-group required">
+                                                                                        <label asp-for=ApplicationIndividualVM.CountryId class="control-label"></label>
+                                                                                        <select class="form-control  form-input" asp-for=ApplicationIndividualVM.CountryId asp-items=ViewBag.CountryId
+                                                                                               >
+                                                                                            <option value="" selected disabled>Select Nationality</option>
+                                                                                        </select>
+                                                                                        <span asp-validation-for="ApplicationIndividualVM.CountryId" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <div class="form-group required">
+                                                                                        <label asp-for=ApplicationIndividualVM.GenderId class="control-label"></label>
+                                                                                        <select class="form-control form-input" asp-for=ApplicationIndividualVM.GenderId asp-items=ViewBag.Genders>
+                                                                                            <option value="" selected disabled>Select Gender</option>
+                                                                                        </select>
+                                                                                        <span asp-validation-for="ApplicationIndividualVM.GenderId" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- / Profile info -->
+                                                                </div>
+                                                                <div class="col-1">&nbsp;</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="Additional" class="tab-pane" role="tabpanel" aria-expanded="false">
+                                                            <div class="row">
+                                                                <div class="col-5">
+                                                                    <div class="card  border shadow-none">
+                                                                        <div class="card-header">
+                                                                            <h6><b>Disability</b></h6>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            @for (int j = 0; j < Model.MemberDisabilityList.Count; j++)
+                                                                            {
+                                                                                <input type="hidden" asp-for="@Model.MemberDisabilityList[j].Id" />
+                                                                                <div class="mb-1 ml-3">
+                                                                                    <div class="row">
+                                                                                        <div class="col-5">
+                                                                                            <input type="checkbox" class="form-check-input disability-align" asp-for="@Model.MemberDisabilityList[j].IsSelected" />@Model.MemberDisabilityList[j].Name
+                                                                                        </div>
+                                                                                        <div class="col-7">
+                                                                                            <select class="form-control form-input mb-1" asp-for=@Model.MemberDisabilityList[j].DisabilityLevelId asp-items=ViewBag.DisabilityLevels>
+                                                                                                <option value="" selected disabled>Select Disability Level</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <div class="card  border shadow-none">
+                                                                        <div class="card-header">
+                                                                            <h6><b>Select Divison</b></h6>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            @for (int j = 0; j < Model.MemberDivisionList.Count; j++)
+                                                                            {
+                                                                                <div class="mb-1 ml-1">
+                                                                                    <input type="hidden" asp-for="@Model.MemberDivisionList[j].Id" />
+                                                                                    <input type="checkbox"
+                                                                                           class="pl-10 ml-10"
+                                                                                           asp-for="@Model.MemberDivisionList[j].IsSelected" />&nbsp;@Model.MemberDivisionList[j].Name
+                                                                                    </div>
+
+                                                                                }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <div class="card  border shadow-none">
+                                                                        <div class="card-header">
+                                                                            <h6><b>Select Afflications</b></h6>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            @for (int j = 0; j < Model.MemberAffiliationList.Count; j++)
+                                                                            {
+
+                                                                                <input type="hidden" asp-for="@Model.MemberAffiliationList[j].Id" />
+                                                                                <div class="mb-1 ml-1">
+                                                                                    <div class="row">
+                                                                                        <div class="col-12">
+                                                                                            <input type="checkbox"
+                                                                                                   class="pl-10 ml-10"
+                                                                                                   asp-for="@Model.MemberAffiliationList[j].IsSelected" />&nbsp;@Model.MemberAffiliationList[j].Name
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="Social" class="tab-pane" role="tabpanel" aria-expanded="false">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="card  border shadow-none">
+                                                                        <div class="card-header">
+                                                                            <h6><b>Communication</b></h6>
+                                                                        </div>
+                                                                        <div class="card-body">
+
+
+
+                                                                            <div class="form-group">
+                                                                                <label asp-for=ApplicationIndividualVM.ReferralTypeId class="control-label"></label>
+
+                                                                                <select class="form-control  form-input" asp-for=ApplicationIndividualVM.ReferralTypeId asp-items=ViewBag.Referrals>
+                                                                                    <option value="" selected>Select Referral Type</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group required mt-3">
+                                                                                <label asp-for=ApplicationIndividualVM.ClientBranchId class="control-label"></label>
+                                                                                <select class="form-control  form-input" asp-for=ApplicationIndividualVM.ClientBranchId asp-items=ViewBag.ClientBranchId>
+                                                                                    <option value="" selected disabled>Select Branch</option>
+                                                                                </select>
+                                                                                <span asp-validation-for="ApplicationIndividualVM.ClientBranchId" class="text-danger"></span>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label asp-for="ApplicationIndividualVM.CanWeSendCommunication">
+                                                                                    @*May we send you newsletters, notifications and marketing
+                                                                                    material via SMS and Email?*@
+                                                                                </label>
+                                                                                <select class="form-control additional-select-fields" asp-for="ApplicationIndividualVM.CanWeSendCommunication" asp-items="ViewBag.YesNoList">
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label asp-for="ApplicationIndividualVM.PublishCompanyInAnnualMemberDirectory">
+                                                                                    @*May we publish your name and contact details in the annual
+                                                                                    member directory that is distributed to all WISA members,
+                                                                                    distributed at WISA events and sent to any person requesting
+                                                                                    a copy?*@
+                                                                                </label>
+                                                                                <select class="form-control additional-select-fields" asp-for="ApplicationIndividualVM.PublishCompanyInAnnualMemberDirectory" asp-items="ViewBag.YesNoList">
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label asp-for="ApplicationIndividualVM.InterestedInVolunteerWork">
+                                                                                    @*Are you interested in doing volunteer work for WISA
+        Branches/Divisions/Head-Office?*@
+                                                                                </label>
+                                                                                <select class="form-control additional-select-fields" asp-for="ApplicationIndividualVM.InterestedInVolunteerWork" asp-items="ViewBag.YesNoList">
+                                                                                    <option value=false selected>Yes</option>
+                                                                                    <option value=true>No</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label asp-for=ApplicationIndividualVM.VolunteerWorkHoursId class="control-label"></label>
+
+                                                                                <select class="form-control  form-input" asp-for=ApplicationIndividualVM.VolunteerWorkHoursId asp-items=ViewBag.VolunteerWorkHrs>
+                                                                                    <option value="" selected>Select Work Hrs</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <div class="card  border shadow-none">
+                                                                        <div class="card-header">
+                                                                            <h6><b>Involvement</b></h6>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <label>
+                                                                                In which of the following ways do you want to be
+                                                                                involved?
+                                                                            </label>
+                                                                            @for (int j = 0; j < Model.MemberInvolvementList.Count; j++)
+                                                                            {
+                                                                                <div class="mb-1 ml-1">
+                                                                                    <input type="hidden" asp-for="@Model.MemberInvolvementList[j].Id" />
+                                                                                    <input type="checkbox"
+                                                                                           class="pl-10 ml-10"
+                                                                                           asp-for="@Model.MemberInvolvementList[j].IsSelected" />&nbsp;@Model.MemberInvolvementList[j].Name
+
+                                                                                    </div>
+                                                                                }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-footer">
+                                                    <button type="submit" id="btnSubmit"
+                                                            class="btn btn-primary float-right register-btn">
+                                                        Search
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-plain  shadow-none border-0">
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <a class="collapsed text-success font-weight-bold" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Search Results
+                                <i class="nc-icon nc-minimal-down"></i>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card   shadow-none border-0 ">
+                                       
+                                            <div class="card-body">
+                                                <div class="table table-borderless">
+                                                    <table class="table table-borderless">
+                                                        <tr class="text-dark">
+                                                            <td>Full Name</td>
+                                                            <td>ID Number</td>
+                                                            <td>Membership Grade</td>
+                                                            <td>Membership Grade</td>
+                                                            <td>Membership Status</td>
+                                                            <td>Created Date</td>
+                                                            <td>Application Received</td>
+                                                            <td>Request 1</td>
+                                                            <td>Request 2</td>
+                                                            <td>Request 3</td>
+                                                            <td>Pending For</td>
+                                                        </tr>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+
+

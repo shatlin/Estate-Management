@@ -1,0 +1,38 @@
+﻿@page
+@model MM.Pages.Client.Admin.EmailTestModel
+@using MM.ClientModels;
+@using MM.Helper;
+<partial name="_CRUDHeader" , model='new Header{name="Test Email", description=""}'>
+    <div class="container">
+        <div class="reg-container row">
+            <!--  Personal -->
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <partial name="_CardHeaderPartial" , model='new Header{name="Email Test"}'>
+                        <div class="card-body reg-card-body">
+                            <div class="row">
+
+                                <div>
+                                    <div>
+                                        <div>
+                                            <form method="post" id="SetUp">
+
+                                                <div class="modal-body">
+                                                    <div class="reg-container row">
+                                                        <div class="col-12 text-right">
+                                                            <button class="btn btn-outline-danger" asp-page-handler="TestEmail">Test Email</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>

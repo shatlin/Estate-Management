@@ -1,0 +1,28 @@
+﻿@page
+
+@model MM.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+    ViewData["Page"] = "Home";
+    var isSuperUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSuperUser).Result.Succeeded;
+    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowAdminUser).Result.Succeeded;
+    var isRegularStaff = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowUserAccess).Result.Succeeded;
+    var isReportViewerStaff = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowToViewReports).Result.Succeeded;
+    var isMember = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowMemberAccess).Result.Succeeded;
+}
+
+
+
+    @if (isRegularStaff)
+    {
+        <partial name="_IconsStaff" />
+    }
+    else if (isMember)
+    {
+        <partial name="_IconsMember" />
+    }
+
+
+
+
+

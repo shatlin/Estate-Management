@@ -1,0 +1,77 @@
+﻿@page
+@using MM.ClientModels;
+@using MM.Helper;
+@model MM.Pages.Client.Admin.Account.AdminLoginModel
+
+@{
+    ViewData["Title"] = "ADMIN";
+
+}
+<p class="display-3 text-white text-center">WISA</p>
+<p class="lead text-center text-white">ADMIN LOGIN</p>
+
+<form method="post" class="loginPage">
+
+    <div class="inputBox">
+        <input type="email"
+               asp-for="Email"
+               required
+               onkeyup="this.setAttribute('value', this.value);"
+               value="" />
+        <label>Email</label>
+    </div>
+    <div class="inputBox">
+
+        <input type="password"
+               asp-for="Password"
+               required
+               value="" />
+        <label>Password</label>
+    </div>
+
+
+    <div class="mb-3">
+
+        <input class="check-rem" asp-for="RememberMe" />
+        <label class="label-rem text-info">&nbsp; Remember Me</label>
+
+    </div>
+
+    @*<div class="inputBox">
+
+            <input type="checkbox" asp-for="RememberMe" /> <label asp-for="RememberMe"></label>
+
+        </div>*@
+
+    <div class="wisalogin inputBox text-center">
+        <input type="submit" class="btn btn-outline-info btn-round" name="Login" value="Login" />
+
+        @* <input type="submit" name="sign-in" value="Sign In" />*@
+    </div>
+    <br />
+    <p class="font-weight-lighter text-center text-white"><a id="member" style="display: none" class="font-weight-bold"  href="/Account/Login">Please Click here to go to Member Login Page</a></p>
+      
+</form>
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+
+            if ('@Json.Serialize(Model.isMember)'.toUpperCase().trim() == 'TRUE')
+            {
+                $("#member").show();
+            }
+
+                var notification = JSON.parse('@Json.Serialize(Model.notification)');
+                if (notification != null) {
+                    if (notification.message.length > 0) {
+                        MMNotify(notification.message, notification.notificationtype);
+                    }
+                }
+        });
+
+    </script>
+}
+

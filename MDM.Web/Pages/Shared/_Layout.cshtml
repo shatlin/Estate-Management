@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService AuthorizationService
+@using Microsoft.AspNetCore.Identity;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/all.min.css" rel="stylesheet" />
+    <script src="~/js/all.min.js"></script>
+</head>
+<body>
+
+
+        <partial name="_Nav" />
+
+    <div class="container-fluid">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <partial name="_Footer" />
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>
+<script>
+    // Hide submenus
+    $("#body-row .collapse").collapse("hide");
+
+    // Collapse/Expand icon
+    $("#collapse-icon").addClass("fa-angle-double-left");
+
+    // Collapse click
+    $("[data-toggle=sidebar-colapse]").click(function () {
+        SidebarCollapse();
+    });
+
+    function SidebarCollapse() {
+        $(".menu-collapsed").toggleClass("d-none");
+        $(".sidebar-submenu").toggleClass("d-none");
+        $(".submenu-icon").toggleClass("d-none");
+        $("#sidebar-container").toggleClass(
+            "sidebar-expanded sidebar-collapsed"
+        );
+
+        // Treating d-flex/d-none on separators with title
+        var SeparatorTitle = $(".sidebar-separator-title");
+        if (SeparatorTitle.hasClass("d-flex")) {
+            SeparatorTitle.removeClass("d-flex");
+        } else {
+            SeparatorTitle.addClass("d-flex");
+        }
+
+        // Collapse/Expand icon
+        $("#collapse-icon").toggleClass(
+            "fa-angle-double-left fa-angle-double-right"
+        );
+    }
+
+    function MMNotify(theMessage, theType) {
+
+        $.notify({
+            message: theMessage,
+            target: '_blank'
+        }, {
+
+            element: 'body',
+            position: null,
+            type: theType,
+            allow_dismiss: true,
+            newest_on_top: false,
+            showProgressbar: false,
+            placement: {
+                from: "top",
+                align: "right"
+            },
+            offset: {
+                x: 2,
+                y: 60
+            },
+            spacing: 10,
+            z_index: 1031,
+            delay: 1000,
+            timer: 1000,
+            url_target: '_blank',
+            mouse_over: null,
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            onShow: null,
+            onShown: null,
+            onClose: null,
+            onClosed: null,
+            icon_type: 'class',
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                '<span data-notify="icon"></span> ' +
+                '<span data-notify="title">{1}</span> ' +
+                '<span data-notify="message">{2}</span>' +
+                '<div class="progress" data-notify="progressbar">' +
+                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                '</div>' +
+                '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                '</div>'
+        });
+    }
+</script>

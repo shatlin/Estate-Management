@@ -1,0 +1,135 @@
+﻿@{
+    string pageName = ViewData["Page"] != null ? ViewData["Page"].ToString() : "";
+    string active = "";
+    string show = "";
+    string[] items = { };
+   
+}
+
+<ul class="nav">
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/Admin/Index", icon="nc-icon nc-chart-bar-32", linktext="Dashboard", page="Dashboard"}' />
+
+    <!-- #region Member Management Items -->
+    @{
+        items = new string[] { "Individuals", "Non Individuals", "Non Members", "Add Individual", "Add Professional", "Add Non Individual" };
+        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
+        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
+    }
+    <li class="@active">
+        <a data-toggle="collapse" href="#Members">
+            <i class="nc-icon nc-badge"></i>
+            <p>
+                Members <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @show" id="Members">
+            <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListIndividual", abbreviation="LIN", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListNonIndividual", abbreviation="LNI", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListContacts", abbreviation="LCO", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=1", abbreviation="AIN", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=2", abbreviation="APR", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/NonIndividual", abbreviation="ANI", linktext=items[5], page=items[5]}' />
+            </ul>
+        </div>
+    </li>
+    <!-- #endregion Member Management Items -->
+
+    <!-- #region Member Reports Items -->
+    @{
+        items = new string[] { "Application Progress", "All Individual Information", "All Non Individual Information", "User Activity",
+            "Job Portal Individual", "Resigned Members","Individual Address","Company Address","Additional Contacts Address",
+        "Individual Mailing List","Company Mailing List", "Additional Contacts Mailing List","Mailing List","Duplicates" };
+        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
+        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
+    }
+    <li class="@active">
+        <a data-toggle="collapse" href="#reports">
+            <i class="nc-icon nc-badge"></i>
+            <p>
+                Reports <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @show" id="reports">
+            <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/ApplicationProgress", abbreviation="APR", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AllIndividualInformation", abbreviation="AII", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AllNonIndividualInformation", abbreviation="ANI", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/UserActivity", abbreviation="UAC", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/JobPortalIndividual", abbreviation="JOB", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/ResignedMembers", abbreviation="RES", linktext=items[5], page=items[5]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/IndividualAddress", abbreviation="IAD", linktext=items[6], page=items[6]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/CompanyAddress", abbreviation="CAD", linktext=items[7], page=items[7]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AdditionalContactsAddress", abbreviation="ACA", linktext=items[8], page=items[8]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/MembersMailingList", abbreviation="MML", linktext=items[9], page=items[9]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/CompanyMailingList", abbreviation="CML", linktext=items[10], page=items[10]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AdditionalContactsMailingList", abbreviation="ACM", linktext=items[11], page=items[11]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/MailingList", abbreviation="ML", linktext=items[12], page=items[12]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Duplicates", abbreviation="DUP", linktext=items[13], page="items[13]"}' />
+            </ul>
+        </div>
+    </li>
+    <!-- #endregion Report Management Items -->
+
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/Account/Index", icon="nc-icon nc-single-02", linktext="My Profile", page="My Profile"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/Account/ChangePassword", icon="nc-icon nc-lock-circle-open", linktext="Change Password", page="Change Password"}' />
+
+    <!-- #region Configuration up Menu Items -->
+    @{
+        items = new string[] { "Membership Status", "Membership Type", "Membership Grade", "Qualification", "Affliations", "Branches", "Membership Team",
+            "Marketing Group", "Marketing Profile", "Membership Level", "Add User", "Manage Users","Pastel Integration","Pastel Integration-NI" };
+        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
+        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
+    }
+    <li class="@active">
+        <a data-toggle="collapse" href="#Configuration">
+            <i class="nc-icon nc-settings-gear-65"></i>
+            <p>
+                Configuration <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @show" id="Configuration">
+            <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MemberShipStatus", abbreviation="MS", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MembershipType", abbreviation="MT", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MembershipGrade", abbreviation="MG", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/Qualification", abbreviation="QL", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/Affliation", abbreviation="AFF", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/ClientBranch", abbreviation="BR", linktext=items[5], page=items[5]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MemberTeam", abbreviation="MT", linktext=items[6], page=items[6]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MarketingGroup", abbreviation="MKG", linktext=items[7], page=items[7]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MarketingProfile", abbreviation="MKP", linktext=items[8], page=items[8]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MemberLevel", abbreviation="ML", linktext=items[9], page=items[9]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/AddUser", abbreviation="AU", linktext=items[10], page=items[10]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/UserList", abbreviation="UL", linktext=items[11], page=items[11]}' />
+            </ul>
+        </div>
+    </li>
+    @{
+        items = new string[] { "Individual","Organization" };
+        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
+        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
+    }
+
+    <li class="@active">
+        <a data-toggle="collapse" href="#Pastel">
+            <i class="nc-icon nc-credit-card"></i>
+            <p>
+                Pastel Integration <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @show" id="Pastel">
+            <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/Finance", abbreviation="IND", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/Finance2", abbreviation="ORG", linktext=items[1], page=items[1]}' />
+            </ul>
+        </div>
+    </li>
+
+    <!-- #endregion Configuration  Menu Items-->
+
+
+
+
+
+</ul>

@@ -1,0 +1,33 @@
+﻿@{
+    var isSuperUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSuperUser).Result.Succeeded;
+    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowAdminUser).Result.Succeeded;
+    var isRegularStaff = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowUserAccess).Result.Succeeded;
+    var isReportViewerStaff = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowToViewReports).Result.Succeeded;
+    var isMember = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowMemberAccess).Result.Succeeded;
+    var isContact = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowContactAccess).Result.Succeeded;
+}
+<partial name="_NavProfile" />
+
+<ul class="nav">
+
+    @if (isSuperUser)
+    {
+        <partial name="_NavSuperUser" />
+    }
+    else if (isAdminUser)
+    {
+        <partial name="_NavAdmin" />
+    }
+    else if (isRegularStaff)
+    {
+        <partial name="_NavRegularStaff" />
+    }
+    else if (isMember||isContact)
+    {
+        <partial name="_NavMember" />
+    }
+    else
+    {
+        <partial name="_NavCustomRole" />
+    }
+</ul>

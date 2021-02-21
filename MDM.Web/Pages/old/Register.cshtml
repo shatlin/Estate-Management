@@ -1,0 +1,223 @@
+﻿@page
+@model RegisterModel
+@using MM.ClientModels;
+@using MM.Helper;
+@{
+    ViewData["Title"] = "Register";
+    ViewData["Page"] = "Register";
+}
+<partial name="_CRUDHeader" , model='new Header{name="Register", description="Register by adding your organization details and your user details"}' />
+
+
+<form asp-route-returnUrl="@Model.ReturnUrl" class="w-100 align-content-center justify-content-center" method="post" style="width:100%">
+    <div class="container"></div>
+    <div class="reg-container row   animate__animated animate__fadeIn animate__delay-1s">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow-sm" style="min-height:550px;margin-top:10px;margin-bottom:10px">
+                <div class="card-header">
+                    <span>
+                        Personal Details
+                    </span>
+
+                </div>
+                <div class="card-body reg-card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                    <input type="hidden" asp-for=ClientUser.Id value="0" />
+                    <input type="hidden" asp-for=ClientUser.PrimaryContact value=true />
+                    <input type="hidden" asp-for=ClientUser.BillingContact value=true />
+                    <input type="hidden" asp-for=ClientUser.IsInternalUser value=true />
+
+                    <div class="form-group">
+                        <label asp-for=AppUser.Email class="control-label"></label>
+                        <input asp-for=AppUser.Email type="text" class="form-control form-input">
+                        <span asp-validation-for=AppUser.Email class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=AppUser.Pwd class="control-label"></label>
+                        <input asp-for=AppUser.Pwd type="password" class="form-control form-input">
+                        <span asp-validation-for=AppUser.Pwd class="text-danger"></span>
+                    </div>
+                    
+        <div class="form-group">
+            <label class="control-label">Confirm Password</label>
+            <input asp-for=AppUser.ConfirmPwd type="password" class="form-control form-input">
+            <span asp-validation-for=AppUser.ConfirmPwd class="text-danger"></span>
+        </div>
+                    <div class="form-group">
+
+                        <label asp-for=AppUser.TitleId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=AppUser.TitleId
+                                asp-items=Model.ClientTitles>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=AppUser.TitleId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=AppUser.FirstName class="control-label"></label>
+                        <input asp-for=AppUser.FirstName type="text" class="form-control form-input">
+                        <span asp-validation-for=AppUser.FirstName class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=AppUser.MiddleName class="control-label"></label>
+                        <input asp-for=AppUser.MiddleName type="text" class="form-control form-input">
+                        <span asp-validation-for=AppUser.MiddleName class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=AppUser.LastName class="control-label"></label>
+                        <input asp-for=AppUser.LastName type="text" class="form-control form-input">
+                        <span asp-validation-for=AppUser.LastName class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label asp-for=ClientUser.DesignationId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientUser.DesignationId
+                                asp-items=Model.ClientDesignations>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientUser.DesignationId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label asp-for=ClientUser.ReferralTypeId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientUser.ReferralTypeId
+                                asp-items=Model.ClientReferralTypes>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientUser.ReferralTypeId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label asp-for=AppUser.GenderId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=AppUser.GenderId
+                                asp-items=Model.ClientGenders>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=AppUser.GenderId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for=ClientUser.TermsAccepted type="checkbox">
+                        <a href="" class="ml-2 mr-4">I agree to the terms and conditions</a>
+                        <span asp-validation-for=ClientUser.TermsAccepted class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow-sm" style="min-height:550px;margin-top:10px;margin-bottom:10px">
+                <div class="card-header">
+                    <span>
+                        Organization Details
+                    </span>
+
+                </div>
+                <div class="card-body reg-card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                    <input type="hidden" asp-for=ClientOrganization.Id value="0" />
+
+                    <div class="form-group">
+                        <label asp-for=ClientOrganization.Name class="control-label"></label>
+                        <input asp-for=ClientOrganization.Name type="text" class="form-control form-input">
+                        <span asp-validation-for=ClientOrganization.Name class="text-danger"></span>
+                    </div>
+
+               
+
+                    <div class="form-group">
+
+                        <label asp-for=ClientOrganization.DateSettingId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientOrganization.DateSettingId
+                                asp-items=Model.OrgDateSettings>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientOrganization.DateSettingId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=ClientOrganization.ClientOrganizationGradeId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientOrganization.ClientOrganizationGradeId
+                                asp-items=Model.ClientOrganizationGrades>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientOrganization.ClientOrganizationGradeId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=ClientOrganization.TimeFormatId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientOrganization.TimeFormatId
+                                asp-items=Model.OrgTimeFormat>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientOrganization.TimeFormatId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=ClientOrganization.ClientTimeZoneId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientOrganization.ClientTimeZoneId
+                                asp-items=Model.OrgTimeZone>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientOrganization.ClientTimeZoneId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for=ClientOrganization.CurrencyId class="control-label"></label>
+                        <select class="form-control form-input" asp-for=ClientOrganization.CurrencyId
+                                asp-items=Model.OrgCurrency>
+                            <option disabled selected>--- Please select a value ---</option>
+                        </select>
+                        <span asp-validation-for=ClientOrganization.CurrencyId class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for=ClientOrganization.AgreedToTerms type="checkbox">
+                        <a href="" class="ml-2 mr-4">I agree to the terms and conditions</a>
+                        <span asp-validation-for=ClientOrganization.AgreedToTerms class="text-danger"></span>
+                        <button type="submit" class="form-btn" style="width: 10%;">Submit</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    $(document).ready(function () {
+        $('#AppUser_Email').val("membership@wisa.org.za");
+        $('#AppUser_Pwd').val("patricks");
+        $('#AppUser_ConfirmPwd').val("patricks");
+        $('#AppUser_TitleId').val("1");
+        $('#AppUser_FirstName').val("Golebamang");
+        $('#AppUser_MiddleName').val("Patrick");
+        $('#AppUser_LastName').val("Sebopelo");
+        $('#ClientUser_DesignationId').val("1");
+        $('#ClientUser_ReferralTypeId').val("1");
+        $('#AppUser_GenderId').val("1");
+        $("#ClientUser_TermsAccepted").prop("checked", true);
+        $('#ClientOrganization_Name').val("WISA");
+        $('#ClientOrganization_Description').val("Water Institute of South Africa");
+        $('#ClientOrganization_ClientOrganzationTypeId').val("1538");
+        $('#ClientOrganization_DateSettingId').val("2");
+        $('#ClientOrganization_TimeFormatId').val("1");
+        $('#ClientOrganization_ClientTimeZoneId').val("1");
+        $('#ClientOrganization_CurrencyId').val("1");
+        $('#ClientOrganization_AgreedToTerms').prop("checked", true);
+      
+    });
+
+    </script>

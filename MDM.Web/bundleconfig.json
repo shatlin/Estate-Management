@@ -1,0 +1,61 @@
+[
+  {
+    "outputFileName": "wwwroot/css/all.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrapmin.css",
+      "wwwroot/fontawesome/css/all.css",
+      "wwwroot/css/animate.min.css",
+      "wwwroot/css/jquery.dataTables.min.css",
+      "wwwroot/css/PlayfairDisplay.css",
+      "wwwroot/css/Poppins.css",
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/all.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery-3.5.1.js",
+      "wwwroot/js/bootstrap.min.js",
+      "wwwroot/js/popper.min.js",
+      "wwwroot/js/bootstrap-notify.js",
+      "wwwroot/js/jquery.dataTables.min.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "wwwroot/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/assets/css/wisa.css",
+    "inputFiles": [
+      "wwwroot/assets/css/bootstrap.min.css",
+      "wwwroot/assets/css/paper-dashboard.css",
+      "wwwroot/assets/demo/demo.css",
+      "wwwroot/assets/css/animate.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/wisa.js",
+    "inputFiles": [
+      "wwwroot/assets/js/core/jquery.min.js",
+      "wwwroot/assets/js/core/popper.min.js",
+      "wwwroot/assets/js/core/bootstrap.min.js",
+      "wwwroot/assets/js/plugins/perfect-scrollbar.jquery.min.js",
+      "wwwroot/assets/js/plugins/moment.min.js",
+      "wwwroot/assets/js/plugins/bootstrap-switch.js",
+      "wwwroot/assets/js/plugins/sweetalert2.min.js",
+      "wwwroot/assets/js/plugins/bootstrap-datetimepicker.js",
+      "wwwroot/assets/js/plugins/bootstrap-tagsinput.js",
+      "wwwroot/assets/js/plugins/jasny-bootstrap.min.js",
+      "wwwroot/assets/js/plugins/nouislider.min.js",
+      "wwwroot/assets/js/plugins/bootstrap-notify.js",
+      "wwwroot/assets/js/paper-dashboard.min.js?v=2.1.1",
+      "wwwroot/assets/js/plugins/jquery.bootstrap-wizard.js",
+      "wwwroot/assets/js/plugins/bootstrap-selectpicker.js",
+      "wwwroot/assets/demo/demo.js",
+      "wwwroot/assets/js/plugins/jquery.dataTables.min.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "wwwroot/js/layoutmain.js"
+    ]
+  }
+]

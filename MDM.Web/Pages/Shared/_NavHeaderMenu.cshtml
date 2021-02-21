@@ -1,0 +1,16 @@
+﻿@{
+    string pageName = string.Empty;
+    string active = "";
+
+    if (ViewData["Page"] != null)
+    {
+        pageName = ViewData["Page"].ToString();
+        active = pageName.ToUpper() == @Model.page.ToUpper() ? "active" : "";
+    }
+}
+<li class="@active">
+    <a href="@Model.url">
+        <i class="@Model.icon"></i>
+        <p>@Model.linktext</p>
+    </a>
+</li>

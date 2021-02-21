@@ -1,0 +1,334 @@
+﻿@page
+@model MM.Pages.Client.InvoiceSettingModel
+
+@using MM.ClientModels;
+@using MM.Helper;
+@{
+    ViewData["Title"] = "Invoice Settings";
+    ViewData["Page"] = "Invoice Settings";
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+}
+
+
+<!-- #region AddEditModalSection -->
+
+<div class="modal" style="min-width:500px" id="AddEditModal" tabindex="-1" role="dialog" aria-labelledby="AddEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" id="AddEditForm" onsubmit="return Save(this)">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddEditModalLabel">Add New Invoice Setting</h5>
+                    <button type="button" class="btn btn-info close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="reg-container row">
+                        <div class="col-12">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" id="id" asp-for="InvoiceSetting.Id" />
+
+                            <div class="form-group mb-4">
+                                <label asp-for=InvoiceSetting.NextInvoiceNumber class="control-label"></label>
+                                <input asp-for=InvoiceSetting.NextInvoiceNumber type="text" class="form-control form-input" placeholder="Invoice Number" id="invNo">
+                                <span asp-validation-for=InvoiceSetting.NextInvoiceNumber class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label asp-for=InvoiceSetting.SendInvForPendingPayments class="control-label">Send Invoice for Pending Payments</label>
+                                <select asp-for=InvoiceSetting.SendInvForPendingPayments class="form-control form-input custom-select" id="sendInv">
+                                    <option selected>Choose...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <span asp-validation-for=InvoiceSetting.SendInvForPendingPayments class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label asp-for=InvoiceSetting.CopyInvToOrgContact class="control-label">Copy Invoice to Original Contact</label>
+                                <select asp-for=InvoiceSetting.CopyInvToOrgContact class="form-control form-input custom-select" id="copyInv">
+                                    <option selected>Choose...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <span asp-validation-for=InvoiceSetting.CopyInvToOrgContact class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label asp-for=InvoiceSetting.SendRecToPayer class="control-label">Send Record to Payer</label>
+                                <select asp-for=InvoiceSetting.SendRecToPayer class="form-control form-input custom-select" id="sendRec">
+                                    <option selected>Choose...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <span asp-validation-for=InvoiceSetting.SendRecToPayer class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label asp-for=InvoiceSetting.CopyRecToOrgContact class="control-label">Send Record to Payer</label>
+                                <select asp-for=InvoiceSetting.CopyRecToOrgContact class="form-control form-input custom-select" id="copyRec">
+                                    <option selected>Choose...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <span asp-validation-for=InvoiceSetting.CopyRecToOrgContact class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            &nbsp;
+                        </div>
+                        <div class="col-3 text-right">
+                            <input type="submit" value="Add" class="btn btn-outline-success" id="modal-create-edit" />
+                        </div>
+                        <div class="col-2  text-right ">
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- #endregion AddEditModalSection-->
+<!-- #region DeleteModalRegion -->
+
+<div class="modal" style="min-width:500px" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered   modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" id="DeleteForm" onsubmit="return Delete()">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">Are you sure you want to delete?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <div class="reg-container row">
+                        <div class="col-12">
+                            <input type="hidden" id="id_Del" />
+                            <dl class="row">
+                                <dt class="col-sm-2">
+
+                                    <label asp-for=InvoiceSetting.NextInvoiceNumber class="control-label"></label>
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <label id="invoice_Del"></label>
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            &nbsp;
+                        </div>
+                        <div class="col-3 text-right">
+                            <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                        </div>
+                        <div class="col-2  text-right ">
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- #endregion DeleteModalRegion -->
+<!-- #region ToholdGrid -->
+
+<partial name="_CRUDHeader" , model='new Header{name="Manage Invoice Settings", description="Here you can manage InvoiceSettings of your Organization"}'>
+    <div class="container">
+        <div class="reg-container row">
+            <!--  Personal -->
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <partial name="_CardHeaderPartial" , model='new Header{name="Invoice Setting"}'>
+                        <div class="card-body reg-card-body">
+                            <div class="row">
+                                <div class="col-3 text-left pb-3">
+                                    <input value="Add New" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#AddEditModal" onclick="SetUpPopupToAddRecord()">
+                                </div>
+                                <div class="col-9 text-left pb-3">
+                                </div>
+                            </div>
+                            <table id="list" class="table" style="width:100%">
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- #endregion ToholdGrid-->
+
+    @section scripts {
+        <script>
+
+            var dataTable;
+
+            $(document).ready(function () {
+                $('#list').show();
+                dataTable = $('#list').DataTable({
+                    "pagingType": "full_numbers",
+
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                    ajax: {
+                        url: '?handler=List',
+                        dataSrc: ''
+                    },
+                    "initComplete": function (settings, json) {
+                        console.log(json);
+                    },
+                    "columns": [
+                        { title: "Invoice Number", data: "nextInvoiceNumber", "autoWidth": true, },
+                        { title: "Send for Pending Payments", data: "SendInvForPendingPayments", "autoWidth": true, },
+                        { title: "Copy for Original Contact", data: "CopyInvToOrgContact", "autoWidth": true, },
+                        { title: "Send Record to Payer", data: "SendRecToPayer", "autoWidth": true, },
+                        { title: "Copy Record to Original Contact", data: "CopyRecToOrgContact", "autoWidth": true, },
+                        {
+                            title: "Action",
+                            data: "id",
+                            "render": function (data, type, row, meta) {
+                            var actions = '';
+
+                            if (@Json.Serialize(isAuthorizedForUpdate)) {
+                                actions += '<a class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal" data-target="#AddEditModal" onClick="SetUpPopupToEditRecord(' + row.id + ')" ><i class="nc-icon nc-ruler-pencil">  </i></a>'
+                            }
+                            if (@Json.Serialize(isAuthorizedForDelete)) {
+                                actions += '<a  class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal"  data-target="#DeleteModal" onClick="SetUpPopupToDeleteRecord(' + '\'' + row.id + ';' + row.nextInvoiceNumber + ';' + '\'' + ')" ><i class="nc-icon nc-simple-remove"></i></a>'
+                            }
+                            return actions;
+                            },
+                            orderable: false,
+                            width: "150px"
+                        }
+
+                    ]
+                });
+                $(".dataTables_filter").hide();
+            });
+
+            function SetUpPopupToAddRecord() {
+                $('#AddEditModalLabel').text("Add New InvoiceSetting");
+                $('#modal-create-edit').val("Add")
+                $('#id').val(0);
+                $('#invNo').val("");
+                $('#sendInv').val("");
+                $('#copyInv').val("");
+                $('#sendRec').val("");
+                $('#copyRec').val("");
+            }
+
+            function SetUpPopupToEditRecord(id) {
+                $('#AddEditModalLabel').text("Edit InvoiceSetting")
+                $('#modal-create-edit').val("Update")
+                $.ajax({
+                    url: '?handler=SelectedRecord&id=' + id,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        $('#id').val(data.id);
+                        $('#invNo').val(data.nextInvoiceNumber);
+                        $('#sendInv').val(data.sendInvForPendingPayments);
+                        $('#copyInv').val(data.copyInvToOrgContact);
+                        $('#sendRec').val(data.sendRecToPayer);
+                        $('#copyRec').val(data.copyRecToOrgContact);
+
+                    }
+                });
+            }
+
+            function SetUpPopupToDeleteRecord(data) {
+                var dataarray = data.split(";")
+                $('#id_Del').val(dataarray[0]);
+                $('#invoice_Del').text(dataarray[1]);
+
+            }
+
+            $('#AddEditModal').on('shown.bs.modal', function () {
+
+                $(this).find('.modal-body').css({
+                    width: $('#reg-container').width,
+                    height: $('#reg-container').height
+                });
+                setTimeout(function () {
+                    $('#invNo').focus();
+                }, 400);
+            })
+
+            function Delete() {
+                var id = $('#id_Del').val();
+                $.ajax({
+                    url: '?handler=Delete&id=' + id,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#DeleteModal').modal('hide');
+                        dataTable.ajax.reload();
+                        if (data.success) {
+                            MMNotify(data.message, "success");
+                        }
+                        else {
+                            MMNotify(data.message, "danger");
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function Save(form) {
+                if ($(form).valid()) {
+                    $.post({
+                        url: '?handler=Save',
+                        dataType: 'json',
+                        data: $(form).serialize(),
+                    })
+                        .done(function (data) {
+                            if (data.success) {
+                                $('#AddEditModal').modal('hide');
+                                $('#id').val("");
+                                $('#invNo').val("");
+                                $('#sendInv').val("");
+                                $('#copyInv').val("");
+                                $('#sendRec').val("");
+                                $('#copyRec').val("");
+                                if (data.success) {
+                                    MMNotify(data.message, "success");
+                                }
+                                else {
+                                    MMNotify(data.message, "danger");
+                                }
+                                dataTable.ajax.reload();
+                            }
+                        })
+                        .fail(function (error) {
+                            MMNotify("Unknown error", "danger");
+                        });
+                }
+                return false;
+            }
+
+        </script>
+    }
+
+

@@ -1,0 +1,341 @@
+﻿@page
+@model WISA.Pages.Member.TestModel
+
+
+
+@{
+
+    Layout = null;
+    ViewData["Title"] = "Individual Application";
+}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/js/bootstrap-notify.js"></script>
+
+<!-- StyleSheet -->
+<style>
+    body {
+        background-color: #f0f5f5;
+    }
+
+    .ind-member .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .membership-card {
+        background: #22b9ff;
+    }
+
+    .membership-select {
+        width: 50%;
+        margin: 10px 0 10px 25%;
+        font-size: 20px;
+        height: auto !important;
+    }
+
+    .disability-align {
+        margin-bottom: 20px;
+    }
+
+    .ind-member .hr-line {
+        border: none;
+        border-bottom: 1px solid #22b9ff;
+    }
+
+    .ind-member .vl {
+        border-left: 1px solid #22b9ff;
+        height: 300px;
+    }
+
+    .ind-member .vl-addinfo {
+        border-left: 1px solid #22b9ff;
+        height: 370px;
+    }
+
+    .ind-member .agree-checkbox {
+        zoom: 1.3;
+    }
+
+    .ind-member .banking-icon {
+        font-size: 25px;
+        margin-left: 5px;
+        color: #22b9ff;
+    }
+
+    .ind-member .register-btn {
+        width: 15%;
+    }
+
+    .ind-member .addDoc-modal {
+        margin-top: 10%;
+    }
+
+    .ind-member #otherCountry {
+        display: none;
+    }
+
+    .ind-member #addEmployment {
+        display: none;
+    }
+
+    .ind-member #selectFile {
+        display: none;
+    }
+
+    .ind-member #addSelFileBtn {
+        display: none;
+    }
+
+    .ind-member .delbtn {
+        cursor: pointer;
+    }
+
+    .ind-member .table-scroll {
+        height: 185px !important;
+        overflow: auto;
+    }
+</style>
+
+@*<div class="row">
+    <div class="col-12">
+        <label class="lead">Qualifications</label>
+        @for (int j = 0; j < Model.ApplicationIndividualVM.QualificationVMList.Count; j++)
+            
+        {
+    <div class="form-check disability-align">
+        <input class="form-control form-input" asp-for="@Model.ApplicationIndividualVM.QualificationVMList[j].QualificationName" />
+        <select class="form-control form-input" asp-for=@Model.ApplicationIndividualVM.QualificationVMList[j].EnrolmentCategoryId asp-items=ViewBag.EnrolementCategoryId>
+
+            <option value="" selected disabled>Select Enrolment Type</option>
+        </select>
+        <input class="form-control form-input" asp-for="@Model.ApplicationIndividualVM.QualificationVMList[j].Institute" />
+    </div>
+        }
+    </div>
+</div>*@
+
+        <div class="container-fluid mt-4 ind-member">
+            <h5 class="display-4 text-center">Individual Membership</h5>
+            <form method="post">
+                <!-- First Row -->
+
+                <div class="row">
+                    <!-- Qualifications -->
+                    <div class="col-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h6><b>Qualifications</b></h6>
+                            </div>
+
+                            <div class="card-body">
+                                <button type="button"
+                                        class="btn btn-primary mb-2"
+                                        data-toggle="modal"
+                                        data-target="#qualificationModal">
+                                    Add Qualification
+                                </button>
+
+                                <table class="table table-sm" id="qualificationTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Institute</th>
+                                            <th>Qualification Name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Qualification Modal -->
+                        <div class="modal" id="qualificationModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Add Qualification</h4>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            &times;
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="control-label">Institute</label>
+                                            <input type="text" class="form-control form-input" id="qualInstitute" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">QualificationName</label>
+                                            <input type="text" class="form-control form-input" id="qualName" />
+                                        </div>
+
+
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-primary"
+                                                data-dismiss="modal"
+                                                id="addQualification">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / Qualification Modal-->
+                    </div>
+                    <!-- / Qualifications -->
+
+
+
+                </div>
+
+
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <!-- First Col -->
+                    <div class="col-6">
+                        <!-- Profile info -->
+                        <div class="card mb-4">
+                            <div class="card-body" style="margin-bottom: 115px;">
+                                <button type="submit"
+                                        class="btn btn-primary float-right register-btn">
+                                    Register
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--  JavaScript  -->
+        <script>
+         
+
+            var i = 0;
+            /******** Add Qalification *************/
+            $("#addQualification").click(function () {
+
+            
+
+              //  var tableRef = document.getElementById("qualificationTable");
+
+                var prefix = "<td><input name='qvm[" + i + "].";
+                var mid = "' value='";
+                var suffix = "'/></td>";
+
+                var idtd = prefix + "id" + mid + i + suffix;
+                console.log(idtd);
+                var nametd = prefix + "name" + mid +$("#qualName").val() + suffix;
+                console.log(nametd);
+                var institutetd = prefix + "institute" + mid + $("#qualInstitute").val() + suffix;
+                console.log(institutetd);
+                var deletebuttontd = "<td><button onclick='removeQualRow(this)' class= 'fa fa-trash delbtn'></button></td>";
+                $("#qualificationTable > tbody").append("<tr>" + idtd + nametd + institutetd + deletebuttontd+"</tr>");
+
+                //var newRow = tableRef.insertRow();
+
+                //var newQualId = newRow.insertCell(0);
+
+                //var newQualIdTextBox = document.createElement("input");
+              
+                //newQualIdTextBox.name = "qvm.[" + i + "].id";
+                //newQualIdTextBox.value = i;
+                //newQualIdTextBox.textContent = i;
+                //newQualId.appendChild(newQualIdTextBox);
+
+
+                //var newInstitute = newRow.insertCell(1);
+                //var newInstituteTextBox = document.createElement("input");
+           
+                //newInstituteTextBox.name = "qvm[" + i +"].institute";
+                //newInstituteTextBox.value = document.getElementById("qualInstitute").value;
+                //newInstitute.appendChild(newInstituteTextBox);
+
+                //var newQualName = newRow.insertCell(2);
+
+                //var newQualNameTextBox = document.createElement("input");
+                //newQualNameTextBox.name = "qvm.[" + i + "].name";
+                //newQualNameTextBox.value = document.getElementById("qualName").value;
+                //newQualName.appendChild(newQualNameTextBox);
+
+
+                //var deleteBtn = newRow.insertCell(3);
+                //var button = document.createElement("i");
+                ////set the style
+                //button.className = "fa fa-trash delbtn";
+                //// add button's "onclick" event.
+                //button.setAttribute("onclick", "removeQualRow(this)");
+                //deleteBtn.appendChild(button);
+                
+             
+                i++;
+            });
+
+          
+
+
+            // function to delete a row.
+            /****** Remove Qual ******/
+            function removeQualRow(oButton) {
+                var empTab = document.getElementById("qualificationTable");
+                empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+            }
+
+            /****** Remove Emp ******/
+            function removeEmpRow(oButton) {
+                var empTab = document.getElementById("employmentTable");
+                empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+            }
+
+            /**** Remove Docs ******/
+            function removeRow(oButton) {
+                var docTab = document.getElementById("documentsTable");
+                docTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+            }
+        </script>
+

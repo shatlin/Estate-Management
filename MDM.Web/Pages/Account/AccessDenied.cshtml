@@ -1,0 +1,36 @@
+﻿@page
+@model AccessDeniedModel
+@using MM.Helper;
+@{
+    ViewData["Title"] = "Access denied";
+    ViewData["Page"] = "Access Denied";
+}
+@*<header>
+        <h1 class="text-danger">@ViewData["Title"]</h1>
+        <p class="text-danger">You do not have access to this resource.</p>
+    </header>*@
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card card-testimonial">
+            <div class="card-body ">
+                <div class="icon icon-danger">
+                    <i class="fa fa-exclamation-triangle">&nbsp; ACCESS DENIED</i>
+                </div>
+
+            </div>
+            <div class="card-footer ">
+                <h6 class="card-category">
+                    <a href="javascript:;">
+                        <img class="img" src="../assets/img/access-denied.jpg">
+                    </a>
+                </h6>
+                <div class="card-avatar">
+                    <a href="/" class="btn btn-round btn-primary"> Go Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

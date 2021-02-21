@@ -1,0 +1,158 @@
+﻿@page
+@model MM.Pages.Client.Admin.Finance2Model
+@using MM.ClientModels;
+@using MM.Helper;
+@{
+
+    ViewData["Title"] = "Org- Pastel Integration";
+    ViewData["Page"] = "Organization";
+
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+
+}
+
+@if (Model.ErrorList != null && Model.ErrorList.Count > 0)
+{
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title text-danger"> Errors during Import</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr class="text-danger font-weight-bold">
+                                    <td width="5%">Row Number</td>
+                                    <td width="10%">Member Code</td>
+                                    <td width="10%">Account Balance</td>
+                                    <td width="75%">Error Message</td>
+                                </tr>
+                                <tbody>
+
+                                    @foreach (var item in Model.ErrorList)
+                                    {
+                                        <tr>
+                                            <td>@item.rowNum</td>
+                                            <td>@item.membercode</td>
+                                            <td>@item.balance</td>
+                                            <td>@item.errorMessage</td>
+                                            
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="Finance" class="btn btn-success shadow-sm  btn-block">Retry</a>
+
+    </div>
+}
+else
+{
+    <form id="RegisterForm" method="post" name="RegisterForm" enctype="multipart/form-data">
+
+        <div class="row regMemberForm" id="regMemberForm">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center">
+
+                        <h5 class="card-title">
+                            Pastel Integration - Non Individiduals
+                        </h5>
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card border shadow-none">
+                                            <h5 class="card-title text-center mt-2">
+                                                Download Account Balances from System
+                                            </h5>
+                                            <div class="card-body" style="min-height:120px;">
+                                                <div class="row mb-2 has-label">
+                                                    <div class="col-md-2 form-group "></div>
+                                                    <div class="col-md-4 form-group text-center mt-2">
+                                                        <a asp-page-handler="Export" class="btn  btn-outline-info shadow-sm">Download Account Balances</a>
+                                                    </div>
+                                                    <div class="col-md-4 form-group text-center mt-2">
+                                                        <a asp-page-handler="ExportDetail" class="btn  btn-outline-info shadow-sm">Download  Account Balances (For Verification)</a>
+                                                    </div>
+                                                    <div class="col-md-2 form-group "></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card border shadow-none">
+                                            <h5 class="card-title text-center mt-2">
+                                                Upload Account Balances to System
+                                            </h5>
+                                            <div class="card-body" style="min-height:120px;">
+                                                <div class="row has-label">
+                                                    <div class="col-md-8 form-group ">
+                                                        <div class="custom-file form-group mt-md-2">
+                                                            <input type="file"
+                                                                   class="custom-file-input form-control"
+                                                                   id="PastelFile"
+                                                                   asp-for="PastelFile" />
+                                                            <label class="custom-file-label" for="custom-file">Click to Upload Pastel Data</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-1 form-group text-right"> <button type="submit" id="btnSubmit" class="btn btn-outline-info float-right register-btn">Upload</button></div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+
+
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+                var notification = JSON.parse('@Json.Serialize(Model.notification)');
+                if (notification != null) {
+                    if (notification.message.length > 0) {
+                        MMNotify(notification.message, notification.notificationtype);
+                    }
+                }
+        });
+    </script>
+}

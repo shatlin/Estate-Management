@@ -1,0 +1,297 @@
+﻿@page
+@model WISA.Web.Pages.Manage.ListContactsModel
+
+@{ ViewData["Title"] = "Contacts";
+    ViewData["Page"] = "Non Members";
+
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+
+    }
+
+    <style>
+
+        .table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            vertical-align: top;
+        }
+
+        .somestuff::-webkit-input-placeholder {
+            text-align: right;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner:before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #333;
+            animation: spin .6s linear infinite;
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+        }
+    </style>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Non Members</h4>
+            </div>
+
+            <div class="card-body table-responsive">
+                <table id="list" class="table table-bordered" cellspacing="0" cellpadding="0" width="100%">
+                    <tfoot>
+                        <tr style="background-color:white;color:black;">
+                            <th style="min-width:200px;">First Name</th>
+                            <th style="min-width:200px;">Last Name</th>
+                            <th style="min-width:150px;">Email</th>
+                            <th style="min-width:150px;">ID Number</th>
+                            <th style="min-width:100px;">Member Number</th>
+                            <th style="min-width:150px;">Mobile Phone</th>
+                            <th style="min-width:50px;"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- #region DeleteModalRegion -->
+<div class="modal" style="min-width:500px" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered   modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" id="DeleteForm" onsubmit="return Delete()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">Are you sure you want to delete?</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="reg-container row">
+                        <div class="col-12">
+                            <input type="hidden" id="idToDelete" />
+                            <dl class="row">
+                                <dt class="col-sm-2">
+                                    <label  class="control-label">Contact Name</label>
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <label id="NameofRecordToDelete"></label>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            &nbsp;
+                        </div>
+                        <div class="col-3 text-right">
+                            <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                        </div>
+                        <div class="col-2  text-right ">
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #endregion DeleteModalRegion -->
+
+@section scripts {
+    <script>
+        var dataTable;
+
+        function SetUpPopupToDeleteRecord(data) {
+            var dataarray = data.split(";")
+            $('#idToDelete').val(dataarray[0]);
+            $('#NameofRecordToDelete').text(dataarray[1]);
+        }
+
+        function Delete() {
+            var id = $('#idToDelete').val();
+            $.ajax({
+                url: '?handler=Delete&id=' + id,
+                type: "GET",
+                dataType: 'json',
+                success: function (data) {
+                    $('#DeleteModal').modal('hide');
+                    alert("hidden");
+                    dataTable.ajax.reload();
+                    if (data.success) {
+                        MMNotify(data.message, "success");
+                    }
+                    else {
+                        MMNotify(data.message, "danger");
+                    }
+                }
+            });
+            return false;
+        }
+
+        $(document).ready(function () {
+
+            $('#list').show();
+
+
+            dataTable = $('#list').DataTable({
+                language: {
+
+                    sLoadingRecords: '<div><img src="https://media.giphy.com/media/MDrmyLuEV8XFOe7lU6/giphy.gif"></div>'
+                },
+                "pagingType": "full_numbers",
+                "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'Bf>>" +
+                    "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
+                autoWidth: false,
+
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'csv', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
+
+                ],
+                pageLength: 10,
+                ajax: {
+                    url: '?handler=List',
+                    dataSrc: ''
+                },
+                initComplete: function () {
+
+
+                },
+                "columns": [
+                    { title: "First Name", data: "firstname", "autoWidth": true, },
+                    { title: "Last Name", data: "lastname", "autoWidth": true, },
+                    { title: "Email", data: "email", "autoWidth": true, },
+                    { title: "ID Number", data: "idnumber", "autoWidth": true, },
+                    { title: "Membership Number", data: "membershipcode", "autoWidth": true, },
+                    { title: "Phone Number", data: "mobilephone", "autoWidth": true, },
+                    {
+                        title: "Action",
+                        data: "id",
+
+                        //"render": function (data, type, row, meta) {
+                        //    {
+                        //        return '<a class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  href="/Manage/Individual?Id=' + row.id + '">&nbsp;<i class="nc-icon nc-ruler-pencil">  </i></a>&nbsp;';
+                        //    }
+                        //},
+                         "render": function (data, type, row, meta) {
+                            var actions = '';
+
+                            if (@Json.Serialize(isAuthorizedForUpdate)) {
+                                actions += '<span style="display: flex; flex-flow: row nowrap; justify-content: center;"><a class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  href="/Manage/Individual?Id=' + row.id + '">&nbsp;<i class=" fa fa-edit"></i></a>&nbsp;'
+                            }
+                            if (@Json.Serialize(isAuthorizedForDelete)) {
+                                actions += '<span style="display: flex; flex-flow: row nowrap; justify-content: center;"><a  class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal"  data-target="#DeleteModal" onClick="SetUpPopupToDeleteRecord(' + '\'' + row.id + ';' + row.firstname+" "+row.lastname + ';' + '\'' + ')" ><i class="nc-icon nc-simple-remove"></i></a>'
+                            }
+                            return actions;
+                        },
+
+                        orderable: false,
+                        searchable: false,
+                        width: "50px"
+                    }
+
+                ]
+            });
+
+            $(".dataTables_filter").hide();
+
+
+            // Setup - add a text input to each footer cell
+            $('#list tfoot th').each(function () {
+                var title = $('#list thead th').eq($(this).index()).text();
+                if (title != "Action") {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder=" &#xf002" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+                else {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder="" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+
+            });
+
+            $('#list tfoot tr').appendTo('#list thead');
+
+
+
+            $('#FirstName').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(0)
+                    .search($('#FirstName').val(), false, true)
+                    .draw();
+            });
+
+            $('#LastName').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(1)
+                    .search($('#LastName').val(), false, true)
+                    .draw();
+            });
+
+            $('#Email').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(2)
+                    .search($('#Email').val(), false, true)
+                    .draw();
+            });
+
+            $('#IDNumber').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(3)
+                    .search($('#IDNumber').val(), false, true)
+                    .draw();
+            });
+
+            $('#MembershipNumber').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(4)
+                    .search($('#MembershipNumber').val(), false, true)
+                    .draw();
+            });
+
+            $('#PhoneNumber').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(5)
+                    .search($('#PhoneNumber').val(), false, true)
+                    .draw();
+            });
+
+
+        });
+    </script>
+}

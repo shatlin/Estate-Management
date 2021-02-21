@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MM.ClientModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var isSuperUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSuperUser).Result.Succeeded;
+    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowAdminUser).Result.Succeeded;
+    var isUser = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowUserAccess).Result.Succeeded;
+    var isMember = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowMemberAccess).Result.Succeeded;
+    var isContact = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowContactAccess).Result.Succeeded;
+}
+
+<style>
+    .btn {
+        line-height: 1em;
+        margin: 0;
+    }
+</style>
+<ul class="nav navbar-nav ml-auto justify-content-end">
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <li class="nav-item">
+        @*@if (isMember || isContact)
+        {*@
+            <form id="logoutForm" class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                <i class="nc-icon nc-single-02"></i><button id="logout" type="submit" class="btn btn-link text-dark">LOGOUT</button>
+            </form>
+        @*}
+        else
+        {
+            <form id="logoutForm" class="form-inline" asp-page="/Account/Admin/Logout" asp-route-returnUrl="@Url.Page("~/Admin/Index", new { area = "" })">
+                <i class="nc-icon nc-single-02"></i><button id="logout" type="submit" class="btn btn-link text-dark">LOGOUT</button>
+            </form>
+        }*@
+    </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark font-weight-normal" id="login" asp-page="/Account/Login"> <i class="nc-icon nc-single-02"></i>LOGIN</a>
+        </li>
+    }
+</ul>
+

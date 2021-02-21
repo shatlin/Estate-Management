@@ -1,0 +1,480 @@
+﻿@page
+@model MM.Pages.Report.AllIndividualInformationModel
+
+
+@{
+    ViewData["Title"] = "All Individual Information";
+    ViewData["Page"] = "All Individual Information";
+}
+
+
+<style>
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        vertical-align: top;
+    }
+
+    .somestuff::-webkit-input-placeholder {
+        text-align: right;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .spinner:before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120px;
+        height: 120px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        border-top-color: #333;
+        animation: spin .6s linear infinite;
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">All Individual Information</h4>
+            </div>
+            <div class="card-body table-responsive">
+                <table id="list" class="table table-bordered" cellspacing="0" cellpadding="0" width="100%">
+                    <tfoot>
+                        <tr style="background-color:white;color:black;">
+                            <th style="min-width:150px;">Member Type</th>
+                            <th style="min-width:150px;">Membership Status</th>
+                            <th style="min-width:175px;">Memberhsip Number</th>
+                            <th style="min-width:150px;">Memberhsip Grade</th>
+                            <th style="min-width:250px;">Full Name</th>
+                            <th style="min-width:150px;">First Name</th>
+                            <th style="min-width:150px;">Last Name</th>
+                            <th style="min-width:100px;">ID Number</th>
+                            <th style="min-width:100px;">BirthDay</th>
+                            <th style="min-width:200px;">Email</th>
+                            <th style="min-width:150px;">Home Phone</th>
+                            <th style="min-width:150px;">Business Phone</th>
+                            <th style="min-width:150px;">Mobile Phone</th>
+                            <th style="min-width:250px;">Address 1</th>
+                            <th style="min-width:250px;">Address 2</th>
+                            <th style="min-width:100px;">Account Balance</th>
+                            <th style="min-width:175px;">Branch Membership</th>
+                            <th style="min-width:100px;">Created On</th>
+                            <th style="min-width:175px;">Modified via Portal</th>
+                            <th style="min-width:100px;">Start Date</th>
+                            <th style="min-width:100px;">End Date</th>
+                            <th style="min-width:200px;">Company Name</th>
+                            <th style="min-width:100px;">Occupation</th>
+                            <th style="min-width:100px;">Ethnicity</th>
+                            <th style="min-width:100px;">Gender</th>
+                            <th style="min-width:250px;">Interested in Volunteer Work?</th>
+                            <th style="min-width:400px;">Publish Company in the Annual Member Directory?</th>
+                            <th style="min-width:450px;">Application Cancelled Date (Non-payment of Member Fee)</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+
+        var dataTable;
+        $(document).ready(function () {
+
+            $('#list').show();
+
+
+            dataTable = $('#list').DataTable({
+                language: {
+                   
+                    sLoadingRecords: '<div class="spinner"><img src="https://media.giphy.com/media/MDrmyLuEV8XFOe7lU6/giphy.gif"></div>'
+                },
+                "pagingType": "full_numbers",
+                "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'Bf>>" +
+                    "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
+                autoWidth: false,
+                buttons: [
+
+                    { extend: 'copy', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'csv', className: 'btn btn-sm btn-outline-primary' },
+                    //{ extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
+
+                ],
+                pageLength: 10,
+                ajax: {
+                    url: '?handler=List',
+                    dataSrc: ''
+                },
+                initComplete: function () {
+                    this.api().columns().every(function (i) {
+
+                        if (i == 0 || i == 1 || i == 3 || i == 16 || i == 22 || i == 23 || i == 24 || i == 25 || i == 26) {
+                            var column = this;
+                            var select = $('<select class="somestuff form-control form-input" style="padding-left:5px;"><option value="">Please select</option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                    });
+                },
+
+                "columns": [
+                    { title: "Member Type", data: "membershipTypeName"  },
+                    { title: "Membership Status", data: "memberStatusName" },
+                    { title: "Membership Number", data: "memberCode" },
+                    { title: "Membership Grade", data: "membershipGradeName"  },
+                    { title: "Full Name", data: "fullName" },
+                    { title: "First Name", data: "firstName"  },
+                    { title: "Last Name", data: "lastName"  },
+                    { title: "ID Number", data: "idNumber"  },
+                    {
+                        title: "Birthday", data: "birthDay", 
+                         render: function (data) {
+                            if (data == null) return "";
+                            var dt = new Date(data);
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+
+
+                        }
+
+                    },
+                    { title: "Email", data: "email"  },
+                    { title: "Home Phone", data: "homePhoneNumber"  },
+                    { title: "Business Phone", data: "businessPhoneNumber"},
+                    { title: "Mobile Phone", data: "mobilePhone"  },
+                    { title: "Address 1", data: "physicalAddressLine1"  },
+                    { title: "Address 2", data: "postalAddressLine1"  },
+                    { title: "Balance", data: "accountBalance"  },
+                    { title: "Branch Membership", data: "clientBranchName"  },
+                    {
+                        title: "Created On", data: "createdOn", 
+                        render: function (data) {
+                            if (data == null) return "";
+                            var dt = new Date(data);
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        }
+                    }
+                    ,
+                    {
+                        title: "Modified via Portal", data: "modifiedOn", 
+                        render: function (data) {
+                            if (data == null) return "";
+                            var dt = new Date(data);
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        }
+                    },
+                    {
+                        title: "Start Date", data: "startDate", 
+                        render: function (data) {
+                            if (data == null) return "";
+                            var dt = new Date(data);
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        }
+                    },
+                    {
+                        title: "End Date", data: "endDate", 
+                        render: function (data) {
+                            if (data == null) return "";
+                            var dt = new Date(data);
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        }
+                    },
+                    { title: "Company Name", data: "companyName",  },
+                    { title: "Occupation", data: "occupationName",  },
+                    { title: "Ethnicity", data: "ethnicityName",  },
+                    { title: "Gender", data: "genderName",  },
+                    { title: "Interested in Volunteer Work?", data: "interestedInVolunteerWorkName",  },
+                    { title: "Publish Company in the Annual Member Directory?", data: "publishCompanyInAnnualMemberDirectoryName",  },
+                    {
+                        title: "Application Cancelled Date (Non-payment of Member Fee)", data: "applicationCancelledMemberfeeNotpaidDate",
+                        render: function (data) {
+                            if (data == null) return "";
+                            var dt = new Date(data);
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        }
+                    }
+
+                ]
+            });
+
+            $(".dataTables_filter").hide();
+
+
+            // Setup - add a text input to each footer cell
+            $('#list tfoot th').each(function () {
+                var title = $('#list thead th').eq($(this).index()).text();
+                if (title != "Action") {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder=" &#xf002" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+                else {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder="" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+
+            });
+            $('#list tfoot tr').appendTo('#list thead');
+
+            $('#MemberType').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(0)
+                    .search($('#MemberType').val(), false, true)
+                    .draw();
+            });
+
+            $('#MembershipStatus').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(1)
+                    .search($('#MembershipStatus').val(), false, true)
+                    .draw();
+            });
+
+            $('#MembershipNumber').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(2)
+                    .search($('#MembershipNumber').val(), false, true)
+                    .draw();
+            });
+
+            $('#MembershipGrade').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(3)
+                    .search($('#MembershipGrade').val(), false, true)
+                    .draw();
+            });
+
+            $('#FullName').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(4)
+                    .search($('#FullName').val(), false, true)
+                    .draw();
+            });
+
+            $('#FirstName').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(5)
+                    .search($('#FirstName').val(), false, true)
+                    .draw();
+            });
+
+            $('#LastName').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(6)
+                    .search($('#LastName').val(), false, true)
+                    .draw();
+            });
+
+
+
+            $('#IDNumber').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(7)
+                    .search($('#IDNumber').val(), false, true)
+                    .draw();
+            });
+
+            $('#Birthday').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(8)
+                    .search($('#Birthday').val(), false, true)
+                    .draw();
+            });
+
+            $('#Email').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(9)
+                    .search($('#Email').val(), false, true)
+                    .draw();
+            });
+
+            $('#HomePhone').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(10)
+                    .search($('#HomePhone').val(), false, true)
+                    .draw();
+            });
+
+            $('#BusinessPhone').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(11)
+                    .search($('#BusinessPhone').val(), false, true)
+                    .draw();
+            });
+
+
+            $('#MobilePhone').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(12)
+                    .search($('#MobilePhone').val(), false, true)
+                    .draw();
+            });
+
+            $('#Address1').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(13)
+                    .search($('#Address1').val(), false, true)
+                    .draw();
+            });
+
+            $('#Address2').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(14)
+                    .search($('#Address2').val(), false, true)
+                    .draw();
+            });
+
+            $('#AccountBalance').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(15)
+                    .search($('#AccountBalance').val(), false, true)
+                    .draw();
+            });
+
+            $('#BranchMembership').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(16)
+                    .search($('#BranchMembership').val(), false, true)
+                    .draw();
+            });
+
+            $('#CreatedOn').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(17)
+                    .search($('#CreatedOn').val(), false, true)
+                    .draw();
+            });
+
+            $('#ModifiedOn').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(18)
+                    .search($('#ModifiedOn').val(), false, true)
+                    .draw();
+            });
+
+            $('#StartDate').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(19)
+                    .search($('#StartDate').val(), false, true)
+                    .draw();
+            });
+
+            $('#EndDate').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(20)
+                    .search($('#EndDate').val(), false, true)
+                    .draw();
+            });
+
+            $('#CompanyName').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(21)
+                    .search($('#CompanyName').val(), false, true)
+                    .draw();
+            });
+
+            $('#Occupation').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(22)
+                    .search($('#Occupation').val(), false, true)
+                    .draw();
+            });
+
+            $('#Ethnicity').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(23)
+                    .search($('#Ethnicity').val(), false, true)
+                    .draw();
+            });
+
+            $('#Gender').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(24)
+                    .search($('#Gender').val(), false, true)
+                    .draw();
+            });
+
+            //$('#InterestedInVolunteerWork').on('keyup', function () {
+
+            //    $('#list')
+            //        .DataTable().columns(25)
+            //        .search($('#InterestedInVolunteerWork').val(), false, true)
+            //        .draw();
+            //});
+
+            //$('#PublishCompanyInTheAnnualMemberDirectory').on('keyup', function () {
+
+            //    $('#list')
+            //        .DataTable().columns(26)
+            //        .search($('#PublishCompanyInTheAnnualMemberDirectory').val(), false, true)
+            //        .draw();
+            //});
+
+            $('#ApplicationCancelledDate').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(27)
+                    .search($('#ApplicationCancelledDate').val(), false, true)
+                    .draw();
+            });
+
+        });
+    </script>
+
+}

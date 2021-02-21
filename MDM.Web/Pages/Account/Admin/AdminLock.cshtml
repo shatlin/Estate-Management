@@ -1,0 +1,51 @@
+﻿@page
+@using MM.ClientModels;
+@using MM.Helper;
+@model AdminLockModel
+
+@{
+    ViewData["Title"] = "ADMIN";
+    Layout = "_LayoutAdmin";
+}
+    <p class="display-3 text-white text-center">WISA</p>
+    <p class="lead text-center text-white">ADMIN</p>
+    
+
+    <form method="post" class="loginPage">
+
+        
+        <div class="inputBox">
+
+            <input type="password"
+                   asp-for="Password"
+                   required
+                   value=""
+                   name="pwd"
+                   onfocus="document.getElementsByName('lock')[0].innerHTML ='Unlock';"/>
+            <!--"onfocusout="document.getElementsByName('lock')[0].innerHTML = 'Locked';"-->
+            
+            <label>Password</label>
+        </div>
+
+
+        
+
+        @*<div class="inputBox">
+
+            <input type="checkbox" asp-for="RememberMe" /> <label asp-for="RememberMe"></label>
+
+        </div>*@
+
+    <div class="wisalogin inputBox text-center">
+        <a href="javascript:;" class="btn btn-outline-info btn-round" type="submit" name="lock" value="" onmouseover="document.getElementsByName('lock')[0].innerHTML ='Unlock';" onmouseleave="document.getElementsByName('lock')[0].innerHTML = 'Locked';"><i class="nc-icon nc-lock-circle-open lg"></i>  Locked</a>
+
+        @*<a href="javascript:;" class="btn btn-outline-info btn-round" type="submit" name="lock" value=""><i class="nc-icon nc-lock-circle-open lg"></i>Locked</a>*@
+        @*<input type="submit" name="Unlock Screen" value="Unlock" /><br /><br />*@
+
+    </div>
+        <br />
+        <div asp-validation-summary="All" style="color:red;font-size:16px;"></div>
+    </form>
+
+
+

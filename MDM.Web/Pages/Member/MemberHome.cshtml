@@ -1,0 +1,338 @@
+﻿@page
+@model WISA.Web.Pages.Member.MemberHomeModel
+
+@{
+    ViewData["Title"] = "Home";
+    ViewData["Page"] = "Home";
+}
+
+
+<style>
+    /*.img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }*/
+
+    a:link {
+        text-decoration: none;
+        color: #51cbce;
+    }
+
+    a:hover {
+        color: indianred;
+    }
+
+    .list-memb-height {
+        padding-top: 1px !important;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        .list-memb-height {
+            height: inherit;
+        }
+    }
+
+    .icon-square {
+        background-color: aliceblue;
+        border-radius: 10px;
+    }
+
+        .icon-square:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        }
+
+    /*New Trial*/
+
+    .flip-card {
+        background-color: transparent;
+        height: 300px;
+        perspective: 1000px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+        border-radius: 10px;
+    }
+
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 10px;
+    }
+
+    .flip-card-front {
+        background-color: #bbb;
+        color: black;
+        border-radius: 10px;
+    }
+
+    .flip-card-back {
+        background-color: white;
+        color: black;
+        padding: 15px;
+        transform: rotateY(180deg);
+        border-radius: 10px;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        .btn-pay {
+            width: 300px;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-4 col-sm-6">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img class="card-img-top img-fluid" src="~/assets/img/MemberCard.jpg" alt="Membership Manager : Patrick Sebopelo" style="height:300px; border-radius:10px;">
+                    <div class="card-img-overlay text-white">
+                        <h3 class="text-center">Welcome to the WISA Membership Portal</h3>
+                        <div>&nbsp;</div>
+                        <div class="mt-5">
+                            <h6>Membership Number : </h6><br />
+                            <h6 class="mt-0">Membership Grade : </h6><br />
+                            <h6 class="mt-0 mb-2">Membership Status : </h6><br />
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card-back text-justify">
+                    <div class="mt-3">
+                        To update your membership profile, please click on “My Profile” . You can update your contact details, employment history and qualifications. You can attach documents like copies of your qualifications and your ID document. You can also register as a volunteer to get involved in WISA activities.
+                    </div>
+                    <div>&nbsp;</div>
+                    <div class="mt-5">
+                        If you need assistance or experience any problems updating your profile,
+                        please contact Membership Manager, <br /> <b>Patrick Sebopelo</b>, at
+                        <cite title="membership"> <b><a href="mailto:membership@wisa.org.za" class="tag clickable">membership@wisa.org.za</a></b></cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img class="card-img-top img-fluid shadow-none" src="../assets/img/paymet.jpg" alt="" style="height:300px;border-radius:10px;">
+                    <div class="card-img-overlay">
+                        <h3 class="text-center">WISA Online Payment Facility</h3>
+                    </div>
+                </div>
+                <div class="flip-card-back">
+                    @if (Model.AccountBalance.ToString("0.00").Replace(",", ".").Trim() == "0.00")
+                    {
+                        <div class="text-right">
+                            <h5 class="mb-0 text-primary">
+                                Account Balance
+                            </h5>
+                            <h5 class="mb-0 text-success">R @Model.AccountBalance.ToString("0.00").Replace(",", ".")</h5>
+                        </div>
+
+
+
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+
+                        <div class="mt-5">
+                            If you need any assistance with the payment facility, please contact <b>Sarah Biya</b> in the Finance Department at
+                            <cite title="finance"> <b><a href="mailto:debtors@wisa.org.za" class="tag clickable">debtors@wisa.org.za</a>&nbsp; or 011 805 3537.</b></cite>
+
+                        </div>
+
+                        <input type="hidden" name="cmd" value="_paynow">
+                        <input type="hidden" name="receiver" value="admin@wisa.org.za">
+                        <input type="hidden" name="item_name" value="Amount">
+                        <input type="hidden" name="amount" value="@Model.AccountBalance.ToString("0.00").Replace(",", ".")">
+                        <input type="hidden" name="return_url" value="http://www.wisa.org.za/">
+                        <input type="hidden" name="cancel_url" value="http://www.wisa.org.za/">
+                    }
+                    else
+                    {
+
+                        <form action="https://www.payfast.co.za/eng/process" target="_blank" class="formPayment" name="form" method="post">
+                            <div class="text-right">
+                                <h5 class="mb-0 text-primary">
+                                    Account Balance
+                                </h5>
+                                <h5 class="mb-0 text-danger">R @Model.AccountBalance.ToString("0.00").Replace(",", ".")</h5>
+                            </div>
+                            <h6 class="text-center lead mt-2" style="text-shadow: 2px 2px 4px #000000;">
+                                <strong>Make payment</strong>
+                            </h6>
+                            <button type="submit" class="card shadow-none" style="outline: none">
+                                <div class="btn btn-info btn-pay shadow"><img src="~/images/PayFast_logo.png" alt="" /></div>
+                            </button>
+                            <input type="hidden" name="cmd" value="_paynow">
+                            <input type="hidden" name="receiver" value="admin@wisa.org.za">
+                            <input type="hidden" name="item_name" value="Amount">
+                            <input type="hidden" name="amount" value="@Model.AccountBalance.ToString("0.00").Replace(",", ".")">
+                            <input type="hidden" name="return_url" value="http://www.wisa.org.za/">
+                            <input type="hidden" name="cancel_url" value="http://www.wisa.org.za/">
+
+                            <div>
+                                If you need any assistance with the payment facility, please contact the Finance Department,<br /> <b>Sarah Biya</b> at
+                                <cite title="finance"> <b><a href="mailto:debtors@wisa.org.za" class="tag clickable">debtors@wisa.org.za</a>&nbsp; or 011 805 3537.</b></cite>
+                            </div>
+
+                        </form>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img class="card-img-top img-fluid" src="~/assets/img/cpdlabel.png" alt="CPD" style="height:300px; border-radius:10px;">
+                    <div class="card-img-overlay text-white">
+                        @*<h3 class="text-center">Continuing Professional Development</h3>*@
+                        <div>&nbsp;</div>
+                        <div class="mt-5">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card-back text-justify">
+                    <div class="mt-3">
+                        <h3 class="text-center">Continuing Professional Development</h3>
+                    </div>
+                    <div>&nbsp;</div>
+                    <div class="mt-5">
+                        <h6>Total CPD Points : </h6>
+                        <h6 class="mt-0">Applied : </h6>
+                        <h6 class="mt-0 mb-2">Approved : </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <h3>My Profile</h3>
+                </div>
+                <hr />
+            </div>
+            <div class="card-body list-memb-height">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="/Member/Profile">
+                            <div class="text-center icon-square">
+                                <img src="/assets/img/mem-prof.png" width="150" height="150" class="rounded" alt="">
+                            </div>
+                        </a>
+                        <div class="text-center mt-1"><a class="font-weight-bold" href="/Member/Profile">View Profile</a></div>
+                    </div>
+                    <div class="col-6">
+                        <a href="/Account/ChangePassword">
+                            <div class="text-center icon-square">
+                                <img src="/assets/img/mem-pass.png" width="150" height="150" class="rounded" alt="">
+                            </div>
+                        </a>
+                        <div class="text-center mt-1"><a class="font-weight-bold" href="/Account/ChangePassword">Change Password</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <img src="/assets/img/mem-mail.png" width="150" height="150" class="rounded" alt="">
+                    <h3>Announcement</h3>
+                </div>
+                <hr />
+            </div>
+            <div class="card-body list-memb-height">
+                <div class="text-center">
+                    <a class="font-weight-bold" href="#"><img src="/assets/img/coming-soon.png" width="150" height="150" class="rounded" alt=""></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <img src="/assets/img/Mem-Nws.png" width="150" height="150" class="rounded" alt="">
+                    <h3>News</h3>
+                </div>
+                <hr />
+            </div>
+            <div class="card-body list-memb-height">
+                <div class="text-center">
+                    <a class="font-weight-bold" href="#"><img src="/assets/img/coming-soon.png" width="150" height="150" class="rounded" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <img src="/assets/img/mem-rem.png" width="150" height="150" class="rounded" alt="">
+                    <h3>Reminders</h3>
+                </div>
+                <hr />
+            </div>
+            <div class="card-body list-memb-height">
+                <div class="text-center">
+                    <a class="font-weight-bold" href="#"><img src="/assets/img/coming-soon.png" width="150" height="150" class="rounded" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels"></script>
+
+@section scripts {
+    <script>
+
+    </script>
+}

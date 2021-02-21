@@ -1,0 +1,305 @@
+﻿@page
+@model MM.Pages.Client.MemberTeamModel
+
+@using MM.ClientModels;
+@using MM.Helper;
+@{
+    ViewData["Title"] = "Membership Team";
+    ViewData["Page"] = "Membership Team";
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+}
+
+
+<!-- #region AddEditModalSection -->
+
+<div class="modal" style="min-width:500px" id="AddEditModal" tabindex="-1" role="dialog" aria-labelledby="AddEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" id="AddEditForm" onsubmit="return Save(this)">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddEditModalLabel">Add New Membership Team</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="reg-container row">
+                        <div class="col-12">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" id="id" asp-for="MemberTeam.Id" />
+
+                            <div class="form-group mb-4">
+                                <label asp-for=MemberTeam.Name class="control-label"></label>
+                                <input asp-for=MemberTeam.Name type="text" class="form-control form-input" placeholder="Name of Membership Team" id="name">
+                                <span asp-validation-for=MemberTeam.Name class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label asp-for=MemberTeam.Description class="control-label"></label>
+                                <input asp-for=MemberTeam.Description type="text" class="form-control form-input" placeholder="Description of Membership Team" id="description">
+                                <span asp-validation-for=MemberTeam.Description class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            &nbsp;
+                        </div>
+                        <div class="col-3 text-right">
+                            <input type="submit" value="Add" class="btn btn-outline-success" id="modal-create-edit" />
+                        </div>
+                        <div class="col-2  text-right ">
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- #endregion AddEditModalSection-->
+
+
+<!-- #region DeleteModalRegion -->
+
+<div class="modal" style="min-width:500px" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered   modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" id="DeleteForm" onsubmit="return Delete()">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">Are you sure you want to delete?</h5>
+                </div>
+
+
+                <div class="modal-body">
+                    <div class="reg-container row">
+                        <div class="col-12">
+                            <input type="hidden" id="idToDelete" />
+                            <dl class="row">
+                                <dt class="col-sm-2">
+
+                                    <label asp-for=MemberTeam.Name class="control-label"></label>
+                                </dt>
+                                <dd class="col-sm-10 mb-3">
+                                    <label id="NameofRecordToDelete"></label>
+                                </dd>
+                                <dt class="col-sm-2">
+                                    <label asp-for=MemberTeam.Description class="control-label"></label>
+
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <label id="DescriptionofRecordToDelete"></label>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            &nbsp;
+                        </div>
+                        <div class="col-3 text-right">
+                            <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                        </div>
+                        <div class="col-2  text-right ">
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- #endregion DeleteModalRegion -->
+<!-- #region ToholdGrid -->
+
+
+    <div class="container">
+        <div class="reg-container row">
+            <!--  Personal -->
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <partial name="_CardHeaderPartial" , model='new Header{name="Membership Team"}'>
+                        <div class="card-body reg-card-body">
+                     
+                            <table id="list" class="table table-bordered" cellspacing="0" cellpadding="0" width="100%">
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion ToholdGrid-->
+
+    @section scripts {
+        <script>
+
+            var dataTable;
+
+            $(document).ready(function () {
+                $('#list').show();
+                dataTable = $('#list').DataTable({
+                    language: {
+                        sLoadingRecords: '<span style="width:100%;"><img src="https://media.giphy.com/media/MDrmyLuEV8XFOe7lU6/giphy.gif"></span>'
+                    },
+                    "pagingType": "full_numbers",
+                    "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'Bf>>" +
+                        "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
+                    buttons: [
+                        { extend: 'copy', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'csv', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
+
+                    ],
+
+
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                    ajax: {
+                        url: '?handler=List',
+                        dataSrc: ''
+                    },
+                    "columns": [
+                        { title: "Name", data: "name", "autoWidth": true, },
+                        { title: "Description", data: "description", "autoWidth": true, },
+                        {
+                            title: "Action",
+                            data: "id",
+                            "render": function (data, type, row, meta) {
+                            var actions = '';
+
+                            if (@Json.Serialize(isAuthorizedForUpdate)) {
+                                actions += '<span style="display: flex; flex-flow: row nowrap; justify-content: center;"><a class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal" data-target="#AddEditModal" onClick="SetUpPopupToEditRecord(' + row.id + ')" ><i class=" fa fa-edit"></i></a>'
+                            }
+                            if (@Json.Serialize(isAuthorizedForDelete)) {
+                                actions += '<span style="display: flex; flex-flow: row nowrap; justify-content: center;"><a  class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal"  data-target="#DeleteModal" onClick="SetUpPopupToDeleteRecord(' + '\'' + row.id + ';' + row.name + ';' + row.description + '\'' + ')" ><i class="nc-icon nc-simple-remove"></i></a>'
+                            }
+                            return actions;
+                            },
+                            orderable: false,
+                            searchable: false,
+                            width: "50px"
+                        }
+
+                    ]
+                });
+                $(".dataTables_filter").hide();
+            });
+
+            // Setup - add a text input to each footer cell
+            $('#list tfoot th').each(function () {
+                var title = $('#list thead th').eq($(this).index()).text();
+                if (title != "Action") {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder=" &#xf002" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+                else {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder="" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+
+            });
+
+            function SetUpPopupToAddRecord() {
+                $('#AddEditModalLabel').text("Add New Membership Team");
+                $('#modal-create-edit').val("Add")
+                $('#id').val(0);
+                $('#name').val("");
+                $('#description').val("");
+            }
+
+            function SetUpPopupToEditRecord(id) {
+                $('#AddEditModalLabel').text("Edit Membership Team")
+                $('#modal-create-edit').val("Update")
+                $.ajax({
+                    url: '?handler=SelectedRecord&id=' + id,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#id').val(data.id);
+                        $('#name').val(data.name);
+                        $('#description').val(data.description);
+
+                    }
+                });
+            }
+
+            function SetUpPopupToDeleteRecord(data) {
+                var dataarray = data.split(";")
+                $('#idToDelete').val(dataarray[0]);
+                $('#NameofRecordToDelete').text(dataarray[1]);
+                $('#DescriptionofRecordToDelete').text(dataarray[2]);
+            }
+
+            $('#AddEditModal').on('shown.bs.modal', function () {
+                $(this).find('.modal-body').css({
+                    width: $('#reg-container').width,
+                    height: $('#reg-container').height
+                });
+                setTimeout(function () {
+                    $('#name').focus();
+                }, 400);
+            })
+
+            function Delete() {
+                var id = $('#idToDelete').val();
+                $.ajax({
+                    url: '?handler=Delete&id=' + id,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#DeleteModal').modal('hide');
+                        dataTable.ajax.reload();
+                        if (data.success) {
+                            MMNotify(data.message, "success");
+                        }
+                        else {
+                            MMNotify(data.message, "danger");
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function Save(form) {
+                if ($(form).valid()) {
+                    $.post({
+                        url: '?handler=Save',
+                        dataType: 'json',
+                        data: $(form).serialize(),
+                    })
+                        .done(function (data) {
+                            if (data.success) {
+                                $('#AddEditModal').modal('hide');
+                                $('#id').val("");
+                                $('#name').val("");
+                                $('#description').val("");
+                                if (data.success) {
+                                    MMNotify(data.message, "success");
+                                }
+                                else {
+                                    MMNotify(data.message, "danger");
+                                }
+                                dataTable.ajax.reload();
+                            }
+                        })
+                        .fail(function (error) {
+                            MMNotify("Unknown error", "danger");
+                        });
+                }
+                return false;
+            }
+
+        </script>
+    }
+
+

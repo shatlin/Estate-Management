@@ -1,0 +1,190 @@
+﻿@page
+@model WISA.Web.Admin.UserListModel
+
+@{
+    ViewData["Title"] = "Manage Users";
+    ViewData["Page"] = "Manage Users";
+}
+
+
+    <style>
+
+        .table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            vertical-align: top;
+        }
+
+        .somestuff::-webkit-input-placeholder {
+            text-align: right;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner:before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #333;
+            animation: spin .6s linear infinite;
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+        }
+    </style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+              
+                <partial name="_CardSimpleHeaderPartial" , model='new Header{name="Manage Staff"}'>
+            </div>
+            <div class="card-body">
+                <div class="card-body table-responsive">
+                    <table id="list" class="table table-bordered" cellspacing="0" cellpadding="0" width="100%">
+                        <tfoot>
+                            <tr style="background-color:white;color:black;">
+                                <th style="min-width:100px;">Title</th>
+                                <th style="min-width:200px;">Email</th>
+                                <th style="min-width:200px;">First Name</th>
+                                <th style="min-width:200px;">Last Name</th>
+                                <th style="min-width:150px;">Phone Number</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+
+        var dataTable;
+        $(document).ready(function () {
+
+            $('#list').show();
+
+
+            dataTable = $('#list').DataTable({
+                language: {
+                    sLoadingRecords: '<span style="width:100%;"><img src="https://media.giphy.com/media/MDrmyLuEV8XFOe7lU6/giphy.gif"></span>'
+                },
+                "pagingType": "full_numbers",
+                "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'Bf>>" +
+                    "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'csv', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
+                    { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
+
+                ],
+                pageLength: 10,
+                ajax: {
+                    url: '?handler=List',
+                    dataSrc: ''
+                },
+                initComplete: function () {
+                },
+                "columns": [
+                    { title: "Title", data: "title", "autoWidth": true, },
+                    { title: "EmailId", data: "emailid", "autoWidth": true, },
+                    { title: "First Name", data: "firstname", "autoWidth": true, },
+                    { title: "Last Name", data: "lastname", "autoWidth": true, },
+                    { title: "Phone Number", data: "phonenumber", "autoWidth": true, },
+                    {
+                        title: "Action",
+                        data: "id",
+                        "render": function (data, type, row, meta) {
+                            {
+                                return '<span style="display: flex; flex-flow: row nowrap; justify-content: center;"><a style="font-size:14px;justify-content: center;" href="/Admin/EditUser?Id=' + row.id + '"><i class=" fa fa-edit"></i></a></span>';
+                            }
+                        },
+                        orderable: false,
+                        searchable: false,
+                        width: "50px"
+                    }
+
+                ]
+            });
+
+            $(".dataTables_filter").hide();
+
+            // Setup - add a text input to each footer cell
+            $('#list tfoot th').each(function () {
+                var title = $('#list thead th').eq($(this).index()).text();
+                if (title != "Action") {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder=" &#xf002" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+                else {
+                    var field = '<input type="text"  class="dtplaceholder datatableSearch form-control form-input" placeholder="" name="' + title.replace(' ', '') + '" id="' + title.replace(' ', '') + '" />';
+                    $(this).html(field);
+                }
+
+            });
+
+            $('#list tfoot tr').appendTo('#list thead');
+
+            $('#Title').on('keyup', function () {
+
+                $('#list')
+                    .DataTable().columns(0)
+                    .search($('#Title').val(), false, true)
+                    .draw();
+            });
+
+            $('#EmailId').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(1)
+                    .search($('#EmailId').val(), false, true)
+                    .draw();
+            });
+
+            $('#FirstName').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(2)
+                    .search($('#FirstName').val(), false, true)
+                    .draw();
+            });
+            $('#LastName').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(3)
+                    .search($('#LastName').val(), false, true)
+                    .draw();
+            });
+            $('#PhoneNumber').on('keyup', function () {
+                $('#list')
+                    .DataTable().columns(4)
+                    .search($('#PhoneNumber').val(), false, true)
+                    .draw();
+            });
+
+        });
+    </script>
+
+}
+

@@ -1,0 +1,170 @@
+﻿@page "/MailingList"
+@model MM.Pages.Report.MailingListModel
+
+
+@{
+    ViewData["Title"] = "Mailing List";
+    ViewData["Page"] = "Mailing List";
+}
+
+
+<style>
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        vertical-align: top;
+    }
+
+    .somestuff::-webkit-input-placeholder {
+        text-align: right;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .spinner:before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120px;
+        height: 120px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        border-top-color: #333;
+        animation: spin .6s linear infinite;
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Mailing List</h4>
+            </div>
+            <div class="card shadow-none border-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card   shadow-none border-0 ">
+                                <div class="card-body">
+                                    <div class="table">
+                                        <table id="list" class="table w-100" width="100">
+                                            <thead>
+                                                <tr>
+                                                    <th>Member Type</th>
+                                                    <th>Status</th>
+                                                    <th>Member Number</th>
+                                                    <th>Title </th>
+                                                    <th>Full Name </th>
+                                                    <th>Member Grade </th>
+                                                    <th>Email </th>
+                                                    <th>Contact Number </th>
+                                                    <th>Company Name </th>
+                                                    <th>Branch </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.MailingList != null)
+                                                {
+                                                    @for (int i = 0; i < Model.MailingList.Count; i++)
+                                                    {
+                                                        <tr class="text-dark">
+                                                            <td>@Model.MailingList[i].MemberType</td>
+                                                            <td>@Model.MailingList[i].MemberStatus</td>
+                                                            <td>@Model.MailingList[i].MemberNumber</td>
+                                                            <td>@Model.MailingList[i].Title</td>
+                                                            <td>@Model.MailingList[i].FullName</td>
+                                                            <td>@Model.MailingList[i].MemberGrade</td>
+                                                            <td>@Model.MailingList[i].Email</td>
+                                                            <td>@Model.MailingList[i].ContactNumber</td>
+                                                            <td>@Model.MailingList[i].CompanyName</td>
+                                                            <td>@Model.MailingList[i].Branch</td>
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr style="background-color:white;color:black;">
+                                                    <th>Member Type</th>
+                                                    <th>Status</th>
+                                                    <th>Member Number</th>
+                                                    <th>Title </th>
+                                                    <th>Full Name </th>
+                                                    <th>Member Grade </th>
+                                                    <th>Email </th>
+                                                    <th>Contact Number </th>
+                                                    <th>Company Name </th>
+                                                    <th>Branch </th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script>
+        var dataTable;
+
+        $(document).ready(function () {
+
+            $('#list').DataTable({
+
+                language:
+                {
+
+                    sLoadingRecords: '<div><img src="https://media.giphy.com/media/MDrmyLuEV8XFOe7lU6/giphy.gif"></div>'
+                },
+                "pagingType": "full_numbers",
+                order: [[1, 'desc']],
+                "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'Bf>>" +
+                    "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
+
+                buttons:
+                    [
+                        { extend: 'copy', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'csv', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
+                        { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
+
+                    ],
+                pageLength: 15
+            });
+            $('#list').css('display', 'block');
+
+            $(".dataTables_filter").hide();
+
+        });
+
+
+    </script>
+}

@@ -1,0 +1,73 @@
+﻿@page
+@using MM.ClientModels;
+@using MM.Helper;
+@model MM.Pages.Apply.NonMemberModel
+
+@{
+    ViewData["Title"] = "Register - Non Member";
+    ViewData["Page"] = "Register - Non Member";
+    Layout = "_LayoutAnonymous";
+}
+    <p class="display-3 text-white text-center">WISA</p>
+    <p class="lead text-center text-white">Non Member Registration</p>
+
+    <form method="post" class="regPage">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="inputBox">
+                    <input type="text"
+                           asp-for="FirstName" required
+                           onkeyup="this.setAttribute('value', this.value);"
+                           value="" />
+                    <label>First Name</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="inputBox">
+                    <input type="text"
+                           asp-for="LastName" required
+                           value="" />
+                    <label>Last Name</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="inputBox">
+                    <input type="text"
+                           asp-for="MobileNumber" required
+                           value="" />
+                    <label>Mobile Number</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="inputBox">
+                    <input type="email"
+                           asp-for="Email" required
+                           value="" />
+                    <label>Email</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="inputBox">
+            <input type="text"
+                   asp-for="IDNumber" required
+                   value=""/>
+            <label>Id/Passport Number</label>
+        </div>
+
+        <div class="nonmemberregister">
+
+            <input type="submit" name="Register" value="Register" style="width: 20rem;" />
+        </div>
+        <br />
+        <div asp-validation-summary="All" style="color:red;font-size:16px;"></div>
+    </form>
+
+
+

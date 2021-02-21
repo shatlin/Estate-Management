@@ -1,0 +1,76 @@
+﻿@page
+@using MM.ClientModels;
+@using MM.Helper;
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    ViewData["Page"] = "Log in";
+    Layout = "_LayoutAnonymous";
+}
+    <p class="display-3 text-white text-center">WISA</p>
+    <p class="lead text-center text-white"> Login</p>
+
+    <form method="post" class="loginPage">
+
+        <div class="inputBox">
+            <input type="email"
+                   asp-for="Email"
+                   required
+                   onkeyup="this.setAttribute('value', this.value);"
+                   value="" />
+            <label>Email</label>
+        </div>
+        <div class="inputBox">
+
+            <input type="password"
+                   asp-for="Password"
+                   required
+                   value="" />
+            <label>Password</label>
+        </div>
+
+
+        <div class="mb-3">
+
+            <input class="check-rem" asp-for="RememberMe" />
+            <label class="label-rem text-info">&nbsp; Remember Me</label>
+
+        </div>
+
+        @*<div class="inputBox">
+
+            <input type="checkbox" asp-for="RememberMe" /> <label asp-for="RememberMe"></label>
+
+        </div>*@
+
+        <div class="wisalogin inputBox">
+            <input type="submit" name="sign-in" value="Sign In" />
+        </div>
+        <br />
+        <p class="font-weight-lighter text-center text-white"><a id="admin" style="display: none" class="font-weight-bold"  href="/Account/Admin/Login">Please Click here to go to Admin Login Page</a></p>
+      
+    </form>
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+
+            if ('@Json.Serialize(Model.isAdmin)'.toUpperCase().trim() == 'TRUE')
+            {
+                $("#admin").show();
+            }
+
+                var notification = JSON.parse('@Json.Serialize(Model.notification)');
+                if (notification != null) {
+                    if (notification.message.length > 0) {
+                        MMNotify(notification.message, notification.notificationtype);
+                    }
+                }
+        });
+
+    </script>
+}
+

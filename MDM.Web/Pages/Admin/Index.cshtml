@@ -1,0 +1,370 @@
+﻿@page
+@model MM.Pages.Admin.IndexdModel
+@using Microsoft.AspNetCore.Authorization;
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["Page"] = "Dashboard";
+    var MembersByTypeLabels = Model.MembersByMembershipTypeList.Select(x => x.TypeName).ToList();
+    var MembersByTypeValues = Model.MembersByMembershipTypeList.Select(x => x.TypeCount).ToList();
+
+    var MembersByYearLabels = Model.MembersByYearList.Select(x => x.Year).ToList();
+    var MembersByYearValues = Model.MembersByYearList.Select(x => x.Count).ToList();
+
+    var MembersByBranchLabels = Model.MembersByBranchList.Select(x => x.Branch).ToList();
+    var MembersByBranchValues = Model.MembersByBranchList.Select(x => x.Count).ToList();
+
+    var MembersByOccupationLabels = Model.MembersByOccupationList.Select(x => x.Occupation).ToList();
+    var MembersByOccupationValues = Model.MembersByOccupationList.Select(x => x.Count).ToList();
+
+
+    bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupDelete).Result.Succeeded;
+    bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MMPolicies.AllowSetupUpdate).Result.Succeeded;
+
+
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header text-center mt-2">
+            <h2 class="text-uppercase">Dashboard</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Membership by Type</h5>
+                    <p class="card-category"><p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="membersbytype" class="ct-chart ct-perfect-fourth" width="800" height="550"></canvas>
+                </div>
+                <div class="card-footer ">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Membership by Year</h5>
+                    <p class="card-category"><p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="membersbyyear" class="ct-chart ct-perfect-fourth" width="800" height="550"></canvas>
+                </div>
+                <div class="card-footer ">
+
+                </div>
+            </div>
+        </div>
+
+        @*<div class="col-md-2"></div>*@
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Membership % by Branch</h5>
+                    <p class="card-category"><p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="membersbybranch" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
+                </div>
+                <div class="card-footer ">
+                </div>
+            </div>
+        </div>
+
+        @*<div class="col-md-2"></div>*@
+
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Membership % by Occupation</h5>
+                    <p class="card-category"><p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="membersbyoccupation" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
+                </div>
+                <div class="card-footer ">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels"></script>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            var bgcolors = [
+                '#4acccd',
+                '#fcc468',
+                '#1abc9c',
+                '#e67e22',
+                '#34495e',
+                '#f1c40f',
+                '#B02B2C',
+                '#6BBA70',
+                '#9C27B0',
+                '#00b894',
+                '#273c75',
+                '#487eb0',
+                '#353b48',
+                '#00a8ff',
+                '#4096EE',
+                '#C3D9FF',
+                '#CDEB8B',
+                '#4096EE'
+            ];
+
+
+            new Chart(document.getElementById("membersbytype"), {
+                type: 'bar',
+                data: {
+                    labels: JSON.parse('@Json.Serialize(MembersByTypeLabels)'),
+
+                    datasets: [
+                        {
+                            label: "Members by Type",
+                            backgroundColor:  bgcolors,
+                            borderWidth: 0,
+                            data: JSON.parse('@Json.Serialize(MembersByTypeValues)')
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        datalabels: {
+                            color: 'white'
+                        }
+
+
+                    },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90
+
+                            },
+                            gridLines: {
+                                display: false,
+
+                            }
+
+                        }]
+                    },
+                    legend: { display: false },
+                    title: {
+                        display: false,
+                        text: 'Members by Type'
+                    }
+                }
+            });
+
+
+
+
+
+            new Chart(document.getElementById("membersbyyear"), {
+                type: 'bar',
+                data: {
+                    labels: JSON.parse('@Json.Serialize(MembersByYearLabels)'),
+                    datasets: [
+                        {
+                            label: "Members by Year",
+                            backgroundColor: bgcolors,
+                            borderWidth: 1,
+                            data: JSON.parse('@Json.Serialize(MembersByYearValues)')
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90
+
+                            },
+                            gridLines: {
+                                display: false,
+
+                            }
+
+                        }]
+                    },
+                    plugins: {
+                        datalabels: {
+                            color: 'white'
+                        }
+                    },
+                    legend: { display: false },
+                    title: {
+                        display: false,
+                        text: 'Members by year'
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('membersbybranch').getContext("2d"), {
+                type: 'outlabeledPie',
+                data: {
+                    labels: JSON.parse('@Json.Serialize(MembersByBranchLabels)'),
+                    datasets: [{
+                        label: "Membership % by Branch",
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        backgroundColor: bgcolors,
+                        borderWidth: 0,
+                        data: JSON.parse('@Json.Serialize(MembersByBranchValues)')
+                    }]
+                },
+                options: {
+                    zoomOutPercentage: 25, // makes chart 40% smaller (50% by default, if the preoprty is undefined)
+                    plugins: {
+                        legend: false,
+                        datalabels: {
+                            display:false,
+                            color: 'white',
+                            anchor: 'center',
+
+                        },
+                        outlabels: {
+                            text: '%l %p %v',
+                            color: 'white',
+                            stretch: 45,
+                            font: {
+                                resizable: true,
+                                minSize: 11,
+                                maxSize: 12
+                            }
+                        }
+                    }
+                }
+            });
+
+
+              @*new Chart(document.getElementById('membersbyoccupation').getContext("2d"), {
+                  type: 'outlabeledPie',
+                data: {
+                    labels: JSON.parse('@Json.Serialize(MembersByOccupationLabels)'),
+                    datasets: [{
+                        label: "Membership % by Occupation",
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        backgroundColor: bgcolors,
+                        borderWidth: 0,
+                        data: JSON.parse('@Json.Serialize(MembersByOccupationValues)')
+                    }]
+                  },
+
+                  options: {
+                      zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the preoprty is undefined)
+                      plugins: {
+                          datalabels: {
+                              display: false,
+                              color: 'white',
+                              anchor: 'center',
+                          },
+                          legend: false,
+                          outlabels: {
+                              text: '%l %p %v',
+                              color: 'white',
+                              stretch: 45,
+                              font: {
+                                  resizable: true,
+                                  minSize: 11,
+                                  maxSize: 12
+                              }
+                          }
+                      }
+                  }
+
+              });*@
+
+
+
+
+            new Chart(document.getElementById("membersbyoccupation"), {
+                type: 'bar',
+                data: {
+                     labels: JSON.parse('@Json.Serialize(MembersByOccupationLabels)'),
+                    datasets: [
+                        {
+                            label: "Membership % by Occupation",
+                            backgroundColor: bgcolors,
+                            borderWidth: 1,
+                             data: JSON.parse('@Json.Serialize(MembersByOccupationValues)')
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90
+
+                            },
+                            gridLines: {
+                                display: false,
+
+                            }
+
+                        }]
+                    },
+                    plugins: {
+                        datalabels: {
+                            color: 'white'
+                        }
+                    },
+                    legend: { display: false },
+                    title: {
+                        display: false,
+                         data: JSON.parse('@Json.Serialize(MembersByOccupationValues)')
+                    }
+                }
+            });
+
+
+
+
+
+        });
+    </script>
+}

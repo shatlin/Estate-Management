@@ -1,0 +1,48 @@
+﻿@page
+@model MM.Pages.Client.AddUsers9Model
+@using MM.ClientModels;
+
+@using MM.Helper;
+
+
+
+<partial name="_CRUDHeader" , model='new Header{name="Manage Migration", description="Set up Initial Data Migration"}'>
+    <div class="container">
+        <div class="reg-container row">
+            <!--  Personal -->
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <partial name="_CardHeaderPartial" , model='new Header{name="Migration"}'>
+                        <div class="card-body reg-card-body">
+                            <div class="row">
+
+                                <div>
+                                    <div>
+                                        <div>
+                                            <form method="post" id="SetUp">
+                                              
+                                                <div class="modal-body">
+                                                    <div class="reg-container row">
+                                                       
+                                                        <div class="col-12 ">
+                                                            <button class="btn btn-outline-danger w-100" asp-page-handler="SetupMembers1">Add Users 8000 to 9000</button>
+                                                                                                         </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
