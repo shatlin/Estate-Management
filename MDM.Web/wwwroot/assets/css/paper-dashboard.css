@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 /*!
 
@@ -10033,7 +10033,8 @@ p.description {
 }
 
 .title {
-  font-weight: 700;
+    font-weight: 700;
+    color:#51cbce  !important
 }
 
 .title.title-up {
@@ -14281,11 +14282,13 @@ img {
   padding-bottom: 15px;
 }
 
-.card label {
-  font-size: 0.8571em;
-  margin-bottom: 5px;
-  color: #9A9A9A;
-}
+/*Shatlin - Changed*/
+    .card label {
+        font-size: 0.9em;
+        margin-bottom: 5px;
+        color: #51cbce !important;
+        font-weight:bold
+    }
 
 .card .card-footer {
   background-color: transparent;

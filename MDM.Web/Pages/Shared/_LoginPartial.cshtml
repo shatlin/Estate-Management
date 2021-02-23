@@ -21,18 +21,10 @@
     @if (SignInManager.IsSignedIn(User))
     {
     <li class="nav-item">
-        @*@if (isMember || isContact)
-        {*@
-            <form id="logoutForm" class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+      
+            <form id="logoutForm" class="form-inline mt-2" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
                 <i class="nc-icon nc-single-02"></i><button id="logout" type="submit" class="btn btn-link text-dark">LOGOUT</button>
             </form>
-        @*}
-        else
-        {
-            <form id="logoutForm" class="form-inline" asp-page="/Account/Admin/Logout" asp-route-returnUrl="@Url.Page("~/Admin/Index", new { area = "" })">
-                <i class="nc-icon nc-single-02"></i><button id="logout" type="submit" class="btn btn-link text-dark">LOGOUT</button>
-            </form>
-        }*@
     </li>
     }
     else

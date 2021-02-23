@@ -1,26 +1,107 @@
 ﻿@page
-
 @model MDM.Pages.IndexModel
-@{
-    ViewData["Title"] = "Home";
-    ViewData["Page"] = "Home";
-    var isSuperUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSuperUser).Result.Succeeded;
-    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isRegularStaff = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isReportViewerStaff = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isMember = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-}
+
+<form>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+            <div class="card card-user" style="min-height:100%;">
+                <div class="image">
+                    <img src="../../assets/img/bg/damir-bosnjak.jpg" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <img class="avatar border-gray" src="~/images/mdm-logo.png" alt="...">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 pr-2 pl-2">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="selectpicker form-control p-0 m-0" data-size="7" data-style="btn btn-secondary shadow-sm" title="Please select Category">
+                                    <option disabled>Please select Category</option>
+                                    <option value="2">Foobar</option>
+                                    <option value="3">Is great</option>
+                                    <option value="4" selected>Is greatest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 pr-2 pl-2">
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <div class="form-group">
+                                    <select class="selectpicker form-control p-0 m-0" data-size="7" data-style="btn btn-secondary shadow-sm" title="Please select Priority">
+                                        <option disabled>Single Option</option>
+                                        <option value="2" selected>Foobar</option>
+                                        <option value="3">Is great</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 pr-2 pl-2">
+                            <div class="form-group">
+                                <label>Ticket</label>
+                                <select class="selectpicker form-control p-0 m-0" data-size="7" data-style="btn btn-secondary shadow-sm" title="Please select type of Ticket">
+                                    <option disabled>Single Option</option>
+                                    <option value="2">Foobar</option>
+                                    <option value="3" selected>Is great</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card card-user" style="min-height:100%;">
+                <div class="image">
+                    <img src="../../assets/img/bg/rawpixel-com-2.jpg" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <div class="avatar border-gray"></div>
+                        <h5 class="title">Raise Ticket</h5>
+                    </div>
 
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" class="form-control"  >
+                            </div>
+                        </div>
+                    </div>
 
-    @if (isRegularStaff)
-    {
-        <partial name="_IconsStaff" />
-    }
-    else if (isMember)
-    {
-        <partial name="_IconsMember" />
-    }
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Detail</label>
+                                <textarea rows="20" cols="80" class="form-control textarea"  style="min-height:280px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                    <div class="button-container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-12 ml-auto">
+                                <button type="submit" class="btn btn-info">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</form>
 
 
 

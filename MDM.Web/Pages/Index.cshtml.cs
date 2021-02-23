@@ -17,7 +17,7 @@ namespace MDM.Pages
         private readonly DB _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-
+        private string EntityName = "Home";
 
 
         public IndexModel(SignInManager<ApplicationUser> signInManager,
@@ -28,6 +28,7 @@ namespace MDM.Pages
             _signInManager = signInManager;
             _logger = logger;
             _context = context;
+           
         }
 
         [BindProperty]
@@ -35,6 +36,9 @@ namespace MDM.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
+
+            ViewData["Page"] = EntityName;
+            ViewData["Title"] = EntityName;
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
