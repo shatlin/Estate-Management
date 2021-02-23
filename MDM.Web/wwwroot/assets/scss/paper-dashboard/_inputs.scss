@@ -7,8 +7,7 @@
     background-color: $white-color;
     border: 1px solid $medium-gray;
     border-radius: $border-radius-base;
-    /*color: $font-color;*/
-    color: $black-color; //shatlin 30-Sep
+    color: $font-color;
     line-height: normal;
     height: auto;
     font-size: $font-size-base;
@@ -24,7 +23,7 @@
         & + .input-group-append .input-group-text,
         & ~ .input-group-append .input-group-text,
         & + .input-group-prepend .input-group-text,
-        & ~ .input-group-prepend .input-group-text {
+        & ~ .input-group-prepend .input-group-text{
             border: 1px solid #ccc;
             border-left: none;
             background-color: $transparent-bg;
@@ -34,40 +33,37 @@
     .has-success &,
     .has-error &,
     .has-success &:focus,
-    .has-error &:focus {
+    .has-error &:focus{
         @include box-shadow(none);
     }
 
-    .has-success & {
+    .has-success &{
         border: 1px solid $table-line-color;
         color: $font-color;
 
-        &.form-control-success {
+        &.form-control-success{
             padding-right: 2.5em !important;
         }
     }
-
-    .has-success &:focus {
+    .has-success &:focus{
         border: 1px solid $success-color;
         color: $success-color;
     }
-
-    .has-danger & {
+    .has-danger &{
         background-color: $danger-input-bg;
         border: 1px solid $danger-color;
         color: $danger-color;
 
-        &.form-control-danger {
+        &.form-control-danger{
             padding-right: 2.5em !important;
         }
     }
-
-    .has-danger &:focus {
+    .has-danger &:focus{
         background-color: $white-color;
         border: 1px solid $danger-color;
     }
 
-    & + .form-control-feedback {
+    & + .form-control-feedback{
         border-radius: $border-radius-large;
         font-size: $font-size-base;
         margin-top: -7px;
@@ -77,13 +73,13 @@
         vertical-align: middle;
     }
 
-    .open & {
+    .open &{
         border-radius: $border-radius-large $border-radius-large 0 0;
         border-bottom-color: transparent;
     }
 
     & + .input-group-append .input-group-text,
-    & + .input-group-prepend .input-group-text {
+    & + .input-group-prepend .input-group-text{
         background-color: $white-bg;
     }
 }

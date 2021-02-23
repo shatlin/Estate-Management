@@ -12,6 +12,7 @@ namespace MDM.Models
             TaskItemAssignee = new HashSet<TaskItemAssignee>();
             TaskItemFile = new HashSet<TaskItemFile>();
             TaskItemComment = new HashSet<TaskItemComment>();
+
         }
 
         public virtual ICollection<TaskItemAssignee> TaskItemAssignee { get; set; }
@@ -31,9 +32,14 @@ namespace MDM.Models
         public int? PriorityId { get; set; }
         public int? StatusId { get; set; }
         public int? GroupId { get; set; }
+        public int? CategoryId { get; set; }
         public int? UnitId { get; set; }
+        public int? TaskItemTypeId { get; set; }
+
 
         public virtual Priority Priority { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual TaskItemType TaskItemType { get; set; }
         public virtual Status Status { get; set; }
         public virtual Group Group { get; set; }
         public virtual Unit Unit { get; set; }
@@ -48,38 +54,51 @@ namespace MDM.Models
             builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
             builder.Property(e => e.DueOn).HasColumnType("datetime");
             builder.Property(e => e.ClosedOn).HasColumnType("datetime");
+
             builder.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(1500);
+               .IsRequired()
+               .HasMaxLength(1500);
+
             builder.Property(e => e.Description)
-                   .IsRequired(false)
-                   .HasMaxLength(4000);
+               .IsRequired(false)
+               .HasMaxLength(4000);
 
             builder.HasOne(d => d.Priority)
-            .WithMany(p => p.TaskItem)
-            .HasForeignKey(d => d.PriorityId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_TaskItem_Priority");
+                .WithMany(p => p.TaskItem)
+                .HasForeignKey(d => d.PriorityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TaskItem_Priority");
 
             builder.HasOne(d => d.Status)
-        .WithMany(p => p.TaskItem)
-        .HasForeignKey(d => d.StatusId)
-        .OnDelete(DeleteBehavior.ClientSetNull)
-        .HasConstraintName("FK_TaskItem_Status");
+                .WithMany(p => p.TaskItem)
+                .HasForeignKey(d => d.StatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TaskItem_Status");
 
             builder.HasOne(d => d.Group)
-     .WithMany(p => p.TaskItem)
-     .HasForeignKey(d => d.GroupId)
-     .OnDelete(DeleteBehavior.ClientSetNull)
-     .HasConstraintName("FK_TaskItem_Group");
+                 .WithMany(p => p.TaskItem)
+                 .HasForeignKey(d => d.GroupId)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("FK_TaskItem_Group");
+
+
+            builder.HasOne(d => d.Category)
+                .WithMany(p => p.TaskItem)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TaskItem_Category");
+
+            builder.HasOne(d => d.TaskItemType)
+                .WithMany(p => p.TaskItem)
+                .HasForeignKey(d => d.TaskItemTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TaskItem_TaskItemType");
 
             builder.HasOne(d => d.Unit)
-     .WithMany(p => p.TaskItem)
-     .HasForeignKey(d => d.UnitId)
-     .OnDelete(DeleteBehavior.ClientSetNull)
-     .HasConstraintName("FK_TaskItem_Unit");
-
-
+                 .WithMany(p => p.TaskItem)
+                 .HasForeignKey(d => d.UnitId)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("FK_TaskItem_Unit");
         }
     }
 
@@ -87,17 +106,7 @@ namespace MDM.Models
     {
         public static void SeedTaskItem(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TaskItem>().HasData(
-                new TaskItem { Id = 1, Name = "Open", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 2, Name = "Pending", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 3, Name = "In Progress", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 4, Name = "Completed", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 5, Name = "In Review", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 6, Name = "Accepted", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 7, Name = "Rejected", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 8, Name = "Blocked", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new TaskItem { Id = 9, Name = "Closed", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
-              );
+           
         }
     }
 }

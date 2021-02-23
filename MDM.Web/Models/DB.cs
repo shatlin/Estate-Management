@@ -37,7 +37,6 @@ namespace MDM.Models
         public virtual DbSet<Occupation> Occupation { get; set; }
         public virtual DbSet<SystemUser> SystemUser { get; set; }
 
-
         public virtual DbSet<Portfolio> Portfolio { get; set; }
         public virtual DbSet<Block> Block { get; set; }
         public virtual DbSet<Board> Board { get; set; }
@@ -51,6 +50,8 @@ namespace MDM.Models
         public virtual DbSet<TaskItemAssignee> TaskItemAssignee { get; set; }
         public virtual DbSet<TaskItemFile> TaskItemFile { get; set; }
         public virtual DbSet<Unit> Unit{ get; set; }
+        public virtual DbSet<TaskItemType> TaskItemType { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -92,7 +93,6 @@ namespace MDM.Models
             modelBuilder.ApplyConfiguration(new OccupationConfiguration()).SeedOccupation();
             modelBuilder.ApplyConfiguration(new SystemUserConfiguration());
 
-
             modelBuilder.ApplyConfiguration(new PortfolioConfiguration()).SeedPortfolio();
             modelBuilder.ApplyConfiguration(new BlockConfiguration()).SeedBlock();
             modelBuilder.ApplyConfiguration(new FloorConfiguration()).SeedFloor();
@@ -107,7 +107,8 @@ namespace MDM.Models
             modelBuilder.ApplyConfiguration(new TaskItemAssigneeConfiguration());
             modelBuilder.ApplyConfiguration(new TaskItemFileConfiguration());
             modelBuilder.ApplyConfiguration(new TaskItemCommentConfiguration());
-
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration()).SeedCategory();
+            modelBuilder.ApplyConfiguration(new TaskItemTypeConfiguration()).SeedTaskItemType();
         }
 
 

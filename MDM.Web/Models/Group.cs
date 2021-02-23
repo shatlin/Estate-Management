@@ -53,7 +53,7 @@ namespace MDM.Models
                 new Group { Id = 11, Name = "Monthly Reports", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
                 new Group { Id = 12, Name = "Laundry", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
                 new Group { Id = 13, Name = "Club House", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                new Group { Id = 14, Name = "Oaner Requests", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
+                new Group { Id = 14, Name = "Owner Requests", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
               );
         }
     }

@@ -1,10 +1,14 @@
 ﻿@{
     var isSuperUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSuperUser).Result.Succeeded;
-    var isAdminUser = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isRegularStaff = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isReportViewerStaff = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isMember = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
-    var isContact = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    var isAdmin = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
+    var isTrustee = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowTrustee).Result.Succeeded;
+    var isOwner = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowOwner).Result.Succeeded;
+    var isTenant = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowTenant).Result.Succeeded;
+    var isEstateManager = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowEstateManager).Result.Succeeded;
+    var isManagingAgent = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowManagingAgent).Result.Succeeded;
+    var isSecurityVendor = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowSecurityVendor).Result.Succeeded;
+    var isGardenVendor = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowGardenVendor).Result.Succeeded;
+    var isServiceProvider = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowServiceProvider).Result.Succeeded;
 }
 <partial name="_NavProfile" />
 
@@ -14,20 +18,36 @@
     {
         <partial name="_NavSuperUser" />
     }
-    else if (isAdminUser)
+    @if (isAdmin)
     {
-        <partial name="_NavAdmin" />
+    <partial name="_NavAdmin" />
     }
-    else if (isRegularStaff)
+    @if (isTrustee)
     {
-        <partial name="_NavRegularStaff" />
+    <partial name="_NavTrustee" />
     }
-    else if (isMember||isContact)
+    @if (isOwner)
     {
-        <partial name="_NavMember" />
+    <partial name="_NavOwner" />
     }
-    else
+    @if (isTenant)
     {
-        <partial name="_NavCustomRole" />
+    <partial name="_NavTenant" />
+    }
+    @if (isEstateManager)
+    {
+    <partial name="_NavEstateManager" />
+    }
+    @if (isManagingAgent)
+    {
+    <partial name="_NavManagingAgent" />
+    }
+    @if (isGardenVendor)
+    {
+    <partial name="_NavGardenVendor)" />
+    }
+    @if (isServiceProvider)
+    {
+    <partial name="_NavServiceProvider" />
     }
 </ul>

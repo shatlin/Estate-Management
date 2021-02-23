@@ -46,20 +46,20 @@ function debounce(func, wait, immediate) {
   };
 };
 
-//(function() {
-//  isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+(function() {
+  isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-//  if (isWindows) {
-//    // if we are on windows OS we activate the perfectScrollbar function
-//    var ps = new PerfectScrollbar('.sidebar');
-//    var ps = new PerfectScrollbar('.sidebar-wrapper');
-//    var ps2 = new PerfectScrollbar('.main-panel');
-//    $('html').addClass('perfect-scrollbar-on');
+  if (isWindows) {
+    // if we are on windows OS we activate the perfectScrollbar function
+    var ps = new PerfectScrollbar('.sidebar');
+    var ps = new PerfectScrollbar('.sidebar-wrapper');
+    var ps2 = new PerfectScrollbar('.main-panel');
+    $('html').addClass('perfect-scrollbar-on');
 
-//  } else {
-//    $('html').addClass('perfect-scrollbar-off');
-//  }
-//})();
+  } else {
+    $('html').addClass('perfect-scrollbar-off');
+  }
+})();
 
 $(document).ready(function() {
   //  Activate the Tooltips
@@ -98,8 +98,6 @@ $(document).ready(function() {
     });
   }
 
-    $('body').removeClass('sidebar-mini');
-    paperDashboard.misc.sidebar_mini_active = false;
   paperDashboard.initMinimizeSidebar();
 
   $navbar = $('.navbar[color-on-scroll]');
