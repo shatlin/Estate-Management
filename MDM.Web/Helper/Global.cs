@@ -1,28 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using MDM.Models;
+﻿using MDM.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace MDM.Helper
 {
 
-    public static class EmailRecipients
-    {
-        public static string GetEmailSenderList(string template, string membershiptype, string toEmail, int? releatedToId = null, int? relatedToEntityId = null)
-        {
-            string tolist = string.Empty;
-
-            //if (template == "NewMember" && membershiptype == "ind")
-            //{
-            //    tolist = "mdm@MDM.org.za|mdm@MDM.org.za;membership@MDM.org.za|"+releatedToId+"|"+relatedToEntityId;
-            //}
-
-
-            return tolist;
-
-        }
-
-    }
 
     public class Notification
     {
@@ -47,14 +32,16 @@ namespace MDM.Helper
     public static class Lookups
     {
         public const string priorities="priorties";
+        public const string trustees = "trustees";
         public const string categories = "categories";
         public const string taskitemtypes = "taskitemtypes";
     }
 
     public static class PageNames
     {
-        public const string HomePage = "Home Page";
-       
+        public const string HomePage = "Home";
+        public const string TaskPage = "Task";
+
     }
 
     public static class GlobalVariables
@@ -146,6 +133,21 @@ namespace MDM.Helper
         public const int ServiceProvider = 8;
     }
 
+    public static class StatusValues
+    {
+        public const int Open = 1;
+        public const int Pending = 2;
+        public const int InProgress = 3;
+        public const int Completed = 4;
+        public const int InReview = 5;
+        public const int Accepted = 6;
+        public const int Rejected = 7;
+        public const int Blocked = 8;
+        public const int Closed = 9;
+
+
+    }
+
     public static class FileTypevalues
     {
         public const int SLA = 1;
@@ -154,6 +156,7 @@ namespace MDM.Helper
         public const int Finance = 4;
         public const int Invoice = 5;
         public const int Bill = 6;
+        public const int Ticket=7;
     }
 
     public static class MDMRoles
@@ -203,3 +206,5 @@ namespace MDM.Helper
         public const string Access = "Access";
     }
 }
+
+

@@ -72,45 +72,45 @@
         </div>
         <div class="main-panel">
             @*<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent w-100">
-                <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <div class="navbar-minimize">
-                            <button id="minimizeSidebar" class="btn btn-icon btn-round">
-                                <i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-                                <i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-                            </button>
+                    <div class="container-fluid">
+                        <div class="navbar-wrapper">
+                            <div class="navbar-minimize">
+                                <button id="minimizeSidebar" class="btn btn-icon btn-round">
+                                    <i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
+                                    <i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
+                                </button>
+                            </div>
+                            <div class="navbar-toggle">
+                                <button type="button" class="navbar-toggler">
+                                    <span class="navbar-toggler-bar bar1"></span>
+                                    <span class="navbar-toggler-bar bar2"></span>
+                                    <span class="navbar-toggler-bar bar3"></span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="navbar-toggle">
-                            <button type="button" class="navbar-toggler">
-                                <span class="navbar-toggler-bar bar1"></span>
-                                <span class="navbar-toggler-bar bar2"></span>
-                                <span class="navbar-toggler-bar bar3"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <form onsubmit="return false;">
-                            <div style="min-width:600px;" class="searchbox input-group no-border" id="Searchdiv">
-                                <input name="Search" id="Search" type="text" value="" class="form-control" placeholder="Search...">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="nc-icon nc-zoom-split"></i>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-bar navbar-kebab"></span>
+                            <span class="navbar-toggler-bar navbar-kebab"></span>
+                            <span class="navbar-toggler-bar navbar-kebab"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                            <form onsubmit="return false;">
+                                <div style="min-width:600px;" class="searchbox input-group no-border" id="Searchdiv">
+                                    <input name="Search" id="Search" type="text" value="" class="form-control" placeholder="Search...">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="nc-icon nc-zoom-split"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                    <div class="collapse navbar-collapse justify-content-right text-right" id="navigation">
-                        <partial name="_LoginPartial" />
+                        <div class="collapse navbar-collapse justify-content-right text-right" id="navigation">
+                            <partial name="_LoginPartial" />
+                        </div>
                     </div>
-                </div>
-            </nav>*@
+                </nav>*@
 
 
             <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
@@ -170,7 +170,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                   <partial name="_LoginPartial" />
+                                <partial name="_LoginPartial" />
                             </li>
                         </ul>
                     </div>
@@ -205,48 +205,47 @@
         </div>
     </div>
 
-<!--   Core JS Files   -->
-  <script src="~/assets/js/core/jquery.min.js"></script>
-  <script src="~/assets/js/core/popper.min.js"></script>
-  <script src="~/assets/js/core/bootstrap.min.js"></script>
-  <script src="~/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="~/assets/js/plugins/moment.min.js"></script>
-  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-  <script src="~/assets/js/plugins/bootstrap-switch.js"></script>
-  <!--  Plugin for Sweet Alert -->
-  <script src="~/assets/js/plugins/sweetalert2.min.js"></script>
-  <!-- Forms Validations Plugin -->
-  <script src="~/assets/js/plugins/jquery.validate.min.js"></script>
-  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-  <script src="~/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-  <script src="~/assets/js/plugins/bootstrap-selectpicker.js"></script>
-  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-  <script src="~/assets/js/plugins/bootstrap-datetimepicker.js"></script>
-  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-  <script src="~/assets/js/plugins/jquery.dataTables.min.js"></script>
-  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-  <script src="~/assets/js/plugins/bootstrap-tagsinput.js"></script>
-  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-  <script src="~/assets/js/plugins/jasny-bootstrap.min.js"></script>
-  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-  <script src="~/assets/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-  <script src="~/assets/js/plugins/fullcalendar/daygrid.min.js"></script>
-  <script src="~/assets/js/plugins/fullcalendar/timegrid.min.js"></script>
-  <script src="~/assets/js/plugins/fullcalendar/interaction.min.js"></script>
-  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-  <script src="~/assets/js/plugins/jquery-jvectormap.js"></script>
-  <!--  Plugin for the Bootstrap Table -->
-  <script src="~/assets/js/plugins/nouislider.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="~/assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="~/assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="~/assets/js/paper-dashboard.min.js?v=2.1.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="~/assets/demo/demo.js"></script>
+    <!--   Core JS Files   -->
+    <script src="~/assets/js/core/jquery.min.js"></script>
+    <script src="~/assets/js/core/popper.min.js"></script>
+    <script src="~/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/assets/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="~/assets/js/plugins/bootstrap-switch.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="~/assets/js/plugins/sweetalert2.min.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="~/assets/js/plugins/jquery.validate.min.js"></script>
+    <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="~/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="~/assets/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="~/assets/js/plugins/bootstrap-datetimepicker.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+    <script src="~/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="~/assets/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="~/assets/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="~/assets/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/assets/js/plugins/fullcalendar/daygrid.min.js"></script>
+    <script src="~/assets/js/plugins/fullcalendar/timegrid.min.js"></script>
+    <script src="~/assets/js/plugins/fullcalendar/interaction.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="~/assets/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Bootstrap Table -->
+    <script src="~/assets/js/plugins/nouislider.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="~/assets/js/plugins/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="~/assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="~/assets/js/paper-dashboard.min.js?v=2.1.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="~/assets/demo/demo.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -257,6 +256,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels"></script>
+    <script src="~/js/layoutmain.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("Document ready function accessed");
+                var notification = JSON.parse('@Json.Serialize(Model.notification)');
+                if (notification != null) {
+                if (notification.message.length > 0) {
+                MMNotify(notification.message, notification.notificationtype);
+                }
+                }
+        });
+
+
+        /******* Display name of file *******/
+        $(".custom-file-input").on("change", function () {
+
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this)
+                .siblings(".custom-file-label")
+                .addClass("selected")
+                .html(files.join(', '));
+        });
+
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

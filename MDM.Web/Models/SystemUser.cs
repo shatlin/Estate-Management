@@ -71,10 +71,12 @@ namespace MDM.Models
      
         public int? TitleId { get; set; }
 
+        public int? UnitId { get; set; }
+
 
         public virtual Gender Gender { get; set; }
         public virtual Title Title { get; set; }
-       
+        public virtual Unit Unit { get; set; }
 
     }
 
@@ -110,7 +112,11 @@ namespace MDM.Models
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_User_Title");
 
-
+            builder.HasOne(d => d.Unit)
+              .WithMany(p => p.SystemUser)
+              .HasForeignKey(d => d.UnitId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("FK_User_Unit");
 
             builder.Property(e => e.HomeLanguageId).IsRequired(false);
 

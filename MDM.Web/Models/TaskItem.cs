@@ -35,7 +35,7 @@ namespace MDM.Models
         public int? CategoryId { get; set; }
         public int? UnitId { get; set; }
         public int? TaskItemTypeId { get; set; }
-
+        public string UserId { get; set; }
 
         public virtual Priority Priority { get; set; }
         public virtual Category Category { get; set; }

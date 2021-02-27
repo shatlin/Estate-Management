@@ -62,6 +62,7 @@ namespace MDM
 
             services.AddTransient<IEmailCreator, EmailCreator>();
             services.AddTransient<IActivity, Activity>();
+            services.AddScoped<IEmailRecipients, EmailRecipients>();
             services.AddTransient<IEmailSender, EmailSender>(i =>
                  new EmailSender(
                      Configuration["EmailSender:Host"],

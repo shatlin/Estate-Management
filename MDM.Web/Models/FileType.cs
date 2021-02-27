@@ -36,9 +36,17 @@ namespace MDM.Models
         public static void SeedFileType(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FileType>().HasData(
-                              new FileType { Id = 1, Name = "Document", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
-                               new FileType { Id = 2, Name = "Note", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
-                                 );
-        }
+                              new FileType { Id = 1, Name = "SLA", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                              new FileType { Id = 2, Name = "Quote", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                              new FileType { Id = 3, Name = "OwnerDocs", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                              new FileType { Id = 4, Name = "Finance", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                              new FileType { Id = 5, Name = "Invoice", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                              new FileType { Id = 6, Name = "Bill", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) },
+                              new FileType { Id = 7, Name = "Ticket", CreatedOn = new DateTime(2021, 2, 28), ModifiedOn = new DateTime(2021, 2, 28) }
+                              );
+
+
+
+    }
     }
 }

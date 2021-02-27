@@ -249,8 +249,8 @@ function MMNotify(theMessage, theType) {
         newest_on_top: false,
         showProgressbar: false,
         placement: {
-            from: "top",
-            align: "right"
+            from: "bottom",
+            align: "left"
         },
         offset: {
             x: 3,

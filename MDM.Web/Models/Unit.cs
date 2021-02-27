@@ -10,6 +10,7 @@ namespace MDM.Models
         public Unit()
         {
             TaskItem = new HashSet<TaskItem>();
+            SystemUser = new HashSet<SystemUser>();
         }
         public int Id { get; set; }
         public int No { get; set; }
@@ -20,6 +21,7 @@ namespace MDM.Models
         public virtual Block Block { get; set; }
 
         public virtual ICollection<TaskItem> TaskItem { get; set; }
+        public virtual ICollection<SystemUser> SystemUser { get; set; }
     }
 
     public partial class UnitConfiguration : IEntityTypeConfiguration<Unit>

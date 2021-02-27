@@ -3,14 +3,16 @@ using System;
 using MDM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MDM.Web.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20210227092052_m3")]
+    partial class m3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5687,49 +5689,14 @@ namespace MDM.Web.Migrations
                             Id = 1,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SLA"
+                            Name = "Document"
                         },
                         new
                         {
                             Id = 2,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Quote"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OwnerDocs"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Finance"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Invoice"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bill"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Ticket"
+                            Name = "Note"
                         });
                 });
 

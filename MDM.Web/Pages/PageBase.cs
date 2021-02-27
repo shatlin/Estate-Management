@@ -14,25 +14,28 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using MDM.Services;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace MDM.Pages
 {
     public class PageBase :  PageModel
     {
-        private IActivity _activity;
-        private readonly IConfiguration _configuration;
-        private readonly IWebHostEnvironment _env;
+        protected IActivity _activity;
+        protected readonly IConfiguration _configuration;
+        protected readonly IWebHostEnvironment _env;
         protected IMemoryCache _cache;
         protected  ILogger<PageBase> _logger;
         protected  UserManager<ApplicationUser> _userManager;
         protected  DB _db;
         protected  SignInManager<ApplicationUser> _signInManager;
         protected string PageName = "Page Base";
-        private readonly IEmailCreator _emailCreator;
+        protected readonly IEmailCreator _emailCreator;
+        protected readonly IEmailRecipients _emailRecipients;
 
         public PageBase(SignInManager<ApplicationUser> signInManager,
             ILogger<PageBase> logger,
-            UserManager<ApplicationUser> userManager, DB db,IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity)
+            UserManager<ApplicationUser> userManager, DB db,IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,10 +46,15 @@ namespace MDM.Pages
             _configuration = configuration;
             _activity = activity;
             _env = env;
+            _emailRecipients= emailRecipients;
 
         }
 
-    
+        [BindProperty]
+        public Notification notification { get; set; }
+
+
+       
 
         public override async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context,
                                                       PageHandlerExecutionDelegate next)
