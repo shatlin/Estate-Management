@@ -5,17 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class ServiceProviderTrusteeApproval
+    public partial class ServiceProviderTrusteeApproval : BaseModel
     {
         public int Id { get; set; }
         public int? ServiceProviderId { get; set; }
         public int? SystemUserId { get; set; }
         public bool isApproved { get; set; }
         public DateTime? DecisionDate { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+      
 
         public virtual ServiceProvider ServiceProvider { get; set; }
         public virtual SystemUser SystemUser { get; set; }

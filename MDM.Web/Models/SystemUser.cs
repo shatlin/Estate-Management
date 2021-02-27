@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MDM.Models
 {
-    public partial class SystemUser
+    public partial class SystemUser : BaseModel
     {
         public SystemUser()
         {
@@ -25,10 +25,7 @@ namespace MDM.Models
         public virtual ICollection<TaskItemComment> TaskItemComment { get; set; }
         public int Id { get; set; }
 
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+       
 
         public string ApplicationUserId { get; set; }
 

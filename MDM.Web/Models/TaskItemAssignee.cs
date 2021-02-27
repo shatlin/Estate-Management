@@ -5,16 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class TaskItemAssignee
+    public partial class TaskItemAssignee : BaseModel
     {
         public int Id { get; set; }
         public int? TaskItemId { get; set; }
         public int? SystemUserId { get; set; }
         public int? AssignedByUserId { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+       
 
         public virtual TaskItem TaskItem { get; set; }
         public virtual SystemUser SystemUser { get; set; }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MDM.Models
 {
-    public partial class ContactUs
+    public partial class ContactUs : BaseModel
     {
         public ContactUs()
         {
@@ -20,10 +20,7 @@ namespace MDM.Models
         public string ClientQuery { get; set; }
         public string Response { get; set; }
         public bool isResolved { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+       
 
         public virtual ContactUsRelatedTo ContactUsRelatedTo { get; set; }
        

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class UserActivity
+    public partial class UserActivity : BaseModel
     {
         public int Id { get; set; }
         public string UserId { get; set; }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MDM.Models
 {
-    public partial class Portfolio
+    public partial class Portfolio : BaseModel
     {
         public Portfolio()
         {
@@ -15,10 +15,7 @@ namespace MDM.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+     
 
         public virtual ICollection<Board> Board { get; set; }
     }

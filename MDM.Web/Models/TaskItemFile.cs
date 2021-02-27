@@ -5,15 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class TaskItemFile
+    public partial class TaskItemFile : BaseModel
     {
         public int Id { get; set; }
         public int? TaskItemId { get; set; }
         public int? SystemUserId { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+       
         public int? FileTypeId { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }

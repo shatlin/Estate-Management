@@ -44,6 +44,19 @@ namespace MDM.Helper
         public string value { get; set; }
     }
 
+    public static class Lookups
+    {
+        public const string priorities="priorties";
+        public const string categories = "categories";
+        public const string taskitemtypes = "taskitemtypes";
+    }
+
+    public static class PageNames
+    {
+        public const string Home = "Home";
+       
+    }
+
     public static class GlobalVariables
     {
         public const string ExcelFileContenttType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";

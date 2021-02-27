@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class Province
+    public partial class Province : BaseModel
     {
         public Province()
         {
@@ -14,10 +14,7 @@ namespace MDM.Models
         public int Id { get; set; }
         public int CountryId { get; set; }
         public string Name { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+      
 
         public virtual Country Country { get; set; }
         public virtual ICollection<Address> Address { get; set; }

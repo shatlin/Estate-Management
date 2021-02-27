@@ -50,7 +50,7 @@ namespace MDM
 
             }).AddEntityFrameworkStores<DB>().AddDefaultTokenProviders().AddDefaultUI();
 
-
+            services.AddMemoryCache();
 
             services.ConfigureApplicationCookie(options =>
             {

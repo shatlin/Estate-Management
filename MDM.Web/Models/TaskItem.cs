@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MDM.Models
 {
-    public partial class TaskItem
+    public partial class TaskItem : BaseModel
     {
         public TaskItem()
         {
@@ -21,13 +21,13 @@ namespace MDM.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime? CreatedOn { get; set; }
+       
         public DateTime? DueOn { get; set; }
         public DateTime? ClosedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
+       
+     
         public int? ProgressPercentage { get; set; }
-        public int? ModifiedBy { get; set; }
+     
 
         public int? PriorityId { get; set; }
         public int? StatusId { get; set; }

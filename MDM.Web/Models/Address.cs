@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MDM.Models
 {
-    public partial class Address
+    public partial class Address:BaseModel
     {
         public Address()
         {
@@ -83,11 +83,6 @@ namespace MDM.Models
         //[Required(ErrorMessage = "City Name is required")]
         public string CityName { get; set; }
 
-     
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
         public virtual AddressType AddressType { get; set; }
         public virtual RelatedTo RelatedTo { get; set; }
         public virtual Country Country { get; set; }
@@ -102,12 +97,13 @@ namespace MDM.Models
        
 
             builder.Property(e => e.CreatedOn).HasColumnType("datetime");
+            builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
             builder.Property(e => e.Gpscoordinates)
                 .HasColumnName("GPSCoordinates")
                 .HasMaxLength(50);
 
-            builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
+         
 
             builder.Property(e => e.PostalCode).HasMaxLength(50);
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class AddressType
+    public partial class AddressType : BaseModel
     {
         public AddressType()
         {
@@ -14,10 +14,7 @@ namespace MDM.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+       
 
         public virtual ICollection<Address> Address { get; set; }
        
@@ -31,12 +28,12 @@ namespace MDM.Models
         public void Configure(EntityTypeBuilder<AddressType> builder)
         {
             builder.Property(e => e.CreatedOn).HasColumnType("datetime");
-
+            builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
+           
 
             builder.Property(e => e.Name).HasMaxLength(100);
         }

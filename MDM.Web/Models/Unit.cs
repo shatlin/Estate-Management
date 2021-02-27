@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MDM.Models
 {
-    public partial class Unit
+    public partial class Unit : BaseModel
     {
         public Unit()
         {
@@ -13,10 +13,7 @@ namespace MDM.Models
         }
         public int Id { get; set; }
         public int No { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+      
         public int? FloorId { get; set; }
         public int? BlockId { get; set; }
         public virtual Floor Floor { get; set; }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MDM.Models
 {
-    public partial class Board
+    public partial class Board : BaseModel
     {
         public Board()
         {
@@ -15,8 +15,7 @@ namespace MDM.Models
         public int Id { get; set; }
         public int Year { get; set; }
         public bool isCurrent { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
+       
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }
         public int? CreatedBy { get; set; }

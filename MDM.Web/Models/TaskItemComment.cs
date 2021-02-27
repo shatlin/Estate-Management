@@ -5,15 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class TaskItemComment
+    public partial class TaskItemComment : BaseModel
     {
         public int Id { get; set; }
         public int? TaskItemId { get; set; }
         public int? SystemUserId { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
         public string Comment { get; set; }
 
         public virtual TaskItem TaskItem { get; set; }

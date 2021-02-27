@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class Currency
+    public partial class Currency : BaseModel
     {
         public Currency()
         {
@@ -15,10 +15,7 @@ namespace MDM.Models
         public string Symbol { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
+       
 
 
     }

@@ -10,7 +10,30 @@
     var isGardenVendor = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowGardenVendor).Result.Succeeded;
     var isServiceProvider = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowServiceProvider).Result.Succeeded;
 }
-<partial name="_NavProfile" />
+<div class="logo">
+    <a href="/" class="simple-text logo-mini">
+        <div class="logo-image-small">
+            <img src="~/images/mdm-logo.png">
+        </div>
+    </a>
+    <a href="/" class="simple-text logo-normal">
+        Mile Downe
+    </a>
+</div>
+
+<div class="user">
+    <div class="photo">
+        <img src="../assets/img/faces/staff_man.png" />
+    </div>
+    <div class="info">
+        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+            <span>
+                @UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.FullName
+            </span>
+        </a>
+        <div class="clearfix"></div>
+    </div>
+</div>
 
 
 <ul class="nav">
@@ -21,34 +44,34 @@
     }
     @if (isAdmin)
     {
-    <partial name="_NavAdmin" />
+        <partial name="_NavAdmin" />
     }
     @if (isTrustee)
     {
-    <partial name="_NavTrustee" />
+        <partial name="_NavTrustee" />
     }
     @if (isOwner)
     {
-    <partial name="_NavOwner" />
+        <partial name="_NavOwner" />
     }
     @if (isTenant)
     {
-    <partial name="_NavTenant" />
+        <partial name="_NavTenant" />
     }
     @if (isEstateManager)
     {
-    <partial name="_NavEstateManager" />
+        <partial name="_NavEstateManager" />
     }
     @if (isManagingAgent)
     {
-    <partial name="_NavManagingAgent" />
+        <partial name="_NavManagingAgent" />
     }
     @if (isGardenVendor)
     {
-    <partial name="_NavGardenVendor)" />
+        <partial name="_NavGardenVendor)" />
     }
     @if (isServiceProvider)
     {
-    <partial name="_NavServiceProvider" />
+        <partial name="_NavServiceProvider" />
     }
 </ul>
