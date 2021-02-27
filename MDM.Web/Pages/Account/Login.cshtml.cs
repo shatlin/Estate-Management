@@ -25,7 +25,7 @@ namespace MDM.Pages.Client.Account
         private readonly DB _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-          private IActivity _activity;
+        private IActivity _activity;
        
         public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
@@ -122,7 +122,6 @@ namespace MDM.Pages.Client.Account
 
                 if (user != null && user.UserTypeId == UserTypeValues.Owner)
                 {
-                    await _activity.AddAsync(user.Id, user.Email, MMMessages.LoggedIn, UserTypeValues.Owner);
                 }
                 
                 var result = await _signInManager.PasswordSignInAsync(Email, Password, RememberMe, lockoutOnFailure: false);

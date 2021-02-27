@@ -37,7 +37,7 @@ namespace MDM.Pages.Client
 
         public async Task<IActionResult> OnGetListAsync()
         {
-            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + EntityName, UserTypeValues.Owner);
+           
             return new JsonResult(await _context.RelatedTo.ToListAsync());
         }
 
@@ -57,12 +57,12 @@ namespace MDM.Pages.Client
 
             if (RelatedTo.Id > 0)
             {
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + EntityName + " Name: " + RelatedTo.Name, UserTypeValues.Owner);
+               
                 _context.Attach(RelatedTo).State = EntityState.Modified;
             }
             else
             {
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Added + EntityName + " Name: " + RelatedTo.Name, UserTypeValues.Owner);
+                
                 _context.RelatedTo.Add(RelatedTo);
             }
              await _context.SaveChangesAsync();
@@ -83,7 +83,7 @@ namespace MDM.Pages.Client
             {
                 _context.RelatedTo.Remove(RelatedTo);
                 await _context.SaveChangesAsync();
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Deleted + EntityName + " Name: " + RelatedTo.Name, UserTypeValues.Owner);
+               
                 return new JsonResult(new { success = true, message = "Deleted successfully" });
             }
             return new JsonResult(new { success = false, message = "No such record found to delete" });

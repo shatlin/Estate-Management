@@ -10,25 +10,31 @@ using MDM.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MDM.Helper;
+using Microsoft.AspNetCore.Hosting;
+using MDM.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace MDM.Pages
 {
+    
     public class IndexModel :  PageBase
     {
 
-        public IndexModel(SignInManager<ApplicationUser> signInManager,ILogger<PageBase> logger,
-            UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache):base(signInManager,
-            logger,userManager,db, cache)
+        public IndexModel(SignInManager<ApplicationUser> signInManager,
+           ILogger<PageBase> logger,
+           UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity) : base(signInManager,
+            logger,userManager,db, cache,env,emailCreator,configuration,activity)
         {
+            PageName= PageNames.HomePage;
         }
 
         [BindProperty]
         public TaskItem taskItem { get; set; }
 
+      
         public async Task<IActionResult> OnGetAsync()
         {
-           SetViewData(PageNames.Home);
-
+          
            ViewData[Lookups.priorities] = _cache.GetOrCreate(
            Lookups.priorities, c =>{ return new SelectList(_db.Priority.ToList(), nameof(Priority.Id), nameof(Priority.Name)); });
 
@@ -50,7 +56,6 @@ namespace MDM.Pages
         {
            _db.Add(taskItem);
            _db.SaveChanges();
-            SetViewData(PageNames.Home);
             return Page();
         }
 

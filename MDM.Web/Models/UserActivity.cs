@@ -9,8 +9,6 @@ namespace MDM.Models
         public int Id { get; set; }
         public string UserId { get; set; }
         public string Email { get; set; }
-        public string FullName { get; set; }
-        public DateTime ActivityDate { get; set; }
         public string ActivityDetail { get; set; }
     }
 
@@ -18,7 +16,6 @@ namespace MDM.Models
     {
         public void Configure(EntityTypeBuilder<UserActivity> builder)
         {
-            builder.Property(e => e.ActivityDate).HasColumnType("datetime");
             builder.Property(e => e.ActivityDetail).HasMaxLength(500);
             builder.Property(e => e.UserId).HasMaxLength(100);
         }

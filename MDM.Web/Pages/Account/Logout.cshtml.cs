@@ -34,7 +34,7 @@ namespace MDM.Pages.Client.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.LoggedOut, UserTypeValues.Owner);
+            await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.LoggedOut);
 
             if (returnUrl != null)
             {

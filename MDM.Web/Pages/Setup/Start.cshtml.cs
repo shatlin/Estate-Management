@@ -24,19 +24,20 @@ namespace MDM.Pages.Client
     public class StartModel : PageModel
     {
 
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private UserManager<ApplicationUser> _userManager;
         private readonly DB _db;
         private readonly ILogger<StartModel> _logger;
         public StartModel(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager,
-            DB context, ILogger<StartModel> logger)
+            DB context, ILogger<StartModel> logger, IHttpContextAccessor httpContextAccessor)
         {
 
             _roleManager = roleManager;
             _userManager = userManager;
             _db = context;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public PageResult OnGet()
@@ -47,7 +48,7 @@ namespace MDM.Pages.Client
         #region optimized
         public async Task<IActionResult> SetUpRoles()
         {
-            using (DB db = new DB())
+            using (DB db = new DB(_httpContextAccessor))
             {
 
                 var role = new ApplicationRole(MDMRoles.SuperUser);
@@ -120,8 +121,7 @@ namespace MDM.Pages.Client
 
         public async Task<IActionResult> CreateUsers()
         {
-            using (DB db = new DB())
-            {
+         
                 ApplicationUser AppUser=null;
 
                 AppUser = new ApplicationUser { Email = "unit1@miledownemanor.co.za", UserName = "unit1@miledownemanor.co.za", FirstName = "unit", LastName = "name", EmailConfirmed = true, IsActive = true, UserTypeId = 2 }; var result = await _userManager.CreateAsync(AppUser, "password"); 
@@ -531,7 +531,7 @@ namespace MDM.Pages.Client
 
 
 
-            }
+           
             return new JsonResult(new { success = false, message = "Error. Please check values entered" });
         }
 

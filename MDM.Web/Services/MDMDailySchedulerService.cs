@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MDM.Models;
+using Microsoft.AspNetCore.Http;
+
 namespace MDM.Services
 {
 
@@ -23,13 +25,14 @@ namespace MDM.Services
         private readonly IConfiguration _configuration;
         private Timer _timer;
         TimeSpan ScheduledTimespan;
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailCreator _emailCreator;
        
 
         public MDMDailySchedulerService(ILogger<MDMDailySchedulerService> logger, IConfiguration configuration,
-            IEmailCreator emailCreator)
+            IEmailCreator emailCreator, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _configuration = configuration;
             _emailCreator = emailCreator;
@@ -81,7 +84,7 @@ namespace MDM.Services
 
         public void SendEmailRemiders()
         {
-            DB _context = new DB();
+            DB _context = new DB(_httpContextAccessor);
 
          
 

@@ -53,7 +53,7 @@ namespace MDM.Helper
 
     public static class PageNames
     {
-        public const string Home = "Home";
+        public const string HomePage = "Home Page";
        
     }
 
@@ -93,12 +93,20 @@ namespace MDM.Helper
         public const string LoggedOut = "Logged Out";
         public const string Accessed = "Accessed Page ";
         public const string Added = "Added ";
-        public const string Updated = "Updated ";
+        public const string Updated = "Performed add or Update ";
         public const string Deleted = "Deleted ";
         public const string AccessedViewMember = "Accessed Manage Member Page";
         public const string UpdatedMemberUser = "Updated Member User";
         public const string UploadedFile = "Uploaded New Files";
         #endregion
+    }
+
+    public enum AuditType
+    {
+        None = 0,
+        Create = 1,
+        Update = 2,
+        Delete = 3
     }
 
     public static class AddressTypevalues

@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace MDM.Web.Migrations
 {
@@ -13,12 +13,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,12 +44,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,16 +57,33 @@ namespace MDM.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ContactUsRelatedTo",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,14 +95,14 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(maxLength: 100, nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,15 +114,15 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Code = table.Column<string>(maxLength: 3, nullable: false),
                     Symbol = table.Column<string>(maxLength: 5, nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 100, nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -117,13 +134,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 200, nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,12 +152,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -152,12 +169,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,13 +186,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: true),
-                    Description = table.Column<string>(maxLength: 200, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Description = table.Column<string>(maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,12 +204,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,13 +221,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 200, nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -222,13 +239,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 200, nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,12 +257,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -257,12 +274,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: true),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -274,13 +291,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
-                    Description = table.Column<string>(maxLength: 100, nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -292,7 +309,11 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     plumbing = table.Column<bool>(nullable: false),
                     electrician = table.Column<bool>(nullable: false),
@@ -306,11 +327,7 @@ namespace MDM.Web.Migrations
                     beecertificate = table.Column<bool>(nullable: false),
                     accreditation = table.Column<bool>(nullable: false),
                     coideclaration = table.Column<bool>(nullable: false),
-                    signedselfassesmentform = table.Column<bool>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    signedselfassesmentform = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,12 +339,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -335,16 +352,33 @@ namespace MDM.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TaskItemType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskItemType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Title",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -356,7 +390,11 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(maxLength: 100, nullable: true),
                     Email = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
@@ -373,13 +411,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 200, nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    Description = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -391,7 +429,7 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(maxLength: 50, nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(maxLength: 50, nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -412,7 +450,11 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     ContactUsRelatedToId = table.Column<int>(nullable: true),
                     ActionedByUserId = table.Column<int>(nullable: true),
                     ClientEmail = table.Column<string>(maxLength: 50, nullable: false),
@@ -420,11 +462,7 @@ namespace MDM.Web.Migrations
                     PhoneNumber = table.Column<string>(nullable: true),
                     ClientQuery = table.Column<string>(maxLength: 1500, nullable: false),
                     Response = table.Column<string>(maxLength: 1500, nullable: true),
-                    isResolved = table.Column<bool>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    isResolved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -442,13 +480,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    CountryId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -466,12 +504,12 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    No = table.Column<int>(nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    No = table.Column<int>(nullable: false),
                     FloorId = table.Column<int>(nullable: true),
                     BlockId = table.Column<int>(nullable: true)
                 },
@@ -497,11 +535,11 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true),
                     HomeLanguageId = table.Column<int>(nullable: true),
                     EthnicityId = table.Column<int>(nullable: true),
@@ -595,7 +633,11 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     RelatedEntityId = table.Column<int>(nullable: true),
                     RelatedToId = table.Column<int>(nullable: true),
                     AddressTypeId = table.Column<int>(nullable: true),
@@ -613,11 +655,7 @@ namespace MDM.Web.Migrations
                     PrimaryEmail = table.Column<string>(maxLength: 50, nullable: true),
                     SecondaryEmail = table.Column<string>(maxLength: 50, nullable: true),
                     GPSCoordinates = table.Column<string>(maxLength: 50, nullable: true),
-                    CityName = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CityName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -653,24 +691,32 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 1500, nullable: false),
                     Description = table.Column<string>(maxLength: 4000, nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     DueOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ClosedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
                     ProgressPercentage = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true),
                     PriorityId = table.Column<int>(nullable: true),
                     StatusId = table.Column<int>(nullable: true),
                     GroupId = table.Column<int>(nullable: true),
-                    UnitId = table.Column<int>(nullable: true)
+                    CategoryId = table.Column<int>(nullable: true),
+                    UnitId = table.Column<int>(nullable: true),
+                    TaskItemTypeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskItem_Category",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TaskItem_Group",
                         column: x => x.GroupId,
@@ -690,6 +736,12 @@ namespace MDM.Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_TaskItem_TaskItemType",
+                        column: x => x.TaskItemTypeId,
+                        principalTable: "TaskItemType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_TaskItem_Unit",
                         column: x => x.UnitId,
                         principalTable: "Unit",
@@ -702,15 +754,15 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Year = table.Column<int>(nullable: false),
-                    isCurrent = table.Column<bool>(nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Year = table.Column<int>(nullable: false),
+                    isCurrent = table.Column<bool>(nullable: false),
                     From = table.Column<DateTime>(type: "datetime", nullable: true),
                     To = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true),
                     PortfolioId = table.Column<int>(nullable: true),
                     SystemUserId = table.Column<int>(nullable: true)
                 },
@@ -736,15 +788,15 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     ServiceProviderId = table.Column<int>(nullable: true),
                     SystemUserId = table.Column<int>(nullable: true),
                     isApproved = table.Column<bool>(nullable: false),
-                    DecisionDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    DecisionDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -768,7 +820,7 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(maxLength: 50, nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(maxLength: 50, nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -853,14 +905,14 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TaskItemId = table.Column<int>(nullable: true),
-                    SystemUserId = table.Column<int>(nullable: true),
-                    AssignedByUserId = table.Column<int>(nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    TaskItemId = table.Column<int>(nullable: true),
+                    SystemUserId = table.Column<int>(nullable: true),
+                    AssignedByUserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -884,13 +936,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TaskItemId = table.Column<int>(nullable: true),
-                    SystemUserId = table.Column<int>(nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    TaskItemId = table.Column<int>(nullable: true),
+                    SystemUserId = table.Column<int>(nullable: true),
                     Comment = table.Column<string>(maxLength: 2000, nullable: false),
                     FileTypeId = table.Column<int>(nullable: true)
                 },
@@ -922,13 +974,13 @@ namespace MDM.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TaskItemId = table.Column<int>(nullable: true),
-                    SystemUserId = table.Column<int>(nullable: true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    ModifiedBy = table.Column<int>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    TaskItemId = table.Column<int>(nullable: true),
+                    SystemUserId = table.Column<int>(nullable: true),
                     FileTypeId = table.Column<int>(nullable: true),
                     FileName = table.Column<string>(nullable: true),
                     FilePath = table.Column<string>(nullable: true),
@@ -982,30 +1034,44 @@ namespace MDM.Web.Migrations
                     { 21, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block21" },
                     { 22, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block22" },
                     { 23, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block23" },
-                    { 26, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block26" },
-                    { 25, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block25" },
-                    { 17, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block17" },
                     { 27, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block27" },
+                    { 25, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block25" },
+                    { 26, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block26" },
+                    { 17, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block17" },
+                    { 28, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block28" },
                     { 29, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block29" },
                     { 30, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block30" },
                     { 24, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block24" },
                     { 16, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block16" },
-                    { 28, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block28" },
-                    { 14, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block14" },
                     { 13, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block13" },
-                    { 12, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block12" },
-                    { 11, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block11" },
-                    { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block10" },
-                    { 9, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block9" },
-                    { 8, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block8" },
-                    { 7, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block7" },
-                    { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block6" },
-                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block5" },
-                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block4" },
-                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block3" },
-                    { 15, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block15" },
+                    { 14, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block14" },
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block1" },
                     { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block2" },
-                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block1" }
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block3" },
+                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block4" },
+                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block5" },
+                    { 15, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block15" },
+                    { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block6" },
+                    { 8, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block8" },
+                    { 9, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block9" },
+                    { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block10" },
+                    { 11, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block11" },
+                    { 12, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block12" },
+                    { 7, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Block7" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
+                values: new object[,]
+                {
+                    { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Security" },
+                    { 7, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Leakage" },
+                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Garden" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Water" },
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Damp" },
+                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pets" },
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "DSTV" }
                 });
 
             migrationBuilder.InsertData(
@@ -1013,9 +1079,9 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Registration" },
                     { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Membership" },
-                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Events" }
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Events" },
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Registration" }
                 });
 
             migrationBuilder.InsertData(
@@ -1023,28 +1089,28 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "Code", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 178, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pitcairn", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pitcairn" },
-                    { 166, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norfolk Island", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norfolk Island" },
-                    { 167, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "North Korean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "North Korea" },
-                    { 168, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Northern Mariana Islands", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Northern Mariana Islands" },
+                    { 177, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peruvian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peru" },
+                    { 176, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paraguayan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paraguay" },
+                    { 175, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Papua New Guinean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Papua New Guinea" },
+                    { 174, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Panamanian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Panama" },
+                    { 173, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palestine", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palestine" },
                     { 169, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norwegian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norway" },
                     { 170, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Omani", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Oman" },
+                    { 178, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pitcairn", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pitcairn" },
+                    { 168, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Northern Mariana Islands", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Northern Mariana Islands" },
+                    { 167, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "North Korean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "North Korea" },
+                    { 166, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norfolk Island", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norfolk Island" },
                     { 165, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Niue", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Niue" },
                     { 171, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pakistani", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pakistan" },
-                    { 172, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palau", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palau" },
-                    { 173, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palestine", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palestine" },
-                    { 174, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Panamanian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Panama" },
-                    { 176, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paraguayan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paraguay" },
-                    { 177, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peruvian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peru" },
                     { 179, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Polish", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poland" },
-                    { 188, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Helena", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Helena" },
-                    { 181, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Puerto Rico", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Puerto Rico" },
                     { 182, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Qatari", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Qatar" },
+                    { 181, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Puerto Rico", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Puerto Rico" },
                     { 183, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Réunion", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Réunion" },
                     { 184, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Romanian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Romania" },
                     { 185, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Russian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Russia" },
                     { 186, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rwandan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rwanda" },
                     { 187, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Barthélemy", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Barthélemy" },
+                    { 188, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Helena", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Helena" },
                     { 189, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Kitts and Nevis", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Kitts and Nevis" },
                     { 190, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Lucia", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Lucia" },
                     { 191, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Martin (French part)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saint Martin (French part)" },
@@ -1053,7 +1119,7 @@ namespace MDM.Web.Migrations
                     { 164, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nigerian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nigeria" },
                     { 180, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Portuguese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Portugal" },
                     { 163, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nigerien", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Niger" },
-                    { 143, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martinique", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martinique" },
+                    { 139, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Maldivian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Maldives" },
                     { 161, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "New Zealander", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "New Zealand" },
                     { 132, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lithuanian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lithuania" },
                     { 133, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luxembourger", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luxembourg" },
@@ -1062,11 +1128,11 @@ namespace MDM.Web.Migrations
                     { 136, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Madagascan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Madagascar" },
                     { 137, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Malawian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Malawi" },
                     { 138, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Malaysian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Malaysia" },
-                    { 139, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Maldivian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Maldives" },
+                    { 194, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Samoa", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Samoa" },
                     { 140, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Malian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mali" },
                     { 141, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Maltese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Malta" },
                     { 142, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marshall Islands", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marshall Islands" },
-                    { 194, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Samoa", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Samoa" },
+                    { 143, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martinique", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Martinique" },
                     { 144, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mauritanian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mauritania" },
                     { 145, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mauritian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mauritius" },
                     { 146, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mayotte", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mayotte" },
@@ -1086,7 +1152,7 @@ namespace MDM.Web.Migrations
                     { 160, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "New Caledonia", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "New Caledonia" },
                     { 162, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nicaraguan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nicaragua" },
                     { 195, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "San Marino", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "San Marino" },
-                    { 215, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Surinamese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Suriname" },
+                    { 218, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Swedish", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sweden" },
                     { 197, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saudi Arabian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Saudi Arabia" },
                     { 231, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tunisian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tunisia" },
                     { 232, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Turkish", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Turkey" },
@@ -1137,10 +1203,10 @@ namespace MDM.Web.Migrations
                     { 212, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Spanish", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Spain" },
                     { 213, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sri Lankan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sri Lanka" },
                     { 214, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sudanese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sudan" },
-                    { 131, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Liechtensteiner", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Liechtenstein" },
+                    { 215, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Surinamese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Suriname" },
                     { 216, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Svalbard and Jan Mayen", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Svalbard and Jan Mayen" },
                     { 217, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Swazi", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "SWAZILAND" },
-                    { 218, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Swedish", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sweden" },
+                    { 131, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Liechtensteiner", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Liechtenstein" },
                     { 219, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Swiss", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Switzerland" },
                     { 220, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Syrian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Syria" },
                     { 221, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Taiwanese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Taiwan" },
@@ -1151,7 +1217,7 @@ namespace MDM.Web.Migrations
                     { 226, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Timor-Leste", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Timor-Leste" },
                     { 196, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sao Tome and Principe", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sao Tome and Principe" },
                     { 130, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Libyan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Libya" },
-                    { 175, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Papua New Guinean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Papua New Guinea" },
+                    { 172, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palau", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Palau" },
                     { 128, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lesotho", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lesotho" },
                     { 34, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Brazilian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Brazil" },
                     { 35, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "British Indian Ocean Territory", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "British Indian Ocean Territory" },
@@ -1249,12 +1315,7 @@ namespace MDM.Web.Migrations
                     { 127, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lebanese", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lebanon" },
                     { 98, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guinea-Bissau", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guinea-Bissau" },
                     { 97, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guinean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guinea" },
-                    { 110, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iraqi", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iraq" },
-                    { 95, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guatemalan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guatemala" },
-                    { 67, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ecuadorean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ecuador" },
-                    { 96, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guernsey", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guernsey" },
-                    { 69, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Egyptian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Egypt" },
-                    { 70, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Salvadorean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "El Salvador" }
+                    { 110, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iraqi", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iraq" }
                 });
 
             migrationBuilder.InsertData(
@@ -1262,6 +1323,11 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "Code", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
+                    { 95, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guatemalan", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guatemala" },
+                    { 67, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ecuadorean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ecuador" },
+                    { 96, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guernsey", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guernsey" },
+                    { 69, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Egyptian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Egypt" },
+                    { 70, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Salvadorean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "El Salvador" },
                     { 71, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Equatorial Guinea", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Equatorial Guinea" },
                     { 72, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Eritrean", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Eritrea" },
                     { 73, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Estonian", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Estonia" },
@@ -1294,6 +1360,7 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "Code", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name", "Symbol" },
                 values: new object[,]
                 {
+                    { 169, "NIO", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "NICARAGUA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cordoba Oro", " " },
                     { 179, "PAB", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "PANAMA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Balboa", " " },
                     { 178, "USD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "PALAU", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "US Dollar", " " },
                     { 177, "PKR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "PAKISTAN", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pakistan Rupee", " " },
@@ -1305,7 +1372,6 @@ namespace MDM.Web.Migrations
                     { 170, "XOF", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "NIGER (THE)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "CFA Franc BCEAO", " " },
                     { 180, "USD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "PANAMA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "US Dollar", " " },
                     { 168, "NZD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "NEW ZEALAND", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "New Zealand Dollar", " " },
-                    { 169, "NIO", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "NICARAGUA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cordoba Oro", " " },
                     { 174, "USD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "NORTHERN MARIANA ISLANDS (THE)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "US Dollar", " " },
                     { 181, "PGK", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "PAPUA NEW GUINEA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kina", " " },
                     { 188, "USD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "PUERTO RICO", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "US Dollar", " " },
@@ -1425,7 +1491,7 @@ namespace MDM.Web.Migrations
                     { 230, "TJS", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "TAJIKISTAN", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Somoni", " " },
                     { 216, "ZAR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "SOUTH AFRICA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rand", " " },
                     { 133, "ZAR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "LESOTHO", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rand", " " },
-                    { 91, "EUR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GREECE", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Euro", " " },
+                    { 87, "GEL", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GEORGIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lari", " " },
                     { 131, "LBP", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "LEBANON", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lebanese Pound", " " },
                     { 34, "BND", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "BRUNEI DARUSSALAM", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Brunei Dollar", " " },
                     { 35, "BGN", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "BULGARIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bulgarian Lev", " " },
@@ -1499,11 +1565,7 @@ namespace MDM.Web.Migrations
                     { 103, "AUD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HEARD ISLAND AND McDONALD ISLANDS", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Australian Dollar", " " },
                     { 104, "EUR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HOLY SEE (THE)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Euro", " " },
                     { 105, "HNL", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HONDURAS", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lempira", " " },
-                    { 106, "HKD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HONG KONG", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hong Kong Dollar", " " },
-                    { 107, "HUF", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HUNGARY", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Forint", " " },
-                    { 108, "ISK", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "ICELAND", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iceland Krona", " " },
-                    { 109, "INR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "INDIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Indian Rupee", " " },
-                    { 110, "IDR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "INDONESIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rupiah", " " }
+                    { 106, "HKD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HONG KONG", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hong Kong Dollar", " " }
                 });
 
             migrationBuilder.InsertData(
@@ -1511,6 +1573,10 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "Code", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name", "Symbol" },
                 values: new object[,]
                 {
+                    { 107, "HUF", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "HUNGARY", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Forint", " " },
+                    { 108, "ISK", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "ICELAND", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iceland Krona", " " },
+                    { 109, "INR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "INDIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Indian Rupee", " " },
+                    { 110, "IDR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "INDONESIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rupiah", " " },
                     { 111, "XDR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "INTERNATIONAL MONETARY FUND (IMF) ", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "SDR (Special Drawing Right)", " " },
                     { 112, "IRR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "IRAN (ISLAMIC REPUBLIC OF)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iranian Rial", " " },
                     { 113, "IQD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "IRAQ", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Iraqi Dinar", " " },
@@ -1556,11 +1622,11 @@ namespace MDM.Web.Migrations
                     { 84, "EUR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "FRENCH SOUTHERN TERRITORIES (THE)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Euro", " " },
                     { 93, "XCD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GRENADA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "East Caribbean Dollar", " " },
                     { 92, "DKK", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GREENLAND", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Danish Krone", " " },
-                    { 68, "USD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "ECUADOR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "US Dollar", " " },
+                    { 91, "EUR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GREECE", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Euro", " " },
                     { 94, "EUR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GUADELOUPE", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Euro", " " },
                     { 89, "GHS", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GHANA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ghana Cedi", " " },
                     { 88, "EUR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GERMANY", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Euro", " " },
-                    { 87, "GEL", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GEORGIA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lari", " " },
+                    { 68, "USD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "ECUADOR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "US Dollar", " " },
                     { 86, "GMD", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GAMBIA (THE)", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dalasi", " " },
                     { 90, "GIP", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GIBRALTAR", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gibraltar Pound", " " },
                     { 98, "GNF", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "GUINEA", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Guinea Franc", " " }
@@ -1614,7 +1680,7 @@ namespace MDM.Web.Migrations
                 values: new object[,]
                 {
                     { 12, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Laundry" },
-                    { 14, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Oaner Requests" },
+                    { 14, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner Requests" },
                     { 13, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Club House" },
                     { 11, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Monthly Reports" },
                     { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Invoices & Approvals" },
@@ -1655,8 +1721,8 @@ namespace MDM.Web.Migrations
                 {
                     { 11, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Director / Manager (not in the water industry)" },
                     { 12, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Process Controller" },
-                    { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Director / Manager (in water industry)" },
                     { 15, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Other" },
+                    { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Director / Manager (in water industry)" },
                     { 14, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consultant" },
                     { 13, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Self Employed" },
                     { 9, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Technician" },
@@ -1675,11 +1741,11 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Special Projects" },
                     { 9, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "ClubHouse" },
                     { 8, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Laundry" },
                     { 7, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Compliance" },
                     { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Legal" },
+                    { 10, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Special Projects" },
                     { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Garden" },
                     { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Security" },
                     { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Vice Chair" },
@@ -1688,17 +1754,29 @@ namespace MDM.Web.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Priority",
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Urgent" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "High" },
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Normal" },
+                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Low" },
+                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Clear" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "RelatedTo",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Garden Vendor" },
                     { 8, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider" },
                     { 7, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Security Vendor" },
+                    { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Garden Vendor" },
                     { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Estate Management Vendor" },
-                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner" },
-                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant" },
                     { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Trustee" },
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner" },
                     { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Estate Manager" }
                 });
 
@@ -1707,31 +1785,26 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Open" },
-                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" },
-                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Progress" },
-                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Completed" },
-                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Review" },
                     { 6, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Accepted" },
+                    { 9, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Closed" },
                     { 7, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rejected" },
+                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Review" },
                     { 8, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Blocked" },
-                    { 9, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Closed" }
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Progress" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" },
+                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Completed" },
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Open" }
                 });
 
             migrationBuilder.InsertData(
-                table: "TaskItem",
-                columns: new[] { "Id", "ClosedOn", "CreatedBy", "CreatedOn", "Description", "DueOn", "GroupId", "ModifiedBy", "ModifiedOn", "Name", "PriorityId", "ProgressPercentage", "StatusId", "UnitId" },
+                table: "TaskItemType",
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 7, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rejected", null, null, null, null },
-                    { 9, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Closed", null, null, null, null },
-                    { 8, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Blocked", null, null, null, null },
-                    { 6, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Accepted", null, null, null, null },
-                    { 4, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Completed", null, null, null, null },
-                    { 3, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Progress", null, null, null, null },
-                    { 2, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending", null, null, null, null },
-                    { 1, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Open", null, null, null, null },
-                    { 5, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Review", null, null, null, null }
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Issue" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Request" },
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Complaint" },
+                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Query" }
                 });
 
             migrationBuilder.InsertData(
@@ -1739,11 +1812,11 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mr" },
-                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mrs" },
-                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ms" },
                     { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dr" },
-                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Prof" }
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ms" },
+                    { 5, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Prof" },
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mr" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mrs" }
                 });
 
             migrationBuilder.InsertData(
@@ -1751,31 +1824,31 @@ namespace MDM.Web.Migrations
                 columns: new[] { "Id", "BlockId", "CreatedBy", "CreatedOn", "FloorId", "ModifiedBy", "ModifiedOn", "No" },
                 values: new object[,]
                 {
-                    { 86, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 86 },
-                    { 77, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 77 },
-                    { 78, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 78 },
-                    { 79, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 79 },
-                    { 61, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 61 },
-                    { 84, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 84 },
-                    { 81, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 81 },
-                    { 82, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 82 },
-                    { 83, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 83 },
                     { 76, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 76 },
-                    { 85, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 85 },
+                    { 84, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 84 },
+                    { 83, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 83 },
+                    { 82, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 82 },
+                    { 81, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 81 },
                     { 80, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 80 },
+                    { 61, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 61 },
+                    { 85, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 85 },
+                    { 79, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 79 },
+                    { 78, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 78 },
+                    { 77, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 77 },
                     { 75, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 75 },
-                    { 70, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 70 },
+                    { 68, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 68 },
                     { 73, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 73 },
                     { 72, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 72 },
                     { 71, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 71 },
+                    { 70, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 70 },
                     { 69, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 69 },
-                    { 68, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 68 },
                     { 67, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 67 },
                     { 66, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 66 },
                     { 65, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 65 },
                     { 64, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 64 },
                     { 63, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 63 },
                     { 62, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 62 },
+                    { 86, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 86 },
                     { 74, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 74 },
                     { 87, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 87 },
                     { 110, null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 110 },
@@ -1871,22 +1944,13 @@ namespace MDM.Web.Migrations
             migrationBuilder.InsertData(
                 table: "UserType",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant" });
-
-            migrationBuilder.InsertData(
-                table: "UserType",
-                columns: new[] { "Id", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Trustee", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Trustee" });
-
-            migrationBuilder.InsertData(
-                table: "UserType",
-                columns: new[] { "Id", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner" });
-
-            migrationBuilder.InsertData(
-                table: "UserType",
-                columns: new[] { "Id", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider" });
+                values: new object[,]
+                {
+                    { 3, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tenant" },
+                    { 1, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Trustee", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Trustee" },
+                    { 2, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Owner" },
+                    { 4, null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider", null, new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Service Provider" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Province",
@@ -2023,6 +2087,11 @@ namespace MDM.Web.Migrations
                 column: "TitleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TaskItem_CategoryId",
+                table: "TaskItem",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TaskItem_GroupId",
                 table: "TaskItem",
                 column: "GroupId");
@@ -2036,6 +2105,11 @@ namespace MDM.Web.Migrations
                 name: "IX_TaskItem_StatusId",
                 table: "TaskItem",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskItem_TaskItemTypeId",
+                table: "TaskItem",
+                column: "TaskItemTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskItem_UnitId",
@@ -2192,6 +2266,9 @@ namespace MDM.Web.Migrations
                 name: "Title");
 
             migrationBuilder.DropTable(
+                name: "Category");
+
+            migrationBuilder.DropTable(
                 name: "Group");
 
             migrationBuilder.DropTable(
@@ -2199,6 +2276,9 @@ namespace MDM.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Status");
+
+            migrationBuilder.DropTable(
+                name: "TaskItemType");
 
             migrationBuilder.DropTable(
                 name: "Unit");

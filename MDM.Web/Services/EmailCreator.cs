@@ -11,6 +11,7 @@ using System.Net.Mail;
 using MDM.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace MDM.Services
 {
@@ -24,21 +25,20 @@ namespace MDM.Services
 
     public class EmailCreator : IEmailCreator
     {
-        //private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<EmailCreator> _logger;
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment _env;
         //private readonly DB _context;
-        public EmailCreator(ILogger<EmailCreator> logger, IConfiguration configuration, IEmailSender emailSender,  IWebHostEnvironment env)
+        public EmailCreator(ILogger<EmailCreator> logger, IConfiguration configuration, IEmailSender emailSender,  IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             
             _logger = logger;
             _configuration = configuration;
             _emailSender = emailSender;
             _env = env;
-            //_userManager = userManager;
-            //_context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<string> SendEmailAsync(string emailContentFile, string recipientEmail,
@@ -70,7 +70,7 @@ namespace MDM.Services
 
             try
             {
-                DB _context = new DB();
+                DB _context = new DB(_httpContextAccessor);
                 int relatedToId = 0;
                 int relatedEntityId = 0;
 

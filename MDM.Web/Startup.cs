@@ -36,6 +36,7 @@ namespace MDM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DB>(options => options.UseMySql(Configuration.GetConnectionString("DB")));
+            services.AddHttpContextAccessor();
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using MDM.Helper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,14 +16,13 @@ namespace MDM.Models
 {
     public partial class DB : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public DB()
-        {
-        }
+   
 
-        public DB(DbContextOptions<DB> options)
-            : base(options)
+        public DB(IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor= httpContextAccessor;
         }
+        protected IHttpContextAccessor _httpContextAccessor { get; }
 
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
@@ -54,7 +57,7 @@ namespace MDM.Models
         public virtual DbSet<Unit> Unit{ get; set; }
         public virtual DbSet<TaskItemType> TaskItemType { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-
+        public virtual DbSet<Audit> AuditLogs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -118,9 +121,11 @@ namespace MDM.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+           
+
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySQL(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["MDMDBContext"]);
+                optionsBuilder.UseMySQL(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["DB"]);
                 base.OnConfiguring(optionsBuilder);
             }
         }
@@ -141,36 +146,80 @@ namespace MDM.Models
                           cancellationToken));
         }
 
-        private void OnBeforeSaving()
+        private async void OnBeforeSaving()
         {
             var entries = ChangeTracker.Entries();
-            var utcNow = DateTime.UtcNow;
+            var auditEntries = new List<AuditEntry>();
 
+            var utcNow = DateTime.UtcNow;
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             foreach (var entry in entries)
             {
-                // for entities that inherit from BaseEntity,
-                // set UpdatedOn / CreatedOn appropriately
+               
                 if (entry.Entity is BaseModel trackable)
                 {
+                   
                     switch (entry.State)
                     {
                         case EntityState.Modified:
-                            // set the updated date to "now"
+                          
                             trackable.ModifiedOn = utcNow;
-
-                            // mark property as "don't touch"
-                            // we don't want to update on a Modify operation
+                            trackable.ModifiedBy = userId;
+                           
                             entry.Property("CreatedOn").IsModified = false;
+                            entry.Property("CreatedBy").IsModified = false;
                             break;
 
                         case EntityState.Added:
-                            // set both updated and created date to "now"
+                            trackable.CreatedBy = userId;
+                            trackable.ModifiedBy = userId;
                             trackable.CreatedOn = utcNow;
                             trackable.ModifiedOn = utcNow;
                             break;
                     }
                 }
+
+                if (entry.Entity is Audit|| entry.Entity is UserActivity || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                    continue;
+                var auditEntry = new AuditEntry(entry);
+                auditEntry.TableName = entry.Entity.GetType().Name;
+                auditEntry.UserId = userId;
+                auditEntries.Add(auditEntry);
+                foreach (var property in entry.Properties)
+                {
+                    string propertyName = property.Metadata.Name;
+                    if (property.Metadata.IsPrimaryKey())
+                    {
+                        auditEntry.KeyValues[propertyName] = property.CurrentValue;
+                        continue;
+                    }
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            auditEntry.AuditType = AuditType.Create;
+                            auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            break;
+                        case EntityState.Deleted:
+                            auditEntry.AuditType = AuditType.Delete;
+                            auditEntry.OldValues[propertyName] = property.OriginalValue;
+                            break;
+                        case EntityState.Modified:
+                            if (property.IsModified)
+                            {
+                                auditEntry.ChangedColumns.Add(propertyName);
+                                auditEntry.AuditType = AuditType.Update;
+                                auditEntry.OldValues[propertyName] = property.OriginalValue;
+                                auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            }
+                            break;
+                    }
+                }
             }
+            foreach (var auditEntry in auditEntries)
+            {
+                AuditLogs.Add(auditEntry.ToAudit());
+            }
+        
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

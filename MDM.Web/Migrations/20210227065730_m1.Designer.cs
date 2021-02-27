@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MDM.Web.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20210221185059_m1")]
+    [Migration("20210227065730_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,53 +26,53 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AdditionalLine1")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("AdditionalLine2")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<int?>("AddressTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("BuildingName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("CityName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("ComplexName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Gpscoordinates")
                         .HasColumnName("GPSCoordinates")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("PrimaryContactNo")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("PrimaryEmail")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<int?>("ProvinceId")
@@ -85,18 +85,18 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SecondaryContactNo")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("SecondaryEmail")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("StreetName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("Suburb")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -117,21 +117,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -193,19 +193,19 @@ namespace MDM.Web.Migrations
             modelBuilder.Entity("MDM.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -220,7 +220,7 @@ namespace MDM.Web.Migrations
             modelBuilder.Entity("MDM.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<int>("AccessFailedCount")
@@ -228,63 +228,63 @@ namespace MDM.Web.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<bool?>("IsActive")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<int>("UserTypeId")
@@ -310,21 +310,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -550,8 +550,8 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
@@ -559,8 +559,8 @@ namespace MDM.Web.Migrations
                     b.Property<DateTime?>("From")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
@@ -578,7 +578,7 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("isCurrent")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -587,6 +587,85 @@ namespace MDM.Web.Migrations
                     b.HasIndex("SystemUserId");
 
                     b.ToTable("Board");
+                });
+
+            modelBuilder.Entity("MDM.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "DSTV"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Water"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Damp"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Pets"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Garden"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Security"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Leakage"
+                        });
                 });
 
             modelBuilder.Entity("MDM.Models.ContactUs", b =>
@@ -600,43 +679,43 @@ namespace MDM.Web.Migrations
 
                     b.Property<string>("ClientEmail")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("ClientName")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("ClientQuery")
                         .IsRequired()
-                        .HasColumnType("varchar(1500) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(1500)")
                         .HasMaxLength(1500);
 
                     b.Property<int?>("ContactUsRelatedToId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("Response")
-                        .HasColumnType("varchar(1500) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(1500)")
                         .HasMaxLength(1500);
 
                     b.Property<bool>("isResolved")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -651,21 +730,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -703,25 +782,25 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -2795,32 +2874,32 @@ namespace MDM.Web.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("varchar(3) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(3)")
                         .HasMaxLength(3);
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(5) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(5)")
                         .HasMaxLength(5);
 
                     b.HasKey("Id");
@@ -5466,25 +5545,25 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -5548,21 +5627,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -5592,21 +5671,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -5643,25 +5722,25 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -5701,21 +5780,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
@@ -5819,7 +5898,7 @@ namespace MDM.Web.Migrations
                             Id = 14,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Oaner Requests"
+                            Name = "Owner Requests"
                         });
                 });
 
@@ -5829,25 +5908,25 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -5959,25 +6038,25 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -6098,21 +6177,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(30)")
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
@@ -6198,24 +6277,63 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.ToTable("Priority");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Urgent"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "High"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Normal"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Low"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Clear"
+                        });
                 });
 
             modelBuilder.Entity("MDM.Models.Province", b =>
@@ -6227,20 +6345,20 @@ namespace MDM.Web.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -6338,24 +6456,24 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(30)")
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
@@ -6435,61 +6553,61 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<bool>("accreditation")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("beecertificate")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("buildingrenovation")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("coideclaration")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("csddocuments")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("dstv")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("electrician")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("horticulturist")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("painting")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("plumbing")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("signedselfassesmentform")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("taxcertificate")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("waterproofing")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -6502,8 +6620,8 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
@@ -6511,8 +6629,8 @@ namespace MDM.Web.Migrations
                     b.Property<DateTime?>("DecisionDate")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
@@ -6524,7 +6642,7 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("isApproved")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -6541,21 +6659,21 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -6635,13 +6753,13 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ApplicationUserId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("BirthDay")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
@@ -6656,29 +6774,29 @@ namespace MDM.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("IDNumber")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Initials")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<bool?>("IsActive")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsAdminCreated")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("MobilePhone")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<int?>("OccupationId")
                         .HasColumnType("int");
@@ -6688,7 +6806,7 @@ namespace MDM.Web.Migrations
 
                     b.Property<bool?>("TermAccepted")
                         .IsRequired()
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("TitleId")
                         .HasColumnType("int");
@@ -6714,17 +6832,20 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ClosedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(4000)")
                         .HasMaxLength(4000);
 
                     b.Property<DateTime?>("DueOn")
@@ -6733,15 +6854,15 @@ namespace MDM.Web.Migrations
                     b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(1500) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(1500)")
                         .HasMaxLength(1500);
 
                     b.Property<int?>("PriorityId")
@@ -6753,10 +6874,15 @@ namespace MDM.Web.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TaskItemTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("GroupId");
 
@@ -6764,74 +6890,11 @@ namespace MDM.Web.Migrations
 
                     b.HasIndex("StatusId");
 
+                    b.HasIndex("TaskItemTypeId");
+
                     b.HasIndex("UnitId");
 
                     b.ToTable("TaskItem");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Open"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Pending"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "In Progress"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Completed"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "In Review"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Accepted"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Rejected"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blocked"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Closed"
-                        });
                 });
 
             modelBuilder.Entity("MDM.Models.TaskItemAssignee", b =>
@@ -6843,14 +6906,14 @@ namespace MDM.Web.Migrations
                     b.Property<int?>("AssignedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
@@ -6878,11 +6941,11 @@ namespace MDM.Web.Migrations
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("varchar(2000) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(2000)")
                         .HasMaxLength(2000);
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
@@ -6890,8 +6953,8 @@ namespace MDM.Web.Migrations
                     b.Property<int?>("FileTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
@@ -6919,29 +6982,29 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("FileName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("FilePath")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<int?>("FileTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<int?>("SystemUserId")
                         .HasColumnType("int");
@@ -6960,27 +7023,85 @@ namespace MDM.Web.Migrations
                     b.ToTable("TaskItemFile");
                 });
 
-            modelBuilder.Entity("MDM.Models.Title", b =>
+            modelBuilder.Entity("MDM.Models.TaskItemType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskItemType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Issue"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Request"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Complaint"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Query"
+                        });
+                });
+
+            modelBuilder.Entity("MDM.Models.Title", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -7034,8 +7155,8 @@ namespace MDM.Web.Migrations
                     b.Property<int?>("BlockId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
@@ -7043,8 +7164,8 @@ namespace MDM.Web.Migrations
                     b.Property<int?>("FloorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
@@ -7878,17 +7999,29 @@ namespace MDM.Web.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("ActivityDetail")
-                        .HasColumnType("varchar(500) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(500)")
                         .HasMaxLength(500);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("Email")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -7902,25 +8035,25 @@ namespace MDM.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -7970,14 +8103,14 @@ namespace MDM.Web.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -7995,14 +8128,14 @@ namespace MDM.Web.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -8015,19 +8148,19 @@ namespace MDM.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("LoginProvider", "ProviderKey");
@@ -8040,11 +8173,11 @@ namespace MDM.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("UserId", "RoleId");
@@ -8057,19 +8190,19 @@ namespace MDM.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Value")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -8182,6 +8315,11 @@ namespace MDM.Web.Migrations
 
             modelBuilder.Entity("MDM.Models.TaskItem", b =>
                 {
+                    b.HasOne("MDM.Models.Category", "Category")
+                        .WithMany("TaskItem")
+                        .HasForeignKey("CategoryId")
+                        .HasConstraintName("FK_TaskItem_Category");
+
                     b.HasOne("MDM.Models.Group", "Group")
                         .WithMany("TaskItem")
                         .HasForeignKey("GroupId")
@@ -8196,6 +8334,11 @@ namespace MDM.Web.Migrations
                         .WithMany("TaskItem")
                         .HasForeignKey("StatusId")
                         .HasConstraintName("FK_TaskItem_Status");
+
+                    b.HasOne("MDM.Models.TaskItemType", "TaskItemType")
+                        .WithMany("TaskItem")
+                        .HasForeignKey("TaskItemTypeId")
+                        .HasConstraintName("FK_TaskItem_TaskItemType");
 
                     b.HasOne("MDM.Models.Unit", "Unit")
                         .WithMany("TaskItem")

@@ -12,7 +12,29 @@ Reading Model data in page
                 //},
 
 
+Updating only changed fields
 
+if (ModelState.IsValid)
+{
+    try
+    {
+        var oldProduct = await _context.Product.FindAsync(id);
+        _context.Entry(oldProduct).CurrentValues.SetValues(product);
+        await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        if (!ProductExists(product.Id))
+        {
+            return NotFound();
+        }
+        else
+        {
+            throw;
+        }
+    }
+    return RedirectToAction(nameof(Index));
+}
 
 
 web.config

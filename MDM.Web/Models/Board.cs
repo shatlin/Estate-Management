@@ -18,8 +18,6 @@ namespace MDM.Models
        
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? ModifiedBy { get; set; }
 
         [Display(Name = "Portfolio")]
         [Required(ErrorMessage = "Portfolio is required")]
