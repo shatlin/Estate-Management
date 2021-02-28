@@ -3,14 +3,16 @@ using System;
 using MDM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MDM.Web.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20210227154527_m5")]
+    partial class m5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5875,7 +5877,7 @@ namespace MDM.Web.Migrations
                             Id = 1,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Maintenance"
+                            Name = "Vetting & Vendors"
                         },
                         new
                         {
@@ -5889,28 +5891,56 @@ namespace MDM.Web.Migrations
                             Id = 3,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Finance"
+                            Name = "Gardening"
                         },
                         new
                         {
                             Id = 4,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Legal"
+                            Name = "Trustees & Portfolios"
                         },
                         new
                         {
                             Id = 5,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Special Pr"
+                            Name = "Finance"
                         },
                         new
                         {
                             Id = 6,
                             CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Others"
+                            Name = "Legal & Compliance"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Maintenance"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Special Projects"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Laundry"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedOn = new DateTime(2021, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Club House"
                         });
                 });
 

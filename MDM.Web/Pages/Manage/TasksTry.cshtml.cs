@@ -17,16 +17,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MDM.Pages.Manage
 {
-    [ValidateAntiForgeryToken]
-    public class TasksModel :  PageBase
+    
+    public class TasksTryModel :  PageBase
     {
 
-        public class TaskMove
-        {
-            public string Element;
-            public string Board;
-        }
-        public TasksModel(SignInManager<ApplicationUser> signInManager,
+        public TasksTryModel(SignInManager<ApplicationUser> signInManager,
          ILogger<PageBase> logger,
          UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients) : base(signInManager,
           logger, userManager, db, cache, env, emailCreator, configuration, activity, emailRecipients)
@@ -37,7 +32,6 @@ namespace MDM.Pages.Manage
         [BindProperty]
         public List<TaskItem> taskItems { get; set; }
 
-          
         [BindProperty]
         public List<Group> groups { get; set; }
 
@@ -74,20 +68,5 @@ namespace MDM.Pages.Manage
             notification = new Notification { message = " Message ", notificationtype = NotificationTypeValues.success };
             return Page();
         }
-
-      
-        public async Task<IActionResult> OnPostSave()
-        {
-            
-            int taskitemid= Convert.ToInt32(Request.Form["taskitem"]);
-            int groupid= Convert.ToInt32(Request.Form["group"]);
-            var taskitem=_db.TaskItem.FirstOrDefault(x=>x.Id==taskitemid);
-            taskitem.GroupId=groupid;
-            _db.Entry(taskitem).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
-            return new JsonResult(new { success = true, message = MMMessages.SavedSuccessfully });
-        }
-
-
     }
 }

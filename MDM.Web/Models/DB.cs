@@ -46,7 +46,7 @@ namespace MDM.Models
         public virtual DbSet<Block> Block { get; set; }
         public virtual DbSet<Board> Board { get; set; }
         public virtual DbSet<Floor> Floor { get; set; }
-        public virtual DbSet<Floor> Group { get; set; }
+        public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<Priority> Priority { get; set; }
         public virtual DbSet<ServiceProvider> ServiceProvider { get; set; }
         public virtual DbSet<ServiceProviderTrusteeApproval> ServiceProviderTrusteeApproval { get; set; }

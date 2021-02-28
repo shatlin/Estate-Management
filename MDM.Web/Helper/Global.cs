@@ -35,6 +35,7 @@ namespace MDM.Helper
         public const string trustees = "trustees";
         public const string categories = "categories";
         public const string taskitemtypes = "taskitemtypes";
+        public const string groups = "groups";
     }
 
     public static class PageNames
