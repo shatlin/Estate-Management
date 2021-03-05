@@ -18,7 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MDM.Services;
 
-namespace MDM.Pages.Client
+namespace MDM.Pages
 {
     [AllowAnonymous]
     public class StartModel : PageModel

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace MDM.Pages.Client.Account
+namespace MDM.Pages.Account
 {
     [AllowAnonymous]
     public class ShowRecoveryCodesModel : PageModel

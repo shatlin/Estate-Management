@@ -16,7 +16,7 @@ using MDM.Helper;
 using MDM.Services;
 using System.Security.Claims;
 
-namespace MDM.Pages.Client.Account
+namespace MDM.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel

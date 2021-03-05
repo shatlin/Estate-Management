@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using MDM.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace MDM.Pages.Client.Account
+namespace MDM.Pages.Account
 {
     [AllowAnonymous]
     public class EnableAuthenticatorModel : PageModel

@@ -42,6 +42,7 @@ namespace MDM.Helper
     {
         public const string HomePage = "Home";
         public const string TaskPage = "Task";
+        public const string BlockPage = "Block";
 
     }
 

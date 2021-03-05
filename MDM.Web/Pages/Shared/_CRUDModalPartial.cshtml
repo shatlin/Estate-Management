@@ -1,0 +1,59 @@
+﻿@*<div class="modal" style="min-width:500px" id="AddEditModal" tabindex="-1" role="dialog" aria-labelledby="AddEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" id="AddEditForm" onsubmit="return Save(this)">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddEditModalLabel">Add New @Model.EntityName</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="reg-container row">
+                        <div class="col-12">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            @foreach (var pageelement in Model._pageElements)
+                            {
+                                if (pageelement.idfield)
+                                {
+                                    <input type="hidden" id="id" asp-for="@pageelement.fieldname" />
+                                }
+                                else if (pageelement.fieldtype == "textbox")
+                                {
+                                    <div class="form-group mb-4">
+                                        <label asp-for=@pageelement.fieldname class="control-label"></label>
+                                        <input asp-for=@pageelement.fieldname type="text" class="form-control form-input" placeholder=@pageelement.placeholder id="name">
+                                        <span asp-validation-for=@pageelement.fieldname class="text-danger"></span>
+                                    </div>
+                                }
+                                else if (pageelement.fieldtype == "select")
+                                {
+                                    <div class="form-group">
+                                        <label>@pageelement.labelname</label>
+                                        <div class="form-group">
+                                            <select class="selectpicker form-control p-0 m-0" data-size="20" asp-for=@pageelement.fieldname asp-items=ViewBag.@pageelement.lookuplist  data-style="btn btn-secondary shadow-sm" title="@pageelement.placeholder">
+                                            </select>
+                                            <span asp-validation-for=@pageelement.fieldname class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            &nbsp;
+                        </div>
+                        <div class="col-3 text-right">
+                            <input type="submit" value="Add" class="btn btn-outline-success" id="modal-create-edit" />
+                        </div>
+                        <div class="col-2  text-right ">
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>*@

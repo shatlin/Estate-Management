@@ -29,10 +29,11 @@ namespace MDM.Pages
         protected  UserManager<ApplicationUser> _userManager;
         protected  DB _db;
         protected  SignInManager<ApplicationUser> _signInManager;
-        protected string PageName = "Page Base";
+        public string PageName = "Page Base";
+        public string EntityName = "PageBase";
         protected readonly IEmailCreator _emailCreator;
         protected readonly IEmailRecipients _emailRecipients;
-
+        public List<PageElement> _pageElements;
         public PageBase(SignInManager<ApplicationUser> signInManager,
             ILogger<PageBase> logger,
             UserManager<ApplicationUser> userManager, DB db,IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients)
@@ -47,7 +48,7 @@ namespace MDM.Pages
             _activity = activity;
             _env = env;
             _emailRecipients= emailRecipients;
-
+            _pageElements=new List<PageElement>();
         }
 
         [BindProperty]

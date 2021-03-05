@@ -13,7 +13,7 @@ using MDM.Models;
 using MDM.Helper;
 using MDM.Services;
 
-namespace MDM.Pages.Client
+namespace MDM.Pages.Admin
 {
     [Authorize(Policy = MDMPolicies.AllowAdmin)]
     public class RoleModel : PageModel

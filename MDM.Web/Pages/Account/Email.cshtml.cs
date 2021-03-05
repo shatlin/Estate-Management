@@ -14,7 +14,7 @@ using MDM.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Web;
 
-namespace MDM.Pages.Client.Account
+namespace MDM.Pages.Account
 {
     [AllowAnonymous]
     public partial class EmailModel : PageModel

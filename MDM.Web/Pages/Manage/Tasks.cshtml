@@ -35,6 +35,36 @@
 
 
 
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+        background-color:#f4f3ef;
+    }
+
+    .modal-backdrop {
+        background-color: gray;
+    }
+    .full_modal-dialog {
+        width: 98% !important;
+        height: 93% !important;
+        min-width: 98% !important;
+        min-height: 93% !important;
+        max-width: 98% !important;
+        max-height: 93% !important;
+        padding: 0 !important;
+    }
+
+    .full_modal-content {
+        height: 99% !important;
+        min-height: 99% !important;
+    }
+
+
     /* END EXAMPLE CLASSES */
 
     .gu-unselectable {
@@ -88,33 +118,113 @@
 </div>
 
 
-<!-- .modal -->
-<div class="modal fade" id="Mymodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+
+<!-- notice modal -->
+<div class="modal fade" id="Mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable full_modal-dialog">
+        <div class="modal-content full_modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    &times;
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="nc-icon nc-simple-remove"></i>
                 </button>
-                <h4 class="modal-title">
-                    Notification
-                </h4>
+                <h5 class="modal-title" id="myModalLabel">Subject of the ticket here</h5>
             </div>
             <div class="modal-body">
-                Are you sure you want to continue?
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <strong>1. Register</strong>
+                                <p class="description">The first step is to create an account at <a href="https://www.creative-tim.com/">Creative Tim</a>. You can choose a social network or go for the classic version, whatever works best for you.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="picture">
+                                    <img src="../../assets/img/bg/daniel-olahs.jpg" alt="Thumbnail Image" class="rounded img-raised">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="card card-timeline card-plain">
+                            <div class="card-body">
+                                <ul class="timeline timeline-simple">
+                                    <li class="timeline-inverted">
+                                        <div class="timeline-badge danger">
+                                            <i class="nc-icon nc-sun-fog-29"></i>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <span class="badge badge-pill badge-danger">Shatlin</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing  Figueroa and 12th in downtown.</p>
+                                            </div>
+                                            <h6>
+                                                <i class="ti-time"></i>
+                                                11 hours ago via Twitter
+                                            </h6>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-inverted">
+                                        <div class="timeline-badge success">
+                                            <i class="nc-icon nc-sun-fog-29"></i>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <span class="badge badge-pill badge-success">Neville</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <p>Thank God for the support of my wife and real friends. I also wanted to point out that it’s the first album to go number 1 off of streaming!!! I love you Ellen and also my number one design rule of anything I do from shoes to music to homes is that Kim has to like it....</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-inverted">
+                                        <div class="timeline-badge info">
+                                            <i class="nc-icon nc-world-2"></i>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <span class="badge badge-pill badge-info">Diana</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <p>Called I Miss the Old Kanye That’s all it was Kanye And I love you like Kanye loves Kanye Famous viewing Figueroa and 12th in downtown LA 11:10PM</p>
+                                                <p>What if Kanye made a song about Kanye Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own It wasn’t any Kanyes Set on his goals Kanye</p>
+                                                <hr>
+                                            </div>
+                                            <div class="timeline-footer">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-round btn-info dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="nc-icon nc-settings-gear-65"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">
-                    Ok
-                </button>
+            <div class="modal-footer justify-content-around">
+                <div class="row container">
+                    <div class="col-md-3"> <button type="button" class="btn btn-success btn-round" data-dismiss="modal">Approve</button></div>
+                    <div class="col-md-3"><button type="button" class="btn btn-danger btn-round" data-dismiss="modal">Decline</button></div>
+                    <div class="col-md-3"><button type="button" class="btn btn-info btn-round" data-dismiss="modal">Update</button></div>
+                    <div class="col-md-3"><button type="button" class="btn btn-outline-primary btn-round" data-dismiss="modal">Close</button></div>
+                </div>
+               
             </div>
         </div>
     </div>
 </div>
-
+<!-- end notice modal -->
 
 
 

@@ -15,7 +15,7 @@ using MDM.Models;
 using MDM.Helper;
 using MDM.Services;
 
-namespace MDM.Pages.Client.Account
+namespace MDM.Pages.Account
 {
     [AllowAnonymous]
     public partial class IndexModel : PageModel

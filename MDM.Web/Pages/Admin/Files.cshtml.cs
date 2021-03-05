@@ -17,10 +17,10 @@ using Microsoft.Extensions.Configuration;
 namespace MDM.Pages.Admin
 {
     
-    public class IndexModel :  PageBase
+    public class FilesModel :  PageBase
     {
 
-        public IndexModel(SignInManager<ApplicationUser> signInManager,
+        public FilesModel(SignInManager<ApplicationUser> signInManager,
      ILogger<PageBase> logger,
      UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients) : base(signInManager,
       logger, userManager, db, cache, env, emailCreator, configuration, activity, emailRecipients)

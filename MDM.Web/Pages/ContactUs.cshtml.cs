@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using MDM.Models;
 
 
-namespace MDM.Pages.Client
+namespace MDM.Pages
 {
     public class ContactUsModel : PageModel
     {

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using MDM.Models;
 using Microsoft.Extensions.Logging;
 
-namespace MDM.Pages.Client.Account
+namespace MDM.Pages.Account
 {
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel

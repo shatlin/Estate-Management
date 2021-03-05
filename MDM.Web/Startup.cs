@@ -87,7 +87,7 @@ namespace MDM
 
             });
 
-
+            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
             services.AddHostedService<MDMDailySchedulerService>();
             services
                  .AddMvc()
