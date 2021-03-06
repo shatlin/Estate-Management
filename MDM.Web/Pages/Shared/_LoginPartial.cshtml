@@ -20,12 +20,15 @@
 <ul class="nav navbar-nav ml-auto justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
-    <li class="nav-item">
-      
+        <li class="nav-item">
+
             <form id="logoutForm" class="form-inline mt-2" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <i class="nc-icon nc-single-02"></i><button id="logout" type="submit" class="btn btn-link text-dark">LOGOUT</button>
+                <div class="user" style="max-height:30px;max-width:30px"><img src="../assets/img/faces/shatlin.jpg" class = "rounded-circle shadow" /></div>
+                <button id="logout" type="submit" class="font-weight-bold text-danger nav-link btn-magnify border-0 m-0 p-0 pl-2 ">SIGN OUT</button>
             </form>
-    </li>
+        </li>
+
+    
     }
     else
     {

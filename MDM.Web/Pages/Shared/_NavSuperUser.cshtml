@@ -6,45 +6,69 @@
 }
 <ul class="nav">
     <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-bell-55", linktext= "Notifications", page="News"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-chart-bar-32", linktext= "New Ticket", page="New Ticket"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/tasks", icon="nc-icon nc-chart-bar-32", linktext= "Tasks", page="Tasks"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Files", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Asset Register", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Income Expenses", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Service Visit Log", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Service Providers", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Vendor List", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Belle Reeve Consumable", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Finance", page="Files"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-chart-bar-32", linktext= "Votes & Surveys", page="Files"}' />
-
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/Admin/Index", icon="nc-icon nc-chart-bar-32", linktext="Dashboard", page="Dashboard"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/dashboard", icon="nc-icon nc-chart-pie-36", linktext="Dashboard", page="Dashboard"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-caps-small", linktext= "Raise New Ticket", page="New Ticket"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/tasks", icon="nc-icon nc-support-17", linktext= "Manage Tickets", page="Tasks"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-single-copy-04", linktext= "Manage Files", page="Files"}' />
 
     <!-- #region Member Management Items -->
     @{
-        items = new string[] { "Individuals", "Non Individuals", "Non Members", "Add Individual", "Add Professional", "Add Non Individual" };
+        items = new string[] { "Asset Register", "Service Visit Log", "Service Providers", "Vendor List", "Consumables" };
         active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
         show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
     }
     <li class="@active">
-        <a data-toggle="collapse" href="#Members">
-            <i class="nc-icon nc-credit-card"></i>
+        <a data-toggle="collapse" href="#Members" class="nav-link btn-magnify">
+            <i class="nc-icon nc-support-17"></i>
             <p>
-                Members <b class="caret"></b>
+                Maintenance <b class="caret"></b>
             </p>
         </a>
         <div class="collapse @show" id="Members">
             <ul class="nav">
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListIndividual", abbreviation="LIN", linktext=items[0], page=items[0]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListNonIndividual", abbreviation="LNI", linktext=items[1], page=items[1]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListContacts", abbreviation="LCO", linktext=items[2], page=items[2]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=1", abbreviation="AIN", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=2", abbreviation="APR", linktext=items[4], page=items[4]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/NonIndividual", abbreviation="ANI", linktext=items[5], page=items[5]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListIndividual", abbreviation="ARG", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListNonIndividual", abbreviation="SLG", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListContacts", abbreviation="SP", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=1", abbreviation="VL", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=2", abbreviation="CONS", linktext=items[4], page=items[4]}' />
             </ul>
         </div>
     </li>
     <!-- #endregion Member Management Items -->
+    <!-- #region Member Management Items -->
+    @{
+        items = new string[] { "Income Expense", "Invoices", "Levies", "Bills", "Reconciliation" };
+        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
+        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
+    }
+    <li class="@active">
+        <a data-toggle="collapse" href="#Finance" class="nav-link btn-magnify">
+            <i class="nc-icon nc-money-coins"></i>
+            <p>
+                Finance <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @show" id="Finance">
+            <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListIndividual", abbreviation="IEX", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListNonIndividual", abbreviation="INV", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListContacts", abbreviation="LEV", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=1", abbreviation="BIL", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=2", abbreviation="REC", linktext=items[4], page=items[4]}' />
+            </ul>
+        </div>
+    </li>
+    <!-- #endregion Member Management Items -->
+
+
+
+
+
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-box", linktext= "Votes & Surveys", page="Files"}' />
+
+
+
+
     <!-- #region Member Reports Items -->
     @{
         items = new string[] { "Application Progress", "All Individual Information", "All Non Individual Information", "User Activity",
@@ -54,8 +78,8 @@
         show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
     }
     <li class="@active">
-        <a data-toggle="collapse" href="#reports">
-            <i class="nc-icon nc-badge"></i>
+        <a data-toggle="collapse" href="#reports" class="nav-link btn-magnify">
+            <i class="nc-icon nc-tile-56"></i>
             <p>
                 Reports <b class="caret"></b>
             </p>
@@ -81,10 +105,6 @@
         </div>
     </li>
     <!-- #endregion Report Management Items -->
-
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/Account/Index", icon="nc-icon nc-single-02", linktext="My Profile", page="My Profile"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/Account/ChangePassword", icon="nc-icon nc-lock-circle-open", linktext="Change Password", page="Change Password"}' />
-
     <!-- #region Configuration up Menu Items -->
     @{
         items = new string[] { "Membership Status", "Membership Type", "Membership Grade", "Qualification", "Affliations", "Branches", "Membership Team",
@@ -93,7 +113,7 @@
         show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
     }
     <li class="@active">
-        <a data-toggle="collapse" href="#Configuration">
+        <a data-toggle="collapse" href="#Configuration" class="nav-link btn-magnify">
             <i class="nc-icon nc-settings-gear-65"></i>
             <p>
                 Configuration <b class="caret"></b>
