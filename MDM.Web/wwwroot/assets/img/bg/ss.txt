@@ -1,0 +1,58 @@
+ Volume in drive C is Windows
+ Volume Serial Number is D49E-4406
+
+ Directory of C:\shatlin\MDMNEW\MDM.Web\wwwroot\assets\img\bg
+
+03/06/2021  03:46 PM    <DIR>          .
+03/06/2021  03:46 PM    <DIR>          ..
+02/23/2021  12:45 PM            48,290 ana-bernardo.jpg
+02/23/2021  12:45 PM           160,474 ben-white.jpg
+02/23/2021  12:45 PM           202,438 bruno-abatti.jpg
+02/23/2021  12:45 PM           388,530 chris-karidisz.jpg
+02/23/2021  12:45 PM           142,118 clark-street-mercantile.jpg
+02/23/2021  12:45 PM           264,323 damir-bosnjak.jpg
+02/23/2021  12:45 PM           175,966 daniel-olahh.jpg
+02/23/2021  12:45 PM           342,478 daniel-olahs.jpg
+02/23/2021  12:45 PM           205,720 david-marcu.jpg
+02/23/2021  12:45 PM           318,019 fabio-mangione.jpg
+02/23/2021  12:45 PM           369,071 federico-beccari.jpg
+02/23/2021  12:45 PM           240,110 fog-low.png
+02/23/2021  12:45 PM           160,489 forest-bg.jpg
+02/23/2021  12:45 PM           120,396 galen-crout.jpg
+02/23/2021  12:45 PM           197,545 gerrit-vermeulen.jpg
+02/23/2021  12:45 PM           160,245 gukhwa-jang.jpg
+02/23/2021  12:45 PM           553,979 gukhwa-jangs.jpg
+02/23/2021  12:45 PM           370,492 ilya-yakover.jpg
+02/23/2021  12:45 PM         1,720,080 ipad.png
+02/23/2021  12:45 PM           268,442 jan-sendereks.jpg
+02/23/2021  12:45 PM           732,093 john-towner.jpg
+02/23/2021  12:45 PM           186,730 joshua-earles.jpg
+02/23/2021  12:45 PM           305,458 joshua-earlez.jpg
+02/23/2021  12:45 PM           498,026 joshua-stannard.jpg
+02/23/2021  12:45 PM           333,332 leonard-cotte.jpg
+02/23/2021  12:45 PM            60,325 markus-spiske-187777.jpg
+02/23/2021  12:45 PM           173,513 martin-knize.jpg
+02/23/2021  12:45 PM           280,782 mika-matin.jpg
+02/23/2021  12:45 PM           194,227 neill-kumar.jpg
+02/23/2021  12:45 PM           170,238 noah-rosenfield.jpg
+02/23/2021  12:45 PM           166,441 pavel-kosov.jpg
+02/23/2021  12:45 PM           297,648 pedro-lastra.jpg
+02/23/2021  12:45 PM           291,745 pk-pro-cover.jpg
+02/23/2021  12:45 PM           296,967 por7o.jpg
+02/23/2021  12:45 PM           110,369 rawpixel-com-2.jpg
+02/23/2021  12:45 PM           414,199 rawpixel-com.jpg
+02/23/2021  12:45 PM           343,917 rodrigo-ardilha.jpg
+02/23/2021  12:45 PM           282,106 roger-keller.jpg
+02/23/2021  12:45 PM           279,096 sebastien-gabrieles.jpg
+02/23/2021  12:45 PM           442,281 soroush-karimi.jpg
+03/06/2021  03:46 PM                 0 ss.txt
+02/23/2021  12:45 PM           492,941 stephanie-krist.jpg
+02/23/2021  12:45 PM           157,425 takahiro-sakamoto.jpg
+02/23/2021  12:45 PM           315,499 the-how-photographer.jpg
+03/06/2021  03:35 PM    <DIR>          unused
+02/23/2021  12:45 PM           244,274 uriel-soberanes.jpg
+02/23/2021  12:45 PM           250,234 val-vesa.jpg
+02/23/2021  12:45 PM           324,796 vincent-versluis.jpg
+02/23/2021  12:45 PM           164,793 zachary-staines.jpg
+              48 File(s)     14,218,660 bytes
+               3 Dir(s)  79,604,559,872 bytes free

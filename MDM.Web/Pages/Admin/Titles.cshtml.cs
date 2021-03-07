@@ -1,34 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using MDM.Helper;
 using MDM.Models;
-using MDM.Helper;
 using MDM.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MDM.Pages.Admin
 {
-    [Authorize(Policy = MDMPolicies.AllowAdmin)]
-    public class TitleModel : PageModel
+    public class TitleModel : PageBase
     {
-        private DB _context;
-        private readonly ILogger<TitleModel> _logger;
-        private IActivity _activity;
-        private string EntityName = "Title";
+
         private readonly IAuthorizationService _authorizationService;
 
-        public TitleModel(DB context, IAuthorizationService authorizationService, ILogger<TitleModel> logger, IActivity activity)
+        public TitleModel(SignInManager<ApplicationUser> signInManager, ILogger<PageBase> logger, UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients, IAuthorizationService authorizationService) : base(signInManager, logger, userManager, db, cache, env, emailCreator, configuration, activity, emailRecipients)
         {
-            _context = context;
             _authorizationService = authorizationService;
-            _activity = activity;
-            _logger = logger;
+            PageName = PageNames.titlesPage;
         }
 
         [BindProperty]
@@ -37,15 +35,21 @@ namespace MDM.Pages.Admin
         [BindProperty]
         public Title Title { get; set; }
 
+        public async Task<IActionResult> OnGetAsync()
+        {
+            TitleList = await _db.Title.ToListAsync();
+            return Page();
+        }
+
         public async Task<IActionResult> OnGetListAsync()
         {
            
-            return new JsonResult(await _context.Title.ToListAsync());
+            return new JsonResult(await _db.Title.ToListAsync());
         }
 
         public async Task<IActionResult> OnGetSelectedRecordAsync(int id)
         {
-            return new JsonResult(await _context.Title.Where(x => x.Id == id).FirstOrDefaultAsync());
+            return new JsonResult(await _db.Title.Where(x => x.Id == id).FirstOrDefaultAsync());
         }
 
         public async Task<IActionResult> OnPostSaveAsync(Title title)
@@ -64,14 +68,14 @@ namespace MDM.Pages.Admin
             if (title.Id > 0)
             {
               
-                _context.Attach(title).State = EntityState.Modified;
+                _db.Attach(title).State = EntityState.Modified;
             }
             else
             {
                
-                _context.Title.Add(title);
+                _db.Title.Add(title);
             }
-            await _context.SaveChangesAsync();
+            await _db.SaveChangesAsync();
             return new JsonResult(new { success = true, message = MMMessages.SavedSuccessfully });
         }
 
@@ -87,12 +91,12 @@ namespace MDM.Pages.Admin
             {
                 return new JsonResult(new { success = false, MMMessages.NoRecordToDelete });
             }
-            Title = await _context.Title.FindAsync(id);
+            Title = await _db.Title.FindAsync(id);
 
             if (Title != null)
             {
-                _context.Title.Remove(Title);
-                await _context.SaveChangesAsync();
+                _db.Title.Remove(Title);
+                await _db.SaveChangesAsync();
           
                 return new JsonResult(new { success = true, message = MMMessages.DeletedSuccessfully });
             }

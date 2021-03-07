@@ -1,32 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MDM.Models;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MDM.Helper;
+using Microsoft.AspNetCore.Hosting;
+using MDM.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MDM.Pages.Account
 {
     [AllowAnonymous]
-    public class ChangePasswordModel : PageModel
+    public class ChangePasswordModel : PageBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<ChangePasswordModel> _logger;
-
-        public ChangePasswordModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+        public ChangePasswordModel(SignInManager<ApplicationUser> signInManager,
+         ILogger<PageBase> logger,
+         UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients) : base(signInManager,
+          logger, userManager, db, cache, env, emailCreator, configuration, activity, emailRecipients)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
+            PageName = "Change Password";
+            EntityName = "Change Password";
         }
 
         [BindProperty]

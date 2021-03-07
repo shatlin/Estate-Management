@@ -5,12 +5,43 @@
     string[] items = { };
 }
 <ul class="nav">
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-bell-55", linktext= "Notifications", page="News"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/", icon="nc-icon nc-bell-55", linktext= "Notifications", page="News"}' />
     <partial name="_NavHeaderMenu" , model='new MenuItem{url="/dashboard", icon="nc-icon nc-chart-pie-36", linktext="Dashboard", page="Dashboard"}' />
     <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-caps-small", linktext= "Raise New Ticket", page="New Ticket"}' />
     <partial name="_NavHeaderMenu" , model='new MenuItem{url="/tasks", icon="nc-icon nc-support-17", linktext= "Manage Tickets", page="Tasks"}' />
     <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-single-copy-04", linktext= "Manage Files", page="Files"}' />
 
+
+
+    <!-- #region Configuration up Menu Items -->
+    @{
+        items = new string[] { "Blocks","Units","Users","Trustees","Owners","Tenants","Pets","Vehicles", "Titles" };
+        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
+        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
+    }
+    <li class="@active">
+        <a data-toggle="collapse" href="#Configuration" class="nav-link btn-magnify">
+            <i class="nc-icon nc-settings-gear-65"></i>
+            <p>
+                Configuration <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @show" id="Configuration">
+            <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/blocks", abbreviation="BLK", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/units", abbreviation="UNI", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/users", abbreviation="USR", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/trustees", abbreviation="TRU", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/owners", abbreviation="OWN", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/tenants", abbreviation="TEN", linktext=items[5], page=items[5]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/pets", abbreviation="PET", linktext=items[6], page=items[6]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/vehicles", abbreviation="VEH", linktext=items[7], page=items[7]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/titles", abbreviation="TTL", linktext=items[8], page=items[8]}' />
+            </ul>
+        </div>
+    </li>
+
+    <!-- #endregion Configuration  Menu Items-->
     <!-- #region Member Management Items -->
     @{
         items = new string[] { "Asset Register", "Service Visit Log", "Service Providers", "Vendor List", "Consumables" };
@@ -18,19 +49,19 @@
         show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
     }
     <li class="@active">
-        <a data-toggle="collapse" href="#Members" class="nav-link btn-magnify">
-            <i class="nc-icon nc-support-17"></i>
+        <a data-toggle="collapse" href="#Maintenance" class="nav-link btn-magnify">
+            <i class="nc-icon nc-settings"></i>
             <p>
                 Maintenance <b class="caret"></b>
             </p>
         </a>
-        <div class="collapse @show" id="Members">
+        <div class="collapse @show" id="Maintenance">
             <ul class="nav">
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListIndividual", abbreviation="ARG", linktext=items[0], page=items[0]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListNonIndividual", abbreviation="SLG", linktext=items[1], page=items[1]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListContacts", abbreviation="SP", linktext=items[2], page=items[2]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=1", abbreviation="VL", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=2", abbreviation="CONS", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/assetRegister", abbreviation="ARG", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/servicevisitlog", abbreviation="SLG", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/ServiceProviders", abbreviation="SP", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/VendorList", abbreviation="VL", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Consumables", abbreviation="CONS", linktext=items[4], page=items[4]}' />
             </ul>
         </div>
     </li>
@@ -50,11 +81,11 @@
         </a>
         <div class="collapse @show" id="Finance">
             <ul class="nav">
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListIndividual", abbreviation="IEX", linktext=items[0], page=items[0]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListNonIndividual", abbreviation="INV", linktext=items[1], page=items[1]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Manage/ListContacts", abbreviation="LEV", linktext=items[2], page=items[2]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=1", abbreviation="BIL", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/new/Individual?ReqId=2", abbreviation="REC", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/incomeexpense", abbreviation="IEX", linktext=items[0], page=items[0]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/invoices", abbreviation="INV", linktext=items[1], page=items[1]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/levies", abbreviation="LEV", linktext=items[2], page=items[2]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/bills", abbreviation="BIL", linktext=items[3], page=items[3]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/reconcilation", abbreviation="REC", linktext=items[4], page=items[4]}' />
             </ul>
         </div>
     </li>
@@ -71,9 +102,8 @@
 
     <!-- #region Member Reports Items -->
     @{
-        items = new string[] { "Application Progress", "All Individual Information", "All Non Individual Information", "User Activity",
-            "Job Portal Individual", "Resigned Members","Individual Address","Company Address","Additional Contacts Address",
-        "Individual Mailing List","Company Mailing List", "Additional Contacts Mailing List","Mailing List","Duplicates","Division List" };
+        items = new string[] {  "User Activity"
+          };
         active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
         show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
     }
@@ -86,64 +116,11 @@
         </a>
         <div class="collapse @show" id="reports">
             <ul class="nav">
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/ApplicationProgress", abbreviation="APR", linktext=items[0], page=items[0]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AllIndividualInformation", abbreviation="AII", linktext=items[1], page=items[1]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AllNonIndividualInformation", abbreviation="ANI", linktext=items[2], page=items[2]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/UserActivity", abbreviation="UAC", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/JobPortalIndividual", abbreviation="JOB", linktext=items[4], page=items[4]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/ResignedMembers", abbreviation="RES", linktext=items[5], page=items[5]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/IndividualAddress", abbreviation="IAD", linktext=items[6], page=items[6]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/CompanyAddress", abbreviation="CAD", linktext=items[7], page=items[7]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AdditionalContactsAddress", abbreviation="ACA", linktext=items[8], page=items[8]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/MembersMailingList", abbreviation="MML", linktext=items[9], page=items[9]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/CompanyMailingList", abbreviation="CML", linktext=items[10], page=items[10]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/AdditionalContactsMailingList", abbreviation="ACM", linktext=items[11], page=items[11]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/MailingList", abbreviation="ML", linktext=items[12], page=items[12]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Duplicates", abbreviation="DUP", linktext=items[13], page=items[13]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/DivisionList", abbreviation="DIV", linktext=items[14], page=items[14]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/Reports/UserActivity", abbreviation="UAC", linktext=items[0], page=items[0]}' />
             </ul>
         </div>
     </li>
     <!-- #endregion Report Management Items -->
-    <!-- #region Configuration up Menu Items -->
-    @{
-        items = new string[] { "Membership Status", "Membership Type", "Membership Grade", "Qualification", "Affliations", "Branches", "Membership Team",
-            "Marketing Group", "Marketing Profile", "Membership Level", "Add User", "Manage Users","Pastel Integration","Pastel Integration-NI" };
-        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
-        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
-    }
-    <li class="@active">
-        <a data-toggle="collapse" href="#Configuration" class="nav-link btn-magnify">
-            <i class="nc-icon nc-settings-gear-65"></i>
-            <p>
-                Configuration <b class="caret"></b>
-            </p>
-        </a>
-        <div class="collapse @show" id="Configuration">
-            <ul class="nav">
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MemberShipStatus", abbreviation="MS", linktext=items[0], page=items[0]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MembershipType", abbreviation="MT", linktext=items[1], page=items[1]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MembershipGrade", abbreviation="MG", linktext=items[2], page=items[2]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/Qualification", abbreviation="QL", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/Affliation", abbreviation="AFF", linktext=items[4], page=items[4]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/ClientBranch", abbreviation="BR", linktext=items[5], page=items[5]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MemberTeam", abbreviation="MT", linktext=items[6], page=items[6]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MarketingGroup", abbreviation="MKG", linktext=items[7], page=items[7]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MarketingProfile", abbreviation="MKP", linktext=items[8], page=items[8]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/MemberLevel", abbreviation="ML", linktext=items[9], page=items[9]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/AddUser", abbreviation="AU", linktext=items[10], page=items[10]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/Admin/UserList", abbreviation="UL", linktext=items[11], page=items[11]}' />
-            </ul>
-        </div>
-    </li>
-    @{
-        items = new string[] { "Individual", "Organization" };
-        active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
-        show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
-    }
 
-
-
-    <!-- #endregion Configuration  Menu Items-->
 
 </ul>

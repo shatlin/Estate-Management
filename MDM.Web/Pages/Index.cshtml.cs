@@ -69,7 +69,7 @@ namespace MDM.Pages
            _db.SaveChanges();
             GetLookups();
             notification = new Notification { message = "Ticket Raised Successfully. Ticket No "+ taskItem.Id, notificationtype = NotificationTypeValues.success };
-            UploadFiles(TicketFiles, FileTypevalues.Ticket, taskItem);
+            await UploadFiles(TicketFiles, FileTypevalues.Ticket, taskItem);
             var emailaddresses = _emailRecipients.GetEmailSenderList("NewTicket", "Tenant", User.GetEmail());
 
             await _emailCreator.SendEmailAsync("NewTicket", emailaddresses, "Trustees",  taskItem.Name, "View Ticket",

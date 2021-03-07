@@ -1,0 +1,52 @@
+﻿@page "/Photo"
+@model PhotoModel
+<partial name="_CardSimpleHeaderPartial" , model='new Header{name=Model.PageName}'/>
+
+    <form id="PhotoForm" method="post" name="PhotoForm" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+
+                <div class="card card-testimonial">
+                    <div class="card-body ">
+                        <div class="icon icon-primary">
+                        </div>
+                        <p class="card-description">
+                          
+                        </p>
+                    </div>
+                    <div class="card-footer ">
+                        <h4 class="card-title"> @UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.FullName</h4>
+                        <h6 class="card-category"></h6>
+                        <div class="card-avatar">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail img-raised">
+                                    <img src="https://epicattorneymarketing.com/wp-content/uploads/2016/07/Headshot-Placeholder-1.png" alt="..." rel="nofollow">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+                                <div>
+                                    <span class="btn btn-raised btn-round btn-default btn-file">
+                                        <span class="fileinput-new">Add Photo</span>
+                                        <span class="fileinput-exists">Change</span>
+                                        <input type="file" asp-for="Photo" />
+
+                                    </span>
+
+
+                                    <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                    <br /> <br /> <br />
+                                    <button type="submit" class="btn btn-info" name="upload" id="upload">Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+       
+       
+        </form>
+

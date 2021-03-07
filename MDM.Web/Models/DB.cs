@@ -148,76 +148,83 @@ namespace MDM.Models
 
         private async void OnBeforeSaving()
         {
-            var entries = ChangeTracker.Entries();
-            var auditEntries = new List<AuditEntry>();
-
-            var utcNow = DateTime.UtcNow;
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            foreach (var entry in entries)
+            try
             {
-               
-                if (entry.Entity is BaseModel trackable)
-                {
-                   
-                    switch (entry.State)
-                    {
-                        case EntityState.Modified:
-                          
-                            trackable.ModifiedOn = utcNow;
-                            trackable.ModifiedBy = userId;
-                           
-                            entry.Property("CreatedOn").IsModified = false;
-                            entry.Property("CreatedBy").IsModified = false;
-                            break;
+                var entries = ChangeTracker.Entries();
+                var auditEntries = new List<AuditEntry>();
 
-                        case EntityState.Added:
-                            trackable.CreatedBy = userId;
-                            trackable.ModifiedBy = userId;
-                            trackable.CreatedOn = utcNow;
-                            trackable.ModifiedOn = utcNow;
-                            break;
+                var utcNow = DateTime.UtcNow;
+                var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                foreach (var entry in entries)
+                {
+
+                    if (entry.Entity is BaseModel trackable)
+                    {
+
+                        switch (entry.State)
+                        {
+                            case EntityState.Modified:
+
+                                trackable.ModifiedOn = utcNow;
+                                trackable.ModifiedBy = userId;
+
+                                entry.Property("CreatedOn").IsModified = false;
+                                entry.Property("CreatedBy").IsModified = false;
+                                break;
+
+                            case EntityState.Added:
+                                trackable.CreatedBy = userId;
+                                trackable.ModifiedBy = userId;
+                                trackable.CreatedOn = utcNow;
+                                trackable.ModifiedOn = utcNow;
+                                break;
+                        }
+                    }
+
+                    if (entry.Entity is Audit || entry.Entity is UserActivity || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                        continue;
+                    var auditEntry = new AuditEntry(entry);
+                    auditEntry.TableName = entry.Entity.GetType().Name;
+                    auditEntry.UserId = userId;
+                    auditEntries.Add(auditEntry);
+                    foreach (var property in entry.Properties)
+                    {
+                        string propertyName = property.Metadata.Name;
+                        if (property.Metadata.IsPrimaryKey())
+                        {
+                            auditEntry.KeyValues[propertyName] = property.CurrentValue;
+                            continue;
+                        }
+                        switch (entry.State)
+                        {
+                            case EntityState.Added:
+                                auditEntry.AuditType = AuditType.Create;
+                                auditEntry.NewValues[propertyName] = property.CurrentValue;
+                                break;
+                            case EntityState.Deleted:
+                                auditEntry.AuditType = AuditType.Delete;
+                                auditEntry.OldValues[propertyName] = property.OriginalValue;
+                                break;
+                            case EntityState.Modified:
+                                if (property.IsModified)
+                                {
+                                    auditEntry.ChangedColumns.Add(propertyName);
+                                    auditEntry.AuditType = AuditType.Update;
+                                    auditEntry.OldValues[propertyName] = property.OriginalValue;
+                                    auditEntry.NewValues[propertyName] = property.CurrentValue;
+                                }
+                                break;
+                        }
                     }
                 }
-
-                if (entry.Entity is Audit|| entry.Entity is UserActivity || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
-                    continue;
-                var auditEntry = new AuditEntry(entry);
-                auditEntry.TableName = entry.Entity.GetType().Name;
-                auditEntry.UserId = userId;
-                auditEntries.Add(auditEntry);
-                foreach (var property in entry.Properties)
+                foreach (var auditEntry in auditEntries)
                 {
-                    string propertyName = property.Metadata.Name;
-                    if (property.Metadata.IsPrimaryKey())
-                    {
-                        auditEntry.KeyValues[propertyName] = property.CurrentValue;
-                        continue;
-                    }
-                    switch (entry.State)
-                    {
-                        case EntityState.Added:
-                            auditEntry.AuditType = AuditType.Create;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue;
-                            break;
-                        case EntityState.Deleted:
-                            auditEntry.AuditType = AuditType.Delete;
-                            auditEntry.OldValues[propertyName] = property.OriginalValue;
-                            break;
-                        case EntityState.Modified:
-                            if (property.IsModified)
-                            {
-                                auditEntry.ChangedColumns.Add(propertyName);
-                                auditEntry.AuditType = AuditType.Update;
-                                auditEntry.OldValues[propertyName] = property.OriginalValue;
-                                auditEntry.NewValues[propertyName] = property.CurrentValue;
-                            }
-                            break;
-                    }
+                    AuditLogs.Add(auditEntry.ToAudit());
                 }
             }
-            foreach (var auditEntry in auditEntries)
+            catch
             {
-                AuditLogs.Add(auditEntry.ToAudit());
+                
             }
         
         }

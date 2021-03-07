@@ -31,7 +31,13 @@ namespace MDM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DB>(options => options.UseMySql(Configuration.GetConnectionString("DB")));
+         //   services.AddTransient <DB > (options => options.UseMySql(Configuration.GetConnectionString("DB")();
+            // services.AddDbContext<DB>(options => options.UseMySql(Configuration.GetConnectionString("DB")));
+
+            services.AddDbContext<DB>(options =>
+                 options.UseMySql(Configuration.GetConnectionString("DB")),
+      ServiceLifetime.Transient);
+
             services.AddHttpContextAccessor();
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {

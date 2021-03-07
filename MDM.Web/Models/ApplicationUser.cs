@@ -28,6 +28,8 @@ namespace MDM.Models
         [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; }
 
+        public string Photo { get; set; }
+
 
         [Display(Name = "Is Active")]
         public bool? IsActive { get; set; }
@@ -62,6 +64,8 @@ namespace MDM.Models
             builder.Property(e => e.FirstName).IsRequired(true).HasMaxLength(100);
 
             builder.Property(e => e.LastName).IsRequired(false).HasMaxLength(100);
+
+            builder.Property(e => e.Photo).IsRequired(false).HasMaxLength(700);
 
             builder.Property(e => e.CreatedOn).HasColumnType("datetime");
             builder.Property(e => e.ModifiedOn).HasColumnType("datetime");

@@ -27,7 +27,8 @@ namespace MDM.Pages.Admin
         public BlockModel(SignInManager<ApplicationUser> signInManager, ILogger<PageBase> logger, UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients, IAuthorizationService authorizationService) : base(signInManager, logger, userManager, db, cache, env, emailCreator, configuration, activity, emailRecipients)
         {
             _authorizationService = authorizationService;
-            PageName = PageNames.BlockPage;
+            PageName = "Blocks";
+            EntityName="Blocks";
         }
 
         [BindProperty]

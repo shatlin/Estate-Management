@@ -15,7 +15,7 @@ using MDM.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace MDM.Pages.Manage
+namespace MDM.Pages
 {
     [ValidateAntiForgeryToken]
     public class TasksModel :  PageBase

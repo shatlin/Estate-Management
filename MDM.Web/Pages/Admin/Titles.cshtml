@@ -1,8 +1,6 @@
-﻿@page
+﻿@page "/titles"
 @model TitleModel
 @{
-    ViewData["Title"] = "Titles";
-    ViewData["Page"] = "Titles";
     bool isAuthorizedForDelete = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
     bool isAuthorizedForUpdate = AuthorizationService.AuthorizeAsync(User, MDMPolicies.AllowAdmin).Result.Succeeded;
 }

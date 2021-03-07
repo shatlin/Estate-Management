@@ -1,5 +1,5 @@
 ﻿@page "/tasks"
-@model MDM.Pages.Manage.TasksModel
+@model TasksModel
 
 <script src='https://cdn.tutorialjinni.com/dragula/3.7.3/dragula.min.js'></script>
 
@@ -96,16 +96,15 @@
 
                         <div class="card-body">
 
-                            <h6 class="card-title"><small class="font-weight-bold">@taskitem.Name.Substring(0, 20) ..</small></h6>
-                            <small class="font-weight-normal">@taskitem.Description.Substring(0, 50)</small>
+                            <div class="card-title font-weight-normal">@taskitem.Name</div>
+                            
                             <p class="card-text">
 
                                 <button type="button" class="btn btn-danger btn-small p-1 m-0 example-class1"
                                         data-trigger="hover" data-toggle="popover" title="@taskitem.Name" data-content="@taskitem.Description">
                                     +
                                 </button>&nbsp;&nbsp;
-
-                                <small class="text-info">Last updated 3 mins ago</small>
+                                <small class="text-danger">Last updated 3 mins ago</small>
                             </p>
 
                         </div>
@@ -123,101 +122,192 @@
 <div class="modal fade" id="Mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable full_modal-dialog">
         <div class="modal-content full_modal-content">
-            <div class="modal-header">
+            <div class="modal-header  p-1 m-1">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="nc-icon nc-simple-remove"></i>
                 </button>
                 <h5 class="modal-title" id="myModalLabel">Subject of the ticket here</h5>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">
+            <div class="modal-body  p-1 m-1">
+                <div class="row p-0 m-0">
+                    <div class="col-md-5">
                         <div class="row">
-                            <div class="col-md-8">
-                                <strong>1. Register</strong>
-                                <p class="description">The first step is to create an account at <a href="https://www.creative-tim.com/">Creative Tim</a>. You can choose a social network or go for the classic version, whatever works best for you.</p>
+                            <div class="col-md-12 p-0 m-0">
+                                <div class="card card-testimonial  p-1 m-1">
+                                    <div class="card-body ">
+                                        <p class="card-description">
+                                            The networking at Web Summit is like no other European tech conference.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <h6 class="card-category">@@ginaandrew</h6>
+                                        <div class="card-avatar">
+                                            <a href="javascript:;">
+                                                <img class="img" src="../assets/img/faces/joe-gardner-2.jpg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="picture">
-                                    <img src="../../assets/img/bg/daniel-olahs.jpg" alt="Thumbnail Image" class="rounded img-raised">
+                            <div class="col-md-12 p-0 m-0">
+
+                                <div class="card   p-1 m-1">
+
+                                    <div class="card-body">
+                                        <ul class="list-unstyled team-members">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-2">
+                                                        <div class="avatar">
+                                                            <img src="../../assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 col-7">
+                                                        Shatlin
+                                                    </div>
+                                                    <div class="col-md-3 col-3 text-right">
+                                                        <span class="badge badge-pill badge-success">Approved</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-2">
+                                                        <div class="avatar">
+                                                            <img src="../../assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 col-7">
+                                                        Diana
+
+                                                    </div>
+                                                    <div class="col-md-3 col-3 text-right">
+                                                        <span class="badge badge-pill badge-danger">Declined</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-2">
+                                                        <div class="avatar">
+                                                            <img src="../../assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-ms-7 col-7">
+                                                        Mdu
+                                                    </div>
+                                                    <div class="col-md-3 col-3 text-right">
+                                                        <span class="badge badge-pill badge-warning">None</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 p-0 m-0">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="title">Add Comments</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+
+                                                        <textarea rows="20" cols="80" class="form-control textarea" style="min-height:180px"></textarea>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <button type="submit" class="btn btn-primary">Post</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                
+                        <div class="col-md-7">
+                            <div class="card card-timeline card-plain">
+                                <div class="card-body">
+                                    <ul class="timeline timeline-simple">
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge danger">
+                                                <i class="nc-icon nc-sun-fog-29"></i>
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <span class="badge badge-pill badge-danger">Shatlin</span>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing  Figueroa and 12th in downtown.</p>
+                                                </div>
+                                                <h6>
+                                                    <i class="ti-time"></i>
+                                                    11 hours ago via Twitter
+                                                </h6>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge success">
+                                                <i class="nc-icon nc-sun-fog-29"></i>
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <span class="badge badge-pill badge-success">Neville</span>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Thank God for the support of my wife and real friends. I also wanted to point out that it’s the first album to go number 1 off of streaming!!! I love you Ellen and also my number one design rule of anything I do from shoes to music to homes is that Kim has to like it....</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge info">
+                                                <i class="nc-icon nc-world-2"></i>
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <span class="badge badge-pill badge-info">Diana</span>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Called I Miss the Old Kanye That’s all it was Kanye And I love you like Kanye loves Kanye Famous viewing Figueroa and 12th in downtown LA 11:10PM</p>
+                                                    <p>What if Kanye made a song about Kanye Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own It wasn’t any Kanyes Set on his goals Kanye</p>
+                                                    <hr>
+                                                </div>
+                                                <div class="timeline-footer">
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn btn-round btn-info dropdown-toggle" data-toggle="dropdown">
+                                                            <i class="nc-icon nc-settings-gear-65"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Action</a>
+                                                            <a class="dropdown-item" href="#">Another action</a>
+                                                            <a class="dropdown-item" href="#">Something else here</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-9">
-                        <div class="card card-timeline card-plain">
-                            <div class="card-body">
-                                <ul class="timeline timeline-simple">
-                                    <li class="timeline-inverted">
-                                        <div class="timeline-badge danger">
-                                            <i class="nc-icon nc-sun-fog-29"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <span class="badge badge-pill badge-danger">Shatlin</span>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing  Figueroa and 12th in downtown.</p>
-                                            </div>
-                                            <h6>
-                                                <i class="ti-time"></i>
-                                                11 hours ago via Twitter
-                                            </h6>
-                                        </div>
-                                    </li>
-                                    <li class="timeline-inverted">
-                                        <div class="timeline-badge success">
-                                            <i class="nc-icon nc-sun-fog-29"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <span class="badge badge-pill badge-success">Neville</span>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <p>Thank God for the support of my wife and real friends. I also wanted to point out that it’s the first album to go number 1 off of streaming!!! I love you Ellen and also my number one design rule of anything I do from shoes to music to homes is that Kim has to like it....</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="timeline-inverted">
-                                        <div class="timeline-badge info">
-                                            <i class="nc-icon nc-world-2"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <span class="badge badge-pill badge-info">Diana</span>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <p>Called I Miss the Old Kanye That’s all it was Kanye And I love you like Kanye loves Kanye Famous viewing Figueroa and 12th in downtown LA 11:10PM</p>
-                                                <p>What if Kanye made a song about Kanye Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own It wasn’t any Kanyes Set on his goals Kanye</p>
-                                                <hr>
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-round btn-info dropdown-toggle" data-toggle="dropdown">
-                                                        <i class="nc-icon nc-settings-gear-65"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Action</a>
-                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
             <div class="modal-footer justify-content-around">
                 <div class="row container">
-                    <div class="col-md-3"> <button type="button" class="btn btn-success btn-round" data-dismiss="modal">Approve</button></div>
-                    <div class="col-md-3"><button type="button" class="btn btn-danger btn-round" data-dismiss="modal">Decline</button></div>
-                    <div class="col-md-3"><button type="button" class="btn btn-info btn-round" data-dismiss="modal">Update</button></div>
-                    <div class="col-md-3"><button type="button" class="btn btn-outline-primary btn-round" data-dismiss="modal">Close</button></div>
+                    <div class="col-md-3"> <button type="button" class="btn btn-success btn-round text-left" data-dismiss="modal">Approve</button></div>
+                    <div class="col-md-3"><button type="button" class="btn btn-danger btn-round  text-left" data-dismiss="modal">Decline</button></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3 text-right"><button type="button" class="btn btn-outline-primary btn-round" data-dismiss="modal">Close</button></div>
                 </div>
                
             </div>

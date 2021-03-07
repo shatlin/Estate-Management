@@ -63,13 +63,13 @@ namespace MDM.Pages
             SetViewData(PageName);
             if (context.HandlerMethod.MethodInfo.Name == "OnGetAsync")
             {
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
+               await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
             }
             else if (context.HandlerMethod.MethodInfo.Name == "OnPostAsync")
             {
                 await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
             }
-            
+            await _db.SaveChangesAsync();
             await next.Invoke();
         }
 
@@ -78,13 +78,14 @@ namespace MDM.Pages
         {
             if (context.HandlerMethod.MethodInfo.Name == "OnGet")
             {
-                 _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
+               _activity.Add(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
             }
             else if (context.HandlerMethod.MethodInfo.Name == "OnPost")
             {
-                 _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
+                 _activity.Add(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
+              
             }
-
+            _db.SaveChanges();
             SetViewData(PageName);
         }
 

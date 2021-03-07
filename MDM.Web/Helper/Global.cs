@@ -42,8 +42,20 @@ namespace MDM.Helper
     {
         public const string HomePage = "Home";
         public const string TaskPage = "Task";
+     
+        public const string AssetRegisterPage = "Asset Register";
+        public const string ServiceProvidersPage = "Service Providers";
+        public const string ConsumablesPage = "Consumables";
+        public const string ServiceVisitLogPage = "Service Visit Log";
+        public const string VendorListPage = "Vendor List Log";
+        public const string    reconcilationpage = "Reconcilation";
+        public const string billspage = "Bills";
+        public const string leviespage = "Levies";
+        public const string invoicespage = "Invoices";
+        public const string incomeexpensepage = "Income Expense";
+        public const string useractivityPage = "User Activity";
+        public const string titlesPage = "Titles";
         public const string BlockPage = "Block";
-
     }
 
     public static class GlobalVariables

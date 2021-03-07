@@ -1,7 +1,18 @@
 ﻿@page "/files"
 @model FilesModel
+<style>
 
-    <iframe src="https://onedrive.live.com/embed?cid=5AD7C5370960EC7E&resid=5AD7C5370960EC7E%21336&authkey=ADGirQv-zR5NKnk" width="165" height="128" frameborder="0" scrolling="no"></iframe>
+    .card-pricing .card-icon i {
+        font-size: 20px;
+        width: 55px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        height: 55px;
+        line-height: 55px;
+    }
+</style>
+<partial name="_CardSimpleHeaderPartial" , model='new Header{name="One Drive Files"}'>
+    <iframe id="new" src="https://onedrive.live.com/embed?cid=5AD7C5370960EC7E&resid=5AD7C5370960EC7E%21336&authkey=ADGirQv-zR5NKnk" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 
     <iframe src="https://onedrive.live.com/embed?cid=5AD7C5370960EC7E&resid=5AD7C5370960EC7E%21185&authkey=ANZQQcw0VSaug6w" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 
@@ -28,5 +39,27 @@
     <iframe src="https://onedrive.live.com/embed?cid=5AD7C5370960EC7E&resid=5AD7C5370960EC7E%21107&authkey=AFOWMsiUaQosgJI" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 
     <iframe src="https://onedrive.live.com/embed?cid=5AD7C5370960EC7E&resid=5AD7C5370960EC7E%21118&authkey=ALAYmfqJmzTXbKg" width="165" height="128" frameborder="0" scrolling="no"></iframe>
-<a href="https://1drv.ms/b/s!An7sYAk3xddagRPYfmWS1puH5sFN" target="_blank">Conduct rules</a>
+
+
+            <partial name="_CardSimpleHeaderPartial" , model='new Header{name="Other Files"}'>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <a href="https://1drv.ms/b/s!An7sYAk3xddagRPYfmWS1puH5sFN" target="_blank">
+                <div class="card card-pricing">
+                    <div class="card-header">
+                        <h5 class="card-title">Conduct Rules</h5>
+                        <div class="card-icon icon-info ">
+                            <i class="nc-icon nc-bold"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+
 

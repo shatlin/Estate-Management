@@ -53,7 +53,7 @@
 
 <body class="">
     <div class="wrapper">
-        <div id="sidebar" class="sidebar" data-color="white" data-active-color="danger">
+        <div id="sidebar" class="sidebar" data-color="default" data-active-color="danger">
             <!--
                 Tip 1: You can change the color of the sidebar using: data-color=" default | primary | info | success | warning | danger |"
             -->
@@ -159,7 +159,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link btn-magnify" href="/alltasks">
+                                <a class="nav-link btn-magnify" href="/tasks">
                                     <i class="nc-icon nc-support-17"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Manage Tasks</span>
@@ -168,16 +168,16 @@
                             </li>
                          
                             <li class="nav-item btn-rotate dropdown">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="nc-icon  nc-satisfied"></i>
                                     <p>
-                                        <span class="d-lg-none d-md-block">Profile</span>
+                                        <span class="d-lg-none d-md-block" data-toggle="tooltip" data-placement="top" title="Tooltip on top" >Profile</span>
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">View Profile</a>
-                                    <a class="dropdown-item" href="#">Change Password</a>
-                                    <a class="dropdown-item" href="#">Change Email</a>
+                                    <a class="dropdown-item" href="/photo" >Upload Photo</a>
+                                    <a class="dropdown-item" href="/changePassword">Change Password</a>
+                                    <a class="dropdown-item" href="/changeEmail">Change Email</a>
                                 </div>
                             </li>
                           
@@ -198,9 +198,9 @@
                     <div class="row">
                         <nav class="footer-nav">
                             <ul>
-                                <li><a href="#" target="_blank">MDM</a></li>
-                                <li><a href="#" target="_blank">CONTACT</a></li>
-                                <li><a href="#" target="_blank">ABOUT</a></li>
+                                <li><a href="#">MDM</a></li>
+                                <li><a href="#">CONTACT</a></li>
+                                <li><a href="#">ABOUT</a></li>
                             </ul>
                         </nav>
                         <div class="credits ml-auto">
