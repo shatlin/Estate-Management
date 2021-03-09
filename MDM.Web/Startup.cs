@@ -62,7 +62,12 @@ namespace MDM
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                options.SlidingExpiration = true;
             });
+
+
+            
 
             services.AddTransient<IEmailCreator, EmailCreator>();
             services.AddTransient<IActivity, Activity>();
@@ -149,6 +154,7 @@ namespace MDM
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

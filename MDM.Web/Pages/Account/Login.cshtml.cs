@@ -124,7 +124,7 @@ namespace MDM.Pages.Account
                 {
                 }
                 
-                var result = await _signInManager.PasswordSignInAsync(Email, Password, RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Email, Password, true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                   
