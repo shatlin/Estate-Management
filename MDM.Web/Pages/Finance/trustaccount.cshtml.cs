@@ -36,6 +36,8 @@ namespace MDM.Pages
         [BindProperty]
         public List<IFormFile> RelatedFiles { get; set; }
 
+       
+
         public void GetLookups()
         {
          
@@ -43,20 +45,36 @@ namespace MDM.Pages
 
         public IActionResult OnGet()
         {
-                return Page();
+            
+            return Page();
         }
 
         public async Task<IActionResult> OnGetListAsync()
         {
-         List<TrustAccount> TrustAccounts;
-        TrustAccounts = await _db.TrustAccount.OrderBy(c => c.Month).ThenBy(c => c.Id).ToListAsync();
-            TrustAccounts[0].runningtotal= TrustAccounts[0].amount;
+          
+            var a = await _db.InvoiceFiles.Select(n=>new{n.TrustAccountId,n.Notes }).ToListAsync();
+            List<TrustAccount> data= await _db.TrustAccount.OrderBy(c => c.Month).ThenBy(c => c.Id).ToListAsync();
+      
+            data[0].runningtotal= data[0].amount;
 
-            for (int i = 1; i < TrustAccounts.Count(); i++)
+            for (int i = 0; i < data.Count(); i++)
             {
-                TrustAccounts[i].runningtotal= TrustAccounts[i].amount +TrustAccounts[i-1].runningtotal;
+                if(i>0)
+                { 
+                data[i].runningtotal= data[i].amount +data[i-1].runningtotal;
+                }
+                var elements = a.Where(s => s.TrustAccountId == data[i].Id);
+                if (elements != null && elements.Count() > 0)
+                {
+                    data[i].InvoicesAdded = "Yes";
+                }
+                else
+                {
+                    data[i].InvoicesAdded = "No";
+                }
+               
             }
-            return new JsonResult(TrustAccounts);
+            return new JsonResult(data);
         }
 
         //public async Task<IActionResult> OnPostAsync()
@@ -97,8 +115,8 @@ namespace MDM.Pages
                     {
                         file = formFile.FileName;
                     }
-
-                    var filePath = Path.Combine(_env.ContentRootPath + _configuration["StoredFilesPath"],"invoices", id);
+                   // filePath = Path.Combine(_env.ContentRootPath + "\\wwwroot" + "\\images" + "\\profile\\");
+                    var filePath = Path.Combine(_env.ContentRootPath ,"wwwroot", "invoices", id);
                     if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
                     filePath = Path.Combine(filePath, file);
 
@@ -110,13 +128,13 @@ namespace MDM.Pages
                         await formFile.CopyToAsync(stream);
 
                      
-                            TrustAccountInvoiceFiles invoiceFiles = new TrustAccountInvoiceFiles();
+                            InvoiceFiles invoiceFiles = new InvoiceFiles();
                             invoiceFiles.TrustAccountId=Convert.ToInt32(id);
                             invoiceFiles.FilePath = filepathToStore;
                             invoiceFiles.FileName = file;
                             invoiceFiles.FileTypeId = FileTypevalues.Invoice;
                          
-                            await _db.TrustAccountInvoiceFiles.AddAsync(invoiceFiles);
+                            await _db.InvoiceFiles.AddAsync(invoiceFiles);
                        
                     }
                 }
@@ -138,7 +156,7 @@ namespace MDM.Pages
                 }
             }
 
-            var sss = _db.TrustAccountInvoiceFiles.Where(x => x.TrustAccountId == id).Select(x => x.FilePath);
+            var sss = _db.InvoiceFiles.Where(x => x.TrustAccountId == id).Select(x => x.FilePath);
             foreach (var str in sss)
             {
                 ss.Add(str);

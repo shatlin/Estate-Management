@@ -8,14 +8,14 @@ namespace MDM.Models
     {
         public FileType()
         {
-            TrustAccountInvoiceFiles = new HashSet<TrustAccountInvoiceFiles>();
+            InvoiceFiles = new HashSet<InvoiceFiles>();
             TaskItemFile = new HashSet<TaskItemFile>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
        
         public virtual ICollection<TaskItemFile> TaskItemFile { get; set; }
-        public virtual ICollection<TrustAccountInvoiceFiles> TrustAccountInvoiceFiles { get; set; }
+        public virtual ICollection<InvoiceFiles> InvoiceFiles { get; set; }
     }
 
     public partial class FileTypeConfiguration : IEntityTypeConfiguration<FileType>

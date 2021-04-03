@@ -11,7 +11,7 @@ namespace MDM.Models
     {
         public TrustAccount()
         {
-            TrustAccountInvoiceFiles = new HashSet<TrustAccountInvoiceFiles>();
+            InvoiceFiles = new HashSet<InvoiceFiles>();
         }
         public int Id { get; set; }
 
@@ -28,7 +28,11 @@ namespace MDM.Models
         [JsonPropertyName("runningtotal")]
         [NotMapped]
         public decimal runningtotal { get; set; }
-        public virtual ICollection<TrustAccountInvoiceFiles> TrustAccountInvoiceFiles { get; set; }
+        [JsonPropertyName("invoicesadded")]
+        [NotMapped]
+        public string InvoicesAdded { get; set; }
+
+        public virtual ICollection<InvoiceFiles> InvoiceFiles { get; set; }
     }
 
     public partial class TrustAccountConfiguration : IEntityTypeConfiguration<TrustAccount>

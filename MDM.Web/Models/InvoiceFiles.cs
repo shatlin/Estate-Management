@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MDM.Models
 {
-    public partial class TrustAccountInvoiceFiles : BaseModel
+    public partial class InvoiceFiles : BaseModel
     {
         public int Id { get; set; }
        public int TrustAccountId { get; set; }
@@ -17,16 +17,24 @@ namespace MDM.Models
         public virtual TrustAccount TrustAccount { get; set; }
     }
 
-public partial class TrustAccountInvoiceFilesConfiguration : IEntityTypeConfiguration<TrustAccountInvoiceFiles>
+public partial class InvoiceFilesConfiguration : IEntityTypeConfiguration<InvoiceFiles>
 {
-    public void Configure(EntityTypeBuilder<TrustAccountInvoiceFiles> builder)
+    public void Configure(EntityTypeBuilder<InvoiceFiles> builder)
     {
-         builder.ToTable("TrustAccountInvoiceFiles");
+         builder.ToTable("InvoiceFiles");
 
                 builder.Property(e => e.CreatedOn).HasColumnType("datetime");
                 builder.Property(e => e.ModifiedOn).HasColumnType("datetime");
             
-               
+                builder.HasOne(d => d.TrustAccount)
+                    .WithMany(p => p.InvoiceFiles)
+                    .HasForeignKey(d => d.TrustAccountId)
+                    .HasConstraintName("FK_TrustAccountInvoiceFiles_TrustAccount");
+
+            builder.HasOne(d => d.FileType)
+                  .WithMany(p => p.InvoiceFiles)
+                  .HasForeignKey(d => d.FileTypeId)
+                  .HasConstraintName("FK_TrustAccountInvoiceFiles_FileType");
 
         }
 

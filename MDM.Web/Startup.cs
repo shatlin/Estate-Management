@@ -152,13 +152,13 @@ namespace MDM
                 }
             });
 
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-         Path.Combine(env.ContentRootPath, "_Documents")),
-                RequestPath = "/_Documents"
-            });
+            app.UseStaticFiles();
+         //   app.UseStaticFiles(new StaticFileOptions
+         //   {
+         //       FileProvider = new PhysicalFileProvider(
+         //Path.Combine(env.ContentRootPath, "_Documents")),
+         //       RequestPath = "/_Documents"
+         //   });
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

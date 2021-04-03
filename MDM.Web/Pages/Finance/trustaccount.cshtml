@@ -15,7 +15,17 @@
         background-color: gray;
     }
 
-    .full_modal-dialog {
+    .select2-results__option {
+         padding: 2px; 
+         font-size:12px;
+       
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+        cursor: default;
+        font-size: 11px !important;    
+    }
+
+/*    .full_modal-dialog {
         width: 1300px !important;
         height: 920 px !important;
         min-width: 1300px !important;
@@ -28,14 +38,30 @@
     .full_modal-content {
         height: 99% !important;
         min-height: 99% !important;
+    }*/
+
+    .yadcf-filter
+    {
+        max-width:100px !important;
     }
+    .btn.btn-icon {
+        height: 1.3rem;
+        min-width: 2.2rem;
+        width: 2.2rem;
+        padding: 0;
+        font-size: 0.9375rem;
+        overflow: hidden;
+        position: relative;
+        line-height: normal;
+    }
+
 </style>
 <!-- #region CarousalModalRegion -->
 
 <div class="modal fade" style="min-width:500px" id="CarousalModal" tabindex="-1" role="dialog" aria-labelledby="CarousalModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered  full_modal-dialog  modal-lg" role="document">
         <div class="modal-content full_modal-content">
-            <div id="carouselExampleIndicator" class="carousel slide carousel-fade" data-ride="carousel">
+            <div id="carouselExampleIndicator" class="carousel slide carousel-fade">
                 <ol class="carousel-indicators">
                 </ol>
                 <div class="carousel-inner">
@@ -83,7 +109,7 @@
                                         <div class="custom-file form-group mt-md-1">
 
                                             <input type="file" class="custom-file-input form-control" multiple asp-for="RelatedFiles" />
-                                            <label class="custom-file-label text-left" for="customFile">Click to Upload ID Documents</label>
+                                            <label class="custom-file-label text-left" for="customFile">Click to Upload Invoices</label>
                                         </div>
                                         <div class="text-left">
                                             <span asp-validation-for="RelatedFiles" class="text-danger text-left"></span>
@@ -128,14 +154,15 @@
                 <table id="list" class="table w-100 dn table-bordered compact stripe hover">
                     <thead>
                         <tr style="        background-color: #f8f9fa;
-        color: black;">
+                         color: black;">
                             <th style="min-width:200px;">Month</th>
                             <th style="min-width:200px;">Reference</th>
                             <th style="min-width:200px;">DebtorCreditor</th>
                             <th style="min-width: 200px;">Description</th>
                             <th style="min-width:100px;">Amount</th>
                             <th style="min-width:100px;">Bal</th>
-                            <th style="min-width:50px;">Bills</th>
+                            <th style="min-width:100px;">Inv?</th>
+                            <th style="min-width:100px;">Bills</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -146,8 +173,8 @@
                             <th style="min-width: 200px;"></th>
                             <th style="min-width:100px;" class="sum"></th>
                             <th style="min-width:100px;"></th>
-                           
-                            <th style="min-width:50px;"></th>
+                            <th style="min-width:100px;"></th>
+                            <th style="min-width:100px;"></th>
                         </tr>
                     </tfoot>
 
@@ -179,23 +206,27 @@
                             return (dt.getFullYear() + "-" + monthvalue);
                         }
                     },
-                    { title: "Ref1", data: "reference" },
-                    { title: "Ref2", data: "debtorcreditor" },
-                    { title: "Ref3", data: "description" },
+                    { title: "Ref", data: "reference" },
+                    { title: "DrCr", data: "debtorcreditor" },
+                    { title: "Desc", data: "description" },
                     { title: "Amt", data: "amount" },
                     { title: "Bal", data: "runningtotal" },
+                    { title: "Inv?", data: "invoicesadded" },
                     {
                         title: "Bills",
                         data: "id",
                         "render": function (data, type, row, meta) {
                             var actions = '';
-                            actions += '<a  class="btn btn-success btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal"  data-target="#CarousalModal" onClick="SetUpCarousal(' + '\'' + row.id + ';' + row.reference + '&nbsp;&nbsp;&nbsp;' + row.debtorcreditor + '&nbsp;&nbsp;&nbsp;' + row.description + ';' + '\'' + ')" ><i class="nc-icon nc-image"></i></a>'
-
                             actions += '<a  class="btn btn-success btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal"  data-target="#UploadModal" onClick="SetUpPopupToUploadRecord(' + '\'' + row.id + ';' + row.reference + '&nbsp;&nbsp;&nbsp;' + row.debtorcreditor + '&nbsp;&nbsp;&nbsp;' + row.description + ';' + '\'' + ')" ><i class="nc-icon nc-cloud-upload-94"></i></a>'
+
+                            if (row.invoicesadded == "Yes") {
+                                actions += '<a  class="btn btn-success btn-round btn-icon btn-icon-mini btn-neutral" href="#" data-toggle="modal"  data-target="#CarousalModal" onClick="SetUpCarousal(' + '\'' + row.id + ';' + row.reference + '&nbsp;&nbsp;&nbsp;' + row.debtorcreditor + '&nbsp;&nbsp;&nbsp;' + row.description + ';' + '\'' + ')" ><i class="nc-icon nc-image"></i></a>'
+                            }
+                           
                             return actions;
                         },
                         orderable: false,
-                        width: "50px"
+                        width: "100px"
                     }
                   
                 ],
@@ -210,13 +241,14 @@
 
             });
             yadcf.init(dataTable, [
-                { column_number: 0, filter_type: 'multi_select', select_type: 'chosen', select_type_options: { width: '250px' } },
-                { column_number: 1, filter_type: 'text' },
+                { column_number: 0, filter_type: 'multi_select', select_type: 'select2', select_type_options: { width: '100px' } },
+                { column_number: 1, filter_type: 'text', select_type_options: { width: '70px' } },
                 { column_number: 2, filter_type: 'text' },
                 { column_number: 3, filter_type: 'text' },
-          /*      { column_number: 4, filter_type: 'text' },*/
-
-            ]);
+                { column_number: 4, filter_type: 'text' },
+               /* { column_number: 5, filter_type: 'text' },*/
+                { column_number: 6, filter_type: 'multi_select', select_type: 'select2', select_type_options: { width: '75px' } },
+                ]);
 
 
         });
@@ -243,13 +275,14 @@
                 processData: false,
                 data: fileData,
                 success: function (data) {
+                    $("div.carousel-inner").empty();
+                    $("ol.carousel-indicators").empty();
                     for (var i = 0; i < data.length; i++) {
                         indicators += "<li data-target='#carouselExampleIndicator' data-slide-to=" + i + "></li>";
-                        item += "<div class='carousel-item'><img class='d-block w-100' src='_Documents/" + data[i] + "'></div>";
+                        item += "<div class='carousel-item'><img class='d-block w-100' src='/" + data[i] + "'></div>";
                       
                     }
                    
-                    //append to a div container
                     $("ol.carousel-indicators").append(indicators);
                     $("div.carousel-inner").append(item);
                     $("div.carousel-item").eq(0).addClass("active");

@@ -41,7 +41,7 @@ namespace MDM.Models
         public virtual DbSet<Ethnicity> Ethnicity { get; set; }
         public virtual DbSet<Occupation> Occupation { get; set; }
         public virtual DbSet<SystemUser> SystemUser { get; set; }
-        public virtual DbSet<TrustAccountInvoiceFiles> TrustAccountInvoiceFiles { get; set; }
+        public virtual DbSet<InvoiceFiles> InvoiceFiles { get; set; }
         public virtual DbSet<Portfolio> Portfolio { get; set; }
         public virtual DbSet<Block> Block { get; set; }
         public virtual DbSet<Board> Board { get; set; }
@@ -99,7 +99,7 @@ namespace MDM.Models
             modelBuilder.ApplyConfiguration(new EthnicityConfiguration()).SeedEthnicity();
             modelBuilder.ApplyConfiguration(new OccupationConfiguration()).SeedOccupation();
             modelBuilder.ApplyConfiguration(new SystemUserConfiguration());
-            modelBuilder.ApplyConfiguration(new TrustAccountInvoiceFilesConfiguration());
+            modelBuilder.ApplyConfiguration(new InvoiceFilesConfiguration());
             modelBuilder.ApplyConfiguration(new PortfolioConfiguration()).SeedPortfolio();
             modelBuilder.ApplyConfiguration(new BlockConfiguration()).SeedBlock();
             modelBuilder.ApplyConfiguration(new FloorConfiguration()).SeedFloor();
