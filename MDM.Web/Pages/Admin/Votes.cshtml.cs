@@ -18,21 +18,19 @@ using Microsoft.EntityFrameworkCore;
 namespace MDM.Pages
 {
     [ValidateAntiForgeryToken]
-    public class InvoicesModel :  PageBase
+    public class VotesModel :  PageBase
     {
 
-        public class TaskMove
-        {
-            public string Element;
-            public string Board;
-        }
-        public InvoicesModel(SignInManager<ApplicationUser> signInManager,
+       
+        public VotesModel(SignInManager<ApplicationUser> signInManager,
          ILogger<PageBase> logger,
          UserManager<ApplicationUser> userManager, DB db, IMemoryCache cache, IWebHostEnvironment env, IEmailCreator emailCreator, IConfiguration configuration, IActivity activity, IEmailRecipients emailRecipients) : base(signInManager,
           logger, userManager, db, cache, env, emailCreator, configuration, activity, emailRecipients)
         {
-            PageName = PageNames.invoicespage;
+            PageName = "Votes";
+            EntityName="Votes";
         }
+
 
         public void GetLookups()
         {

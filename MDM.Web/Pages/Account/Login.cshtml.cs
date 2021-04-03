@@ -69,6 +69,8 @@ namespace MDM.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            Email="owner@mdm.co.za";
+            Password="password";
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);

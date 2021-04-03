@@ -16,6 +16,8 @@ using Services.Email;
 using MDM.Helper;
 using MDM.Services;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace MDM
 {
@@ -67,7 +69,7 @@ namespace MDM
             });
 
 
-            
+         
 
             services.AddTransient<IEmailCreator, EmailCreator>();
             services.AddTransient<IActivity, Activity>();
@@ -97,7 +99,7 @@ namespace MDM
              
 
             });
-
+        
             services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
             services.AddHostedService<MDMDailySchedulerService>();
             services
@@ -113,6 +115,7 @@ namespace MDM
             services.Configure<FormOptions>(options =>
             {
                 options.ValueCountLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = long.MaxValue;
             });
 
         }
@@ -149,8 +152,13 @@ namespace MDM
                 }
             });
 
-            app.UseStaticFiles();
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+         Path.Combine(env.ContentRootPath, "_Documents")),
+                RequestPath = "/_Documents"
+            });
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

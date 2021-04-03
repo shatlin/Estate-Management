@@ -283,3 +283,40 @@ function MMNotify(theMessage, theType) {
             '</div>'
     });
 }
+
+/******* Display name of file *******/
+$(".custom-file-input").on("change", function () {
+    var files = [];
+    for (var i = 0; i < $(this)[0].files.length; i++) {
+        files.push($(this)[0].files[i].name);
+    }
+    $(this)
+        .siblings(".custom-file-label")
+        .addClass("selected")
+        .html(files.join(', '));
+});
+
+$.extend(true, $.fn.dataTable.defaults, {
+    "pagingType": "full_numbers",
+    "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'B>>" +
+        "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
+    autoWidth: true,
+    buttons: [
+     
+        { extend: 'colvis', text: 'Show/Hide', className: 'btn btn-sm  btn-outline-primary' },
+        { extend: 'copy', className: 'btn btn-sm btn-outline-primary' },
+        { extend: 'csv', className: 'btn btn-sm btn-outline-primary' },
+        { extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
+        { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
+        { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
+
+    ],
+    pageLength: 25,
+    fixedHeader: true,
+    lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+    initComplete: function () {
+        $("#loadDiv").addClass('dn');
+        $('#list').removeClass('dn');
+    }
+});
+

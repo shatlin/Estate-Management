@@ -41,7 +41,7 @@ namespace MDM.Models
         public virtual DbSet<Ethnicity> Ethnicity { get; set; }
         public virtual DbSet<Occupation> Occupation { get; set; }
         public virtual DbSet<SystemUser> SystemUser { get; set; }
-
+        public virtual DbSet<TrustAccountInvoiceFiles> TrustAccountInvoiceFiles { get; set; }
         public virtual DbSet<Portfolio> Portfolio { get; set; }
         public virtual DbSet<Block> Block { get; set; }
         public virtual DbSet<Board> Board { get; set; }
@@ -58,6 +58,8 @@ namespace MDM.Models
         public virtual DbSet<TaskItemType> TaskItemType { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Audit> AuditLogs { get; set; }
+        public virtual DbSet<TrustAccount> TrustAccount { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -97,7 +99,7 @@ namespace MDM.Models
             modelBuilder.ApplyConfiguration(new EthnicityConfiguration()).SeedEthnicity();
             modelBuilder.ApplyConfiguration(new OccupationConfiguration()).SeedOccupation();
             modelBuilder.ApplyConfiguration(new SystemUserConfiguration());
-
+            modelBuilder.ApplyConfiguration(new TrustAccountInvoiceFilesConfiguration());
             modelBuilder.ApplyConfiguration(new PortfolioConfiguration()).SeedPortfolio();
             modelBuilder.ApplyConfiguration(new BlockConfiguration()).SeedBlock();
             modelBuilder.ApplyConfiguration(new FloorConfiguration()).SeedFloor();
@@ -115,7 +117,8 @@ namespace MDM.Models
             modelBuilder.ApplyConfiguration(new CategoryConfiguration()).SeedCategory();
             modelBuilder.ApplyConfiguration(new TaskItemTypeConfiguration()).SeedTaskItemType();
             modelBuilder.ApplyConfiguration(new PriorityConfiguration()).SeedPriority();
-            
+            modelBuilder.ApplyConfiguration(new TrustAccountConfiguration()).SeedTrustAccount();
+
         }
 
 

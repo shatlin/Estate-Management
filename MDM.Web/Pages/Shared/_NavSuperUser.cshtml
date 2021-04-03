@@ -68,7 +68,7 @@
     <!-- #endregion Member Management Items -->
     <!-- #region Member Management Items -->
     @{
-        items = new string[] { "Income Expense", "Invoices", "Levies", "Bills", "Reconciliation" };
+        items = new string[] { "Income Expense", "Invoices", "Levies", "Bills", "Trust Account" };
         active = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "active" : "";
         show = Array.IndexOf(Array.ConvertAll(items, x => x.ToUpper()), pageName.ToUpper()) > -1 ? "show" : "";
     }
@@ -85,7 +85,7 @@
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/invoices", abbreviation="INV", linktext=items[1], page=items[1]}' />
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/levies", abbreviation="LEV", linktext=items[2], page=items[2]}' />
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/bills", abbreviation="BIL", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/reconcilation", abbreviation="REC", linktext=items[4], page=items[4]}' />
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/trustaccount", abbreviation="TAC", linktext=items[4], page=items[4]}' />
             </ul>
         </div>
     </li>
@@ -95,7 +95,7 @@
 
 
 
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-box", linktext= "Votes & Surveys", page="Files"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/votes", icon="nc-icon nc-box", linktext= "Votes & Surveys", page="Votes"}' />
 
 
 

@@ -40,7 +40,7 @@ namespace MDM.Pages
 
         }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGetAsync(int? id)
         {
 
 
@@ -82,11 +82,7 @@ namespace MDM.Pages
 
         }
 
-        public async Task<IActionResult> OnPostSave()
-        {
 
-            return new JsonResult(new { success = true, message = MMMessages.SavedSuccessfully });
-        }
 
 
     }

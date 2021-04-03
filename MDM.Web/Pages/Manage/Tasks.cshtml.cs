@@ -68,7 +68,7 @@ namespace MDM.Pages
                 return LocalRedirect("/Account/Login");
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public  IActionResult OnPostAsync()
         {
             GetLookups();
             notification = new Notification { message = " Message ", notificationtype = NotificationTypeValues.success };

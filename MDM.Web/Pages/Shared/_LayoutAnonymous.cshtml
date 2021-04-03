@@ -28,7 +28,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/assets/demo/demo.css" rel="stylesheet" />
     @{ 
-        string[] items = {"ben-white.jpg","bruno-abatti.jpg", "chris-karidisz.jpg",   "clark-street-mercantile.jpg",  "damir-bosnjak.jpg","daniel-olahh.jpg", "daniel-olahs.jpg", "david-marcu.jpg",  "fabio-mangione.jpg",   "federico-beccari.jpg",  "forest-bg.jpg","galen-crout.jpg",  "gerrit-vermeulen.jpg", "gukhwa-jang.jpg",  "gukhwa-jangs.jpg", "ilya-yakover.jpg", "jan-sendereks.jpg","john-towner.jpg",  "joshua-earles.jpg","joshua-stannard.jpg",  "leonard-cotte.jpg","markus-spiske-187777.jpg", "martin-knize.jpg",   "noah-rosenfield.jpg",  "pavel-kosov.jpg",  "pedro-lastra.jpg", "pk-pro-cover.jpg", "pexels-pixabay-35888.jpg" ,"rawpixel-com-2.jpg",   "rawpixel-com.jpg", "rodrigo-ardilha.jpg",  "roger-keller.jpg", "sebastien-gabrieles.jpg",  "soroush-karimi.jpg",   "stephanie-krist.jpg",  "takahiro-sakamoto.jpg","the-how-photographer.jpg", "uriel-soberanes.jpg",  "val-vesa.jpg", "vincent-versluis.jpg", "zachary-staines.jpg" };
+        string[] items = {"bruno-abatti.jpg", "chris-karidisz.jpg",  "daniel-olahh.jpg", "daniel-olahs.jpg", "david-marcu.jpg",  "fabio-mangione.jpg",   "federico-beccari.jpg",  "forest-bg.jpg","galen-crout.jpg",  "gerrit-vermeulen.jpg", "gukhwa-jang.jpg",  "gukhwa-jangs.jpg", "ilya-yakover.jpg", "jan-sendereks.jpg","john-towner.jpg",  "joshua-earles.jpg","joshua-stannard.jpg",  "leonard-cotte.jpg","markus-spiske-187777.jpg", "martin-knize.jpg",   "noah-rosenfield.jpg",  "pavel-kosov.jpg",  "pedro-lastra.jpg", "pk-pro-cover.jpg", "pexels-pixabay-35888.jpg" ,"rawpixel-com-2.jpg",   "rawpixel-com.jpg", "rodrigo-ardilha.jpg",  "roger-keller.jpg", "sebastien-gabrieles.jpg",  "soroush-karimi.jpg",    "takahiro-sakamoto.jpg","the-how-photographer.jpg", "uriel-soberanes.jpg",  "val-vesa.jpg", "vincent-versluis.jpg", "zachary-staines.jpg" };
         int randombg=new Random().Next(0,items.Count()-1);
     }
     <style>
@@ -192,12 +192,6 @@
                         <a asp-page="./ResendEmailConfirmation" class="nav-link">
                             <i class="nc-icon nc-email-85"></i>
                             Resend Email Confirmation
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="/new/NonMember" class="nav-link">
-                            <i class="nc-icon nc-book-bookmark"></i>
-                            Register
                         </a>
                     </li>
 

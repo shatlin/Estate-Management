@@ -3,14 +3,16 @@ using System;
 using MDM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MDM.Web.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20210402091548_m8")]
+    partial class m8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -7213,48 +7215,6 @@ namespace MDM.Web.Migrations
                     b.ToTable("TrustAccount");
                 });
 
-            modelBuilder.Entity("MDM.Models.TrustAccountInvoiceFiles", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("FileTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TrustAccountId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FileTypeId");
-
-                    b.HasIndex("TrustAccountId");
-
-                    b.ToTable("TrustAccountInvoiceFiles");
-                });
-
             modelBuilder.Entity("MDM.Models.Unit", b =>
                 {
                     b.Property<int>("Id")
@@ -8500,19 +8460,6 @@ namespace MDM.Web.Migrations
                         .WithMany("TaskItemFile")
                         .HasForeignKey("TaskItemId")
                         .HasConstraintName("FK_TaskItemFile_TaskItem");
-                });
-
-            modelBuilder.Entity("MDM.Models.TrustAccountInvoiceFiles", b =>
-                {
-                    b.HasOne("MDM.Models.FileType", "FileType")
-                        .WithMany("TrustAccountInvoiceFiles")
-                        .HasForeignKey("FileTypeId");
-
-                    b.HasOne("MDM.Models.TrustAccount", "TrustAccount")
-                        .WithMany("TrustAccountInvoiceFiles")
-                        .HasForeignKey("TrustAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MDM.Models.Unit", b =>

@@ -61,7 +61,7 @@ namespace MDM.Pages
         #endregion
 
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGetAsync()
         {
             From = DateTime.Now;
             To=DateTime.Now;

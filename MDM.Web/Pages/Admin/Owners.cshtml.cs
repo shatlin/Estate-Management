@@ -37,26 +37,25 @@ namespace MDM.Pages
          
         }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGetAsync(int? id)
         {
       
-           
                 return Page();
             
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
+        //public async Task<IActionResult> OnPostAsync()
+        //{
            
-            return Page();
-        }
+        //    return Page();
+        //}
 
       
-        public async Task<IActionResult> OnPostSave()
-        {
+        //public async Task<IActionResult> OnPostSave()
+        //{
             
-            return new JsonResult(new { success = true, message = MMMessages.SavedSuccessfully });
-        }
+        //    return new JsonResult(new { success = true, message = MMMessages.SavedSuccessfully });
+        //}
 
 
     }
