@@ -5,11 +5,11 @@
     string[] items = { };
 }
 <ul class="nav">
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/", icon="nc-icon nc-bell-55", linktext= "Notifications", page="News"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/", icon="nc-icon nc-bell-55", linktext= "Notifications", page="Notifications"}' />
     <partial name="_NavHeaderMenu" , model='new MenuItem{url="/dashboard", icon="nc-icon nc-chart-pie-36", linktext="Dashboard", page="Dashboard"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-caps-small", linktext= "Raise New Ticket", page="New Ticket"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/tasks", icon="nc-icon nc-support-17", linktext= "Manage Tickets", page="Tasks"}' />
-    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-single-copy-04", linktext= "Manage Files", page="Files"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/newticket", icon="nc-icon nc-caps-small", linktext= "Contact Board", page="Contact Board"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/tasks", icon="nc-icon nc-support-17", linktext= "Manage Requests", page="Manage Requests"}' />
+    <partial name="_NavHeaderMenu" , model='new MenuItem{url="/files", icon="nc-icon nc-single-copy-04", linktext= "Manage Files", page="Manage Files"}' />
 
 
 
@@ -81,11 +81,12 @@
         </a>
         <div class="collapse @show" id="Finance">
             <ul class="nav">
+                <partial name="_NavChildMenu" , model='new MenuItem{url="/trustaccount", abbreviation="TAC", linktext=items[4], page=items[4]}' />
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/incomeexpense", abbreviation="IEX", linktext=items[0], page=items[0]}' />
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/invoices", abbreviation="INV", linktext=items[1], page=items[1]}' />
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/levies", abbreviation="LEV", linktext=items[2], page=items[2]}' />
                 <partial name="_NavChildMenu" , model='new MenuItem{url="/bills", abbreviation="BIL", linktext=items[3], page=items[3]}' />
-                <partial name="_NavChildMenu" , model='new MenuItem{url="/trustaccount", abbreviation="TAC", linktext=items[4], page=items[4]}' />
+
             </ul>
         </div>
     </li>

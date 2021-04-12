@@ -16,6 +16,12 @@
         line-height: 1em;
         margin: 0;
     }
+
+    button {
+      
+        background-color: #f4f3ef;
+      
+    }
 </style>
 <ul class="nav navbar-nav ml-auto justify-content-end">
     @if (SignInManager.IsSignedIn(User))
@@ -27,11 +33,11 @@
 
                     @if (UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Photo != null)
                     {
-                    <img src=@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Photo class="rounded-circle shadow" />
+                    <img src=@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Photo class="rounded-circle" />
                     }
                     else
                     {
-                    <img src="../assets/img/faces/staff_man.png" class="rounded-circle shadow" />
+                    <img src="../assets/img/faces/staff_man.png" class="rounded-circle" />
                     }
                 </div>
 

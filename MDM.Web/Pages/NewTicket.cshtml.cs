@@ -64,17 +64,19 @@ namespace MDM.Pages
         {
             taskItem.StatusId=StatusValues.Open;
             taskItem.UserId=User.GetUserId();
+            taskItem.GroupId = GroupValues.Maintenance;
             taskItem.UnitId= _db.SystemUser.FirstOrDefault(x => x.ApplicationUserId == taskItem.UserId).UnitId;
            _db.Add(taskItem);
            _db.SaveChanges();
             GetLookups();
-            notification = new Notification { message = "Ticket Raised Successfully. Ticket No "+ taskItem.Id, notificationtype = NotificationTypeValues.success };
-            await UploadFiles(TicketFiles, FileTypevalues.Ticket, taskItem);
+           
             var emailaddresses = _emailRecipients.GetEmailSenderList("NewTicket", "Tenant", User.GetEmail());
 
             await _emailCreator.SendEmailAsync("NewTicket", emailaddresses, "Trustees",  taskItem.Name, "View Ticket",
                  Url.Page("/Manage/Tasks", pageHandler: null, values: new { id = taskItem.Id }, protocol: Request.Scheme));
 
+            notification = new Notification { message = "Ticket Raised Successfully. Ticket No " + taskItem.Id, notificationtype = NotificationTypeValues.success };
+            await UploadFiles(TicketFiles, FileTypevalues.Ticket, taskItem);
             return Page();
         }
 

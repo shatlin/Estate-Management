@@ -77,8 +77,8 @@ namespace MDM.Services
                 string[] emailaddresses = recipientEmail.Split('|');
                 string toAddresses = emailaddresses[0];
                 string ccAddresses = emailaddresses[1];
-                relatedToId = Convert.ToInt32(emailaddresses[2]);
-                relatedEntityId = Convert.ToInt32(emailaddresses[3]);
+                //relatedToId = Convert.ToInt32(emailaddresses[2]);
+                //relatedEntityId = Convert.ToInt32(emailaddresses[3]);
 
                 //string systemUserId = _userManager.FindByEmailAsync("system@MDM.org.za").Result.Id;
                 //int createdById = _context.ClientUser.First(x => x.ApplicaitonUserId == systemUserId).Id;

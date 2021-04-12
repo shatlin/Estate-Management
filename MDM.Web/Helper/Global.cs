@@ -40,7 +40,7 @@ namespace MDM.Helper
 
     public static class PageNames
     {
-        public const string HomePage = "Home";
+        public const string HomePage = "Contact Board";
         public const string TaskPage = "Task";
      
         public const string AssetRegisterPage = "Asset Register";
@@ -199,6 +199,17 @@ namespace MDM.Helper
         public const string AllowSecurityVendor = "AllowSecurityVendor";
         public const string AllowManagingAgent = "AllowManagingAgent";
         public const string AllowServiceProvider = "AllowServiceProvider";
+    }
+
+    public static class GroupValues
+    {
+        public const int Maintenance = 1;
+        public const int Security = 2;
+        public const int Finance = 3;
+        public const int Legal = 4;
+        public const int Special_Pr = 5;
+        public const int Others = 6;
+        
     }
 
     public static class MDMClaimTypes

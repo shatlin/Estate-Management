@@ -259,7 +259,7 @@ function MMNotify(theMessage, theType) {
         spacing: 10,
         z_index: 1031,
         delay: 1000,
-        timer: 7000,
+        timer: 3000,
         url_target: '_blank',
         mouse_over: null,
         animate: {
@@ -301,6 +301,7 @@ $.extend(true, $.fn.dataTable.defaults, {
     "dom": "<'row'<'col-md-6'l><'col-md-6 text-right'B>>" +
         "<'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-6 small'p><'col-md-2'>>",
     autoWidth: true,
+    responsive: true,
     buttons: [
      
         { extend: 'colvis', text: 'Show/Hide', className: 'btn btn-sm  btn-outline-primary' },
@@ -309,7 +310,6 @@ $.extend(true, $.fn.dataTable.defaults, {
         { extend: 'excel', className: 'btn btn-sm btn-outline-primary' },
         { extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', className: 'btn btn-sm btn-outline-primary' },
         { extend: 'print', className: 'btn btn-sm  btn-outline-primary' }
-
     ],
     pageLength: 25,
     fixedHeader: true,

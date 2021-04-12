@@ -3,14 +3,16 @@ using System;
 using MDM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MDM.Web.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20210407153536_m12")]
+    partial class m12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -7233,7 +7235,7 @@ namespace MDM.Web.Migrations
                         .HasColumnType("varchar(500)")
                         .HasMaxLength(500);
 
-                    b.Property<string>("Group")
+                    b.Property<string>("ExpenseGroup")
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
@@ -7245,19 +7247,16 @@ namespace MDM.Web.Migrations
                     b.Property<DateTime>("Month")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Organization")
-                        .HasColumnType("text");
-
                     b.Property<string>("Reference")
                         .IsRequired()
                         .HasColumnType("varchar(500)")
                         .HasMaxLength(500);
 
+                    b.Property<string>("Vendor")
+                        .HasColumnType("text");
+
                     b.Property<decimal>("amount")
                         .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("isInvoiceNeeded")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

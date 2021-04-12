@@ -25,9 +25,20 @@ namespace MDM.Models
         public string Description { get; set; }
         [JsonPropertyName("amount")]
         public decimal amount { get; set; }
+       
+        [JsonPropertyName("organization")]
+        public string Organization { get; set; }
+
+        [JsonPropertyName("group")]
+        public string Group { get; set; }
+
+        [JsonPropertyName("invoiceneeded")]
+        public string isInvoiceNeeded { get; set; }
+
         [JsonPropertyName("runningtotal")]
         [NotMapped]
         public decimal runningtotal { get; set; }
+
         [JsonPropertyName("invoicesadded")]
         [NotMapped]
         public string InvoicesAdded { get; set; }

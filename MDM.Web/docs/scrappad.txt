@@ -1,27 +1,12 @@
 ﻿
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    title: "Month", data: "month",
+                    { title: "Ref", data: "reference" },
+                    { title: "DrCr", data: "debtorcreditor" },
+                    { title: "Desc", data: "description" },
+                    { title: "Amt", data: "amount" },
+                        title: "Bills",
+                    { title: "group", data: "group" },
+                    { title: "Org", data: "organization" }
+                    { title: "Inv?", data: "invoicesadded" },
+                    { title: "Inv needed?", data: "invoiceneeded" },
+                    { title: "Bal", data: "runningtotal" },

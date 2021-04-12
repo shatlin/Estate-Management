@@ -60,33 +60,47 @@ namespace MDM.Pages
         public override async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context,
                                                       PageHandlerExecutionDelegate next)
         {
-            SetViewData(PageName);
-            if (context.HandlerMethod.MethodInfo.Name == "OnGetAsync")
+            try
             {
-               await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
+                SetViewData(PageName);
+                if (context.HandlerMethod.MethodInfo.Name == "OnGetAsync")
+                {
+                    await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
+                }
+                else if (context.HandlerMethod.MethodInfo.Name == "OnPostAsync")
+                {
+                    await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
+                }
+                await _db.SaveChangesAsync();
             }
-            else if (context.HandlerMethod.MethodInfo.Name == "OnPostAsync")
+            catch
             {
-                await _activity.AddAsync(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
             }
-            await _db.SaveChangesAsync();
             await next.Invoke();
         }
 
       
         public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
         {
-            if (context.HandlerMethod.MethodInfo.Name == "OnGet")
+            try
             {
-               _activity.Add(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
+                if (context.HandlerMethod.MethodInfo.Name == "OnGet")
+                {
+                    _activity.Add(User.GetUserId(), User.GetEmail(), MMMessages.Accessed + PageName);
+                }
+                else if (context.HandlerMethod.MethodInfo.Name == "OnPost")
+                {
+                    _activity.Add(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
+
+                }
+                _db.SaveChanges();
+                SetViewData(PageName);
             }
-            else if (context.HandlerMethod.MethodInfo.Name == "OnPost")
+            catch 
             {
-                 _activity.Add(User.GetUserId(), User.GetEmail(), MMMessages.Updated + PageName);
-              
+
+               
             }
-            _db.SaveChanges();
-            SetViewData(PageName);
         }
 
         public void SetViewData(string entityname)
